@@ -73,7 +73,7 @@ function createClient(): Anthropic | null {
 }
 
 const MODEL = "claude-sonnet-4-20250514";
-const TIMEOUT_MS = 5000;
+const TIMEOUT_MS = 15000;
 
 // ─── Public API ─────────────────────────────────────────────────────────────
 
@@ -134,7 +134,8 @@ Respond with JSON: {"summary": "3 sentence summary", "next_action": "1-2 specifi
       response.content[0]?.type === "text" ? response.content[0].text : "";
     const parsed = JSON.parse(text) as CaseSummary;
     return parsed;
-  } catch {
+  } catch (err) {
+    console.error("Claude summary error:", err instanceof Error ? err.message : err);
     return cachedSummary ?? buildDeterministicSummary(caseData, flags);
   }
 }
@@ -184,7 +185,8 @@ Case notes: ${caseData.case_notes}`;
     return response.content[0]?.type === "text"
       ? response.content[0].text
       : buildDeterministicChat(caseData, flags, role);
-  } catch {
+  } catch (err) {
+    console.error("Claude chat error:", err instanceof Error ? err.message : err);
     return (
       cachedChat?.[userMessage] ??
       buildDeterministicChat(caseData, flags, role)
@@ -237,6 +239,75 @@ export async function managerInsight(
       .slice(0, 3);
   } catch {
     return buildDeterministicInsight(allFlags);
+  }
+}
+
+// ─── Policy RAG Q&A ─────────────────────────────────────────────────────────
+
+const POLICY_SYSTEM = `You are a Westminster City Council policy advisor. You have access to the council's full policy library for planning enforcement and street reporting.
+
+Rules:
+- Answer questions by referencing specific policy IDs (POL-PE-001, POL-FT-001, etc.)
+- Quote relevant sections of policy text when answering
+- If a question spans multiple policies, reference all applicable ones
+- Highlight SLA deadlines, required actions, and escalation thresholds
+- If no policy covers the question, say so clearly
+- Keep answers concise but comprehensive — cite the policy, state the rule, note the deadline`;
+
+export async function queryPolicies(
+  question: string,
+  policies: Policy[]
+): Promise<string> {
+  const client = createClient();
+
+  const policyCorpus = policies
+    .map((p) => `--- ${p.policy_id}: ${p.title} ---\nApplies to: ${p.applicable_case_types.join(", ")}\n\n${p.body}`)
+    .join("\n\n");
+
+  if (!client) {
+    // Deterministic fallback: find policies mentioning keywords from the question
+    const questionLower = question.toLowerCase();
+    const relevant = policies.filter(
+      (p) =>
+        p.title.toLowerCase().includes(questionLower) ||
+        p.body.toLowerCase().includes(questionLower) ||
+        p.applicable_case_types.some((t) => questionLower.includes(t.replace(/_/g, " ")))
+    );
+    if (relevant.length > 0) {
+      return `Relevant policies:\n\n${relevant.map((p) => `**${p.policy_id}: ${p.title}**\n${p.body.substring(0, 300)}...`).join("\n\n")}`;
+    }
+    return "Unable to process your query at this time. Please review the policy documents directly.";
+  }
+
+  try {
+    const response = await Promise.race([
+      client.messages.create({
+        model: MODEL,
+        max_tokens: 800,
+        system: `${POLICY_SYSTEM}\n\n--- POLICY LIBRARY ---\n\n${policyCorpus}`,
+        messages: [{ role: "user", content: question }],
+      }),
+      new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error("timeout")), TIMEOUT_MS)
+      ),
+    ]);
+
+    return response.content[0]?.type === "text"
+      ? response.content[0].text
+      : "Unable to process your query.";
+  } catch (err) {
+    console.error("Claude policy query error:", err instanceof Error ? err.message : err);
+    // Fallback: return matching policies
+    const questionLower = question.toLowerCase();
+    const relevant = policies.filter(
+      (p) =>
+        p.body.toLowerCase().includes(questionLower) ||
+        p.title.toLowerCase().includes(questionLower)
+    );
+    if (relevant.length > 0) {
+      return `Relevant policies:\n\n${relevant.map((p) => `**${p.policy_id}: ${p.title}**\n${p.body.substring(0, 300)}...`).join("\n\n")}`;
+    }
+    return "Unable to process your query at this time. Please review the policy documents directly.";
   }
 }
 

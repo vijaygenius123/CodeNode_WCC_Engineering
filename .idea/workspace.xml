@@ -101,7 +101,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1776333224777</updated>
-      <workItem from="1776333226650" duration="8367000" />
+      <workItem from="1776333226650" duration="13712000" />
     </task>
     <task id="LOCAL-00001" summary="Add `.gitignore` files, `.idea` settings, and initial documentation files">
       <option name="closed" value="true" />
@@ -143,7 +143,15 @@
       <option name="project" value="LOCAL" />
       <updated>1776342407581</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Implement role-based access for cases, restrict dashboard/insight endpoints, improve nudge action handling, and add resident chat endpoint.">
+      <option name="closed" value="true" />
+      <created>1776343950419</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1776343950419</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -166,7 +174,8 @@
     <MESSAGE value="Add QA Validator agent documentation for functional validation of CaseView changes" />
     <MESSAGE value="Add generative UI layout and nudge computation for case management" />
     <MESSAGE value="Restore `.idea/workspace.xml` and add initial version of &quot;CaseView Hackathon Execution Playbook v2&quot; documentation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Restore `.idea/workspace.xml` and add initial version of &quot;CaseView Hackathon Execution Playbook v2&quot; documentation" />
+    <MESSAGE value="Implement role-based access for cases, restrict dashboard/insight endpoints, improve nudge action handling, and add resident chat endpoint." />
+    <option name="LAST_COMMIT_MESSAGE" value="Implement role-based access for cases, restrict dashboard/insight endpoints, improve nudge action handling, and add resident chat endpoint." />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

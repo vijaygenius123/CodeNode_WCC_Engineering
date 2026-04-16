@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, Map as MapIcon, List } from "lucide-react";
 import { useApi } from "../hooks/useApi";
+import CaseMap from "../components/CaseMap";
 import type { CaseListItem, FlagSeverity } from "../types";
 
 interface CasesResponse {
@@ -52,6 +54,7 @@ export default function CaseList() {
   const [searchParams] = useSearchParams();
   const domain = searchParams.get("domain") ?? "all";
   const navigate = useNavigate();
+  const [viewMode, setViewMode] = useState<"list" | "map">("list");
 
   const { data, loading, error } = useApi<CasesResponse>(
     `/api/cases?domain=${domain}`
@@ -75,16 +78,46 @@ export default function CaseList() {
 
   return (
     <div className="govuk-width-container">
-      <h1 className="govuk-heading-xl mb-0">
-        Cases
-        <span
-          className="govuk-caption"
-          style={{ fontWeight: 400, fontSize: "1rem", marginLeft: 12 }}
-        >
-          {cases.length} result{cases.length !== 1 ? "s" : ""}
-          {domain !== "all" ? ` · ${domain}` : ""}
-        </span>
-      </h1>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+        <h1 className="govuk-heading-xl mb-0">
+          Cases
+          <span
+            className="govuk-caption"
+            style={{ fontWeight: 400, fontSize: "1rem", marginLeft: 12 }}
+          >
+            {cases.length} result{cases.length !== 1 ? "s" : ""}
+            {domain !== "all" ? ` · ${domain}` : ""}
+          </span>
+        </h1>
+        <div style={{ display: "flex", gap: 4 }}>
+          <button
+            className={`domain-tab${viewMode === "list" ? " domain-tab--active" : ""}`}
+            onClick={() => setViewMode("list")}
+            style={{ padding: "6px 12px" }}
+          >
+            <List size={14} style={{ marginRight: 4, verticalAlign: "middle" }} />
+            List
+          </button>
+          <button
+            className={`domain-tab${viewMode === "map" ? " domain-tab--active" : ""}`}
+            onClick={() => setViewMode("map")}
+            style={{ padding: "6px 12px" }}
+          >
+            <MapIcon size={14} style={{ marginRight: 4, verticalAlign: "middle" }} />
+            Map
+          </button>
+        </div>
+      </div>
+
+      {viewMode === "map" && (
+        <div style={{ marginBottom: 20 }}>
+          <CaseMap
+            cases={cases}
+            height={450}
+            onCaseClick={(id) => navigate(`/case/${id}`)}
+          />
+        </div>
+      )}
 
       <table className="case-table" aria-label="Case list">
         <thead>

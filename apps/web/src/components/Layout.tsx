@@ -38,9 +38,25 @@ export default function Layout() {
 
       <header className="govuk-header" role="banner">
         <div className="govuk-header__top">
-          <NavLink to="/" className="govuk-header__logo-link">
-            CaseView
-          </NavLink>
+          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+            <NavLink to="/" className="govuk-header__logo-link">
+              CaseView
+            </NavLink>
+            {role !== "resident" && (
+              <NavLink
+                to="/admin/policies"
+                style={({ isActive }) => ({
+                  color: isActive ? "#fff" : "rgba(255,255,255,0.8)",
+                  fontSize: "0.85rem",
+                  textDecoration: "none",
+                  borderBottom: isActive ? "2px solid #fff" : "none",
+                  paddingBottom: 2,
+                })}
+              >
+                Policies
+              </NavLink>
+            )}
+          </div>
 
           <nav
             className="govuk-header__role-switcher"

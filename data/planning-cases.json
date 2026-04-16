@@ -3,6 +3,7 @@
     "case_id": "WCC-2026-10301",
     "case_type": "unauthorised_construction",
     "status": "investigation",
+    "caseworker": "Sarah Chen",
     "reporter": {
       "name": "Mrs Patricia Hammond",
       "reference": "REP-30101",
@@ -66,6 +67,7 @@
     "case_id": "WCC-2026-10302",
     "case_type": "listed_building_breach",
     "status": "urgent_investigation",
+    "caseworker": "Marcus Williams",
     "reporter": {
       "name": "Westminster Conservation Trust",
       "reference": "REP-30201",
@@ -130,6 +132,7 @@
     "case_id": "WCC-2026-10303",
     "case_type": "change_of_use",
     "status": "compliance_monitoring",
+    "caseworker": "Priya Patel",
     "reporter": {
       "name": "Mr James Whitfield",
       "reference": "REP-30301",
@@ -198,6 +201,7 @@
     "case_id": "WCC-2026-10304",
     "case_type": "breach_of_conditions",
     "status": "investigation",
+    "caseworker": "James O'Brien",
     "reporter": {
       "name": "Marylebone Village Residents Association",
       "reference": "REP-30401",
@@ -246,5 +250,970 @@
       }
     ],
     "case_notes": "Multiple condition breaches at 28 Paddington Street restaurant (planning ref 23/08104/FULL). Breach of Condition Notice served for hours and seating. Partial compliance: operating hours now met, but seating still not removed on time. Kitchen extraction noise/odour remains unresolved \u2014 independent assessment pending. 3 complaints from residents association. This is a manageable case progressing through normal enforcement process \u2014 no SLA breach but condition 12 (extraction) assessment overdue if not received by 25 April."
+  },
+  {
+    "case_id": "WCC-2026-10501",
+    "case_type": "unauthorised_construction",
+    "status": "enforcement_notice_issued",
+    "caseworker": "David Kim",
+    "reporter": {
+      "name": "Mr Robert Finch",
+      "reference": "REP-40101",
+      "ward": "Marylebone"
+    },
+    "location": {
+      "street": "Devonshire Street",
+      "postcode": "W1G 6PF",
+      "lat": 51.5218,
+      "lon": -0.1489
+    },
+    "assigned_to": "planning_enforcement_team",
+    "contractor": null,
+    "priority": "high",
+    "duplicate_count": 2,
+    "created_date": "2026-02-01",
+    "last_updated": "2026-04-10",
+    "planning_ref": null,
+    "conservation_area": "Harley Street",
+    "listed_building": false,
+    "timeline": [
+      {
+        "date": "2026-02-01",
+        "event": "complaint_received",
+        "note": "Neighbour reports basement excavation at 38 Devonshire Street. Vibration damage to adjacent properties. No planning application found."
+      },
+      {
+        "date": "2026-02-03",
+        "event": "site_visit_completed",
+        "note": "Inspector visited. Confirmed major basement excavation in progress. Approximately 2 metres depth, entire footprint. No planning permission. Harley Street Conservation Area. Party wall agreement concerns raised by adjoining owner."
+      },
+      {
+        "date": "2026-02-10",
+        "event": "planning_contravention_notice_issued",
+        "note": "PCN issued. 21-day response required."
+      },
+      {
+        "date": "2026-03-03",
+        "event": "pcn_response_received",
+        "note": "Owner's agent responds. Claims works are repairs only. Structural engineer report provided but does not address excavation depth."
+      },
+      {
+        "date": "2026-03-10",
+        "event": "assessment_note",
+        "note": "Review confirms works exceed any repair claim. Full basement excavation requires planning permission, particularly in conservation area. Enforcement notice recommended."
+      },
+      {
+        "date": "2026-03-20",
+        "event": "enforcement_notice_issued",
+        "note": "Enforcement Notice served requiring cessation of excavation and reinstatement. 28-day compliance period (by 17 April)."
+      },
+      {
+        "date": "2026-04-10",
+        "event": "monitoring_visit",
+        "note": "Site visit. Works appear to have stopped. No machinery on site. However, excavation remains unfilled. Compliance deadline approaching - reinstatement not yet commenced."
+      }
+    ],
+    "case_notes": "Unauthorised basement excavation at 38 Devonshire Street in Harley Street Conservation Area. Full basement dig approximately 2 metres deep. Enforcement Notice served 20 March with compliance deadline 17 April. Works have stopped but excavation not yet reinstated. Compliance deadline in 2 days. If not reinstated, prosecution proceedings needed. Adjoining property has reported cracking - structural concerns."
+  },
+  {
+    "case_id": "WCC-2026-10502",
+    "case_type": "listed_building_breach",
+    "status": "monitoring",
+    "caseworker": "Sarah Chen",
+    "reporter": {
+      "name": "Historic England",
+      "reference": "REP-40201",
+      "ward": "St James's"
+    },
+    "location": {
+      "street": "Pall Mall",
+      "postcode": "SW1Y 5ER",
+      "lat": 51.5069,
+      "lon": -0.131
+    },
+    "assigned_to": "heritage_enforcement_team",
+    "contractor": null,
+    "priority": "high",
+    "duplicate_count": 1,
+    "created_date": "2026-01-15",
+    "last_updated": "2026-04-08",
+    "planning_ref": "24/01234/LBC",
+    "conservation_area": "St James's",
+    "listed_building": true,
+    "listed_grade": "Grade II*",
+    "timeline": [
+      {
+        "date": "2026-01-15",
+        "event": "complaint_received",
+        "note": "Historic England flags unauthorised replacement of original sash windows with uPVC at 82 Pall Mall, Grade II* listed building."
+      },
+      {
+        "date": "2026-01-16",
+        "event": "site_visit_completed",
+        "note": "Urgent inspection. Confirmed 8 original Georgian sash windows on front elevation replaced with uPVC double glazing. Work complete. Grade II* listing - this is a significant heritage harm."
+      },
+      {
+        "date": "2026-01-20",
+        "event": "listed_building_enforcement_notice_issued",
+        "note": "Listed Building Enforcement Notice served requiring removal of uPVC windows and reinstatement of timber sash windows to match originals. 6-month compliance period."
+      },
+      {
+        "date": "2026-02-15",
+        "event": "owner_response",
+        "note": "Owner agrees to reinstate. Appointed specialist joinery firm. Timber windows being manufactured."
+      },
+      {
+        "date": "2026-03-20",
+        "event": "monitoring_visit",
+        "note": "Progress check. Owner provided evidence of joinery order. Estimated delivery mid-April. Installation scheduled for late April."
+      },
+      {
+        "date": "2026-04-08",
+        "event": "monitoring_visit",
+        "note": "Timber windows delivered to site. Installation being arranged. Heritage officer to inspect prior to fitting to verify specification matches originals."
+      }
+    ],
+    "case_notes": "Unauthorised uPVC window replacement at 82 Pall Mall, Grade II* listed building. 8 original Georgian sash windows replaced. LBEN served and owner cooperating. Specialist timber replacement windows manufactured and delivered. Heritage officer inspection of new windows scheduled before installation. Compliance expected within enforcement notice timescale. Positive trajectory but requires monitoring to ensure quality of reinstatement matches original detailing."
+  },
+  {
+    "case_id": "WCC-2026-10503",
+    "case_type": "change_of_use",
+    "status": "investigation",
+    "caseworker": "Marcus Williams",
+    "reporter": {
+      "name": "Ms Sophie Turner",
+      "reference": "REP-40301",
+      "ward": "West End"
+    },
+    "location": {
+      "street": "Great Portland Street",
+      "postcode": "W1W 7LT",
+      "lat": 51.521,
+      "lon": -0.1434
+    },
+    "assigned_to": "planning_enforcement_team",
+    "contractor": null,
+    "priority": "high",
+    "duplicate_count": 5,
+    "created_date": "2026-03-01",
+    "last_updated": "2026-04-14",
+    "planning_ref": "20/07331/FULL",
+    "conservation_area": "East Marylebone",
+    "listed_building": false,
+    "timeline": [
+      {
+        "date": "2026-03-01",
+        "event": "complaint_received",
+        "note": "Resident reports ground floor flat at 115 Great Portland Street being used as short-term holiday let. Constant turnover of guests, noise from wheeled suitcases, parties at weekends. Planning permission 20/07331/FULL is for residential use (C3)."
+      },
+      {
+        "date": "2026-03-05",
+        "event": "site_visit_completed",
+        "note": "Inspector attended. Property listed on Airbnb as 'Luxury Fitzrovia Flat'. Reviews indicate continuous letting for past 8 months. This exceeds the 90-day limit and constitutes a material change of use."
+      },
+      {
+        "date": "2026-03-10",
+        "event": "planning_contravention_notice_issued",
+        "note": "PCN issued to property owner requiring details of use."
+      },
+      {
+        "date": "2026-03-31",
+        "event": "pcn_response_received",
+        "note": "Owner claims only occasional letting. However, Airbnb listing shows 312 nights booked in past year. Screenshots preserved as evidence."
+      },
+      {
+        "date": "2026-04-07",
+        "event": "duplicate_linked",
+        "note": "5 complaints total from residents in building. Building management company also complained about wear on common areas."
+      },
+      {
+        "date": "2026-04-14",
+        "event": "assessment_note",
+        "note": "Evidence strongly supports material change of use from C3 residential to short-term let (sui generis). 312 nights exceeds 90-day threshold. Enforcement notice drafting commenced. Environmental Health referral for noise NOT yet made despite multiple noise complaints from guests."
+      }
+    ],
+    "case_notes": "Unauthorised change of use from C3 residential to short-term holiday let at 115 Great Portland Street. Airbnb listing shows 312 nights booked in past year, well exceeding the 90-day temporary use limit. 5 complaints from residents about noise, antisocial behaviour from guests, and common area damage. PCN response was misleading. Enforcement notice being drafted. Cross-referral to Environmental Health for noise complaints NOT yet actioned. Loss of permanent residential accommodation is Westminster's highest enforcement priority."
+  },
+  {
+    "case_id": "WCC-2026-10504",
+    "case_type": "breach_of_conditions",
+    "status": "resolved",
+    "caseworker": "Priya Patel",
+    "reporter": {
+      "name": "Church Street Area Residents Group",
+      "reference": "REP-40401",
+      "ward": "Church Street"
+    },
+    "location": {
+      "street": "Bell Street",
+      "postcode": "NW1 5BY",
+      "lat": 51.524,
+      "lon": -0.164
+    },
+    "assigned_to": "planning_enforcement_team",
+    "contractor": null,
+    "priority": "standard",
+    "duplicate_count": 1,
+    "created_date": "2026-01-10",
+    "last_updated": "2026-03-25",
+    "planning_ref": "24/02156/FULL",
+    "conservation_area": null,
+    "listed_building": false,
+    "timeline": [
+      {
+        "date": "2026-01-10",
+        "event": "complaint_received",
+        "note": "Residents group reports new cafe on Bell Street not complying with delivery hours condition. Deliveries at 6am, condition requires no deliveries before 7am."
+      },
+      {
+        "date": "2026-01-15",
+        "event": "site_visit_completed",
+        "note": "Inspector visited at 6:15am. Confirmed delivery vehicle unloading. Condition 9 of 24/02156/FULL restricts deliveries to 7am-7pm."
+      },
+      {
+        "date": "2026-01-22",
+        "event": "breach_of_condition_notice_issued",
+        "note": "BCN served for condition 9 breach. Immediate compliance required."
+      },
+      {
+        "date": "2026-02-10",
+        "event": "monitoring_visit",
+        "note": "Officer visited at 6:30am. No deliveries observed. Staff confirmed delivery schedule changed to 7:30am."
+      },
+      {
+        "date": "2026-03-15",
+        "event": "monitoring_visit",
+        "note": "Follow-up check. No further complaints. Deliveries now consistently after 7am."
+      },
+      {
+        "date": "2026-03-25",
+        "event": "resolved",
+        "note": "Full compliance confirmed. Complainant notified. Case resolved."
+      }
+    ],
+    "case_notes": "Breach of delivery hours condition at cafe on Bell Street. BCN served and compliance achieved. Delivery schedule amended. No further issues. Case resolved satisfactorily."
+  },
+  {
+    "case_id": "WCC-2026-10505",
+    "case_type": "unauthorised_construction",
+    "status": "complaint_received",
+    "caseworker": "James O'Brien",
+    "reporter": {
+      "name": "Mr Andrew Tate",
+      "reference": "REP-40501",
+      "ward": "Hyde Park"
+    },
+    "location": {
+      "street": "Connaught Square",
+      "postcode": "W2 2HL",
+      "lat": 51.5135,
+      "lon": -0.166
+    },
+    "assigned_to": "planning_enforcement_team",
+    "contractor": null,
+    "priority": "standard",
+    "duplicate_count": 0,
+    "created_date": "2026-04-14",
+    "last_updated": "2026-04-14",
+    "planning_ref": null,
+    "conservation_area": "Bayswater",
+    "listed_building": true,
+    "listed_grade": "Grade II",
+    "timeline": [
+      {
+        "date": "2026-04-14",
+        "event": "complaint_received",
+        "note": "Neighbour reports satellite dish installed on front elevation of 12 Connaught Square, a Grade II listed building. No listed building consent application found."
+      }
+    ],
+    "case_notes": "Satellite dish installation on front elevation of Grade II listed building at 12 Connaught Square, Bayswater Conservation Area. Site visit required to confirm. If confirmed, this requires listed building consent. Relatively minor works but visible from highway in conservation area. Standard priority - site visit to be scheduled within 5 working days."
+  },
+  {
+    "case_id": "WCC-2026-10506",
+    "case_type": "change_of_use",
+    "status": "resolved",
+    "caseworker": "David Kim",
+    "reporter": {
+      "name": "Westminster Housing Department",
+      "reference": "REP-40601",
+      "ward": "Pimlico South"
+    },
+    "location": {
+      "street": "Warwick Way",
+      "postcode": "SW1V 1QT",
+      "lat": 51.4912,
+      "lon": -0.1418
+    },
+    "assigned_to": "planning_enforcement_team",
+    "contractor": null,
+    "priority": "high",
+    "duplicate_count": 0,
+    "created_date": "2025-11-10",
+    "last_updated": "2026-03-15",
+    "planning_ref": "18/05672/FULL",
+    "conservation_area": "Pimlico",
+    "listed_building": false,
+    "timeline": [
+      {
+        "date": "2025-11-10",
+        "event": "complaint_received",
+        "note": "Westminster Housing Department refers case of residential flat at 67 Warwick Way being used as office space by property management company. Planning permission is C3 residential."
+      },
+      {
+        "date": "2025-11-15",
+        "event": "site_visit_completed",
+        "note": "Inspector confirmed. Ground floor flat fitted out as office with 4 desks, server room. No residential use evident. Material change of use to B1 office."
+      },
+      {
+        "date": "2025-12-01",
+        "event": "enforcement_notice_issued",
+        "note": "Enforcement Notice served requiring return to residential use. 3-month compliance period."
+      },
+      {
+        "date": "2026-02-15",
+        "event": "monitoring_visit",
+        "note": "Office equipment being removed. Owner states residential conversion underway."
+      },
+      {
+        "date": "2026-03-15",
+        "event": "resolved",
+        "note": "Site visit confirms flat restored to residential use. New tenant occupying. Case resolved. Loss of residential accommodation reversed."
+      }
+    ],
+    "case_notes": "Successful enforcement against loss of residential accommodation. Flat at 67 Warwick Way converted back from office to residential use following enforcement notice. Westminster's highest enforcement priority - protecting residential stock. Case resolved with positive outcome."
+  },
+  {
+    "case_id": "WCC-2026-10507",
+    "case_type": "listed_building_breach",
+    "status": "urgent_investigation",
+    "caseworker": "Sarah Chen",
+    "reporter": {
+      "name": "Cllr Penelope Ashworth",
+      "reference": "REP-40701",
+      "ward": "West End"
+    },
+    "location": {
+      "street": "Regent Street",
+      "postcode": "W1B 5AH",
+      "lat": 51.512,
+      "lon": -0.138
+    },
+    "assigned_to": "heritage_enforcement_team",
+    "contractor": null,
+    "priority": "critical",
+    "duplicate_count": 3,
+    "created_date": "2026-04-08",
+    "last_updated": "2026-04-14",
+    "planning_ref": null,
+    "conservation_area": "Regent Street",
+    "listed_building": true,
+    "listed_grade": "Grade II",
+    "timeline": [
+      {
+        "date": "2026-04-08",
+        "event": "complaint_received",
+        "note": "Councillor reports unauthorised removal of ornamental stonework from Grade II listed building at 210 Regent Street. Decorative frieze panels being removed from upper floors. Building is part of the Nash terrace composition."
+      },
+      {
+        "date": "2026-04-08",
+        "event": "site_visit_completed",
+        "note": "URGENT inspection same day. Scaffolding erected on upper floors. Confirmed 3 decorative stone frieze panels removed from third floor level. Fragments on scaffold platform. Works ongoing. This constitutes a criminal offence under Section 9."
+      },
+      {
+        "date": "2026-04-09",
+        "event": "temporary_stop_notice_issued",
+        "note": "Temporary Stop Notice served. All works to cease immediately."
+      },
+      {
+        "date": "2026-04-09",
+        "event": "police_notified",
+        "note": "Police notified of criminal offence. Case ref MET-2026-PL-4498."
+      },
+      {
+        "date": "2026-04-11",
+        "event": "assessment_note",
+        "note": "Heritage officer assessment: removed frieze panels are original Regency-period decorative stonework. Irreplaceable. Owner's contractor claims panels were 'unsafe' but no structural survey has been produced. Crown Estate (freeholder) not consulted."
+      },
+      {
+        "date": "2026-04-14",
+        "event": "assessment_note",
+        "note": "Prosecution file being prepared. 6 days since criminal offence confirmed. 14 working day deadline for submission to legal = by 29 April. Removed panels secured as evidence. Historic England formally objecting. Crown Estate cooperating with enforcement."
+      }
+    ],
+    "case_notes": "CRIMINAL OFFENCE \u2014 unauthorised removal of Regency-period decorative stonework from Grade II listed building at 210 Regent Street. Part of Nash terrace composition. 3 frieze panels removed, irreplaceable heritage loss. TSN served and police notified. Prosecution file being prepared \u2014 on track for 14 working day deadline. Historic England and Crown Estate involved. High-profile location with likely press interest. Councillor Ashworth personally monitoring."
+  },
+  {
+    "case_id": "WCC-2026-10508",
+    "case_type": "breach_of_conditions",
+    "status": "complaint_received",
+    "caseworker": "Marcus Williams",
+    "reporter": {
+      "name": "Mr Hassan Khalil",
+      "reference": "REP-40801",
+      "ward": "Church Street"
+    },
+    "location": {
+      "street": "Lisson Grove",
+      "postcode": "NW1 6SH",
+      "lat": 51.5243,
+      "lon": -0.1695
+    },
+    "assigned_to": "planning_enforcement_team",
+    "contractor": null,
+    "priority": "standard",
+    "duplicate_count": 0,
+    "created_date": "2026-04-12",
+    "last_updated": "2026-04-12",
+    "planning_ref": "25/00891/FULL",
+    "conservation_area": null,
+    "listed_building": false,
+    "timeline": [
+      {
+        "date": "2026-04-12",
+        "event": "complaint_received",
+        "note": "Resident reports new convenience store on Lisson Grove has installed a large illuminated sign not matching the approved drawings. Condition 3 of 25/00891/FULL specified discreet non-illuminated signage. Current sign is a large internally-lit box sign."
+      }
+    ],
+    "case_notes": "Alleged breach of signage condition at convenience store on Lisson Grove. Condition 3 required non-illuminated signage but large internally-lit box sign installed. Site visit needed to confirm breach. Standard priority case. If confirmed, BCN likely as signage conditions are straightforward to enforce."
+  },
+  {
+    "case_id": "WCC-2026-10509",
+    "case_type": "unauthorised_construction",
+    "status": "pcn_issued",
+    "caseworker": "Priya Patel",
+    "reporter": {
+      "name": "Westminster Planning Watch",
+      "reference": "REP-40901",
+      "ward": "Westbourne"
+    },
+    "location": {
+      "street": "Westbourne Park Road",
+      "postcode": "W2 5QH",
+      "lat": 51.518,
+      "lon": -0.192
+    },
+    "assigned_to": "planning_enforcement_team",
+    "contractor": null,
+    "priority": "standard",
+    "duplicate_count": 1,
+    "created_date": "2026-03-15",
+    "last_updated": "2026-04-10",
+    "planning_ref": null,
+    "conservation_area": "Westbourne",
+    "listed_building": false,
+    "timeline": [
+      {
+        "date": "2026-03-15",
+        "event": "complaint_received",
+        "note": "Westminster Planning Watch reports roof terrace construction at 52 Westbourne Park Road. Trellis screens and decking visible from street. Property is in Westbourne Conservation Area."
+      },
+      {
+        "date": "2026-03-20",
+        "event": "site_visit_completed",
+        "note": "Inspector visited. Confirmed roof terrace created on flat roof of rear extension. Timber decking, glass balustrade, and 1.8m trellis screens. Overlooks neighbouring gardens. Requires planning permission in conservation area."
+      },
+      {
+        "date": "2026-03-25",
+        "event": "planning_contravention_notice_issued",
+        "note": "PCN issued requiring information about works within 21 days. Response due 15 April."
+      },
+      {
+        "date": "2026-04-10",
+        "event": "assessment_note",
+        "note": "PCN response deadline approaching (15 April). Owner has been advised by agent that a retrospective application may be invited if terrace can be modified to reduce overlooking."
+      }
+    ],
+    "case_notes": "Unauthorised roof terrace at 52 Westbourne Park Road in Westbourne Conservation Area. Decking, glass balustrade, and trellis screens. PCN response due 15 April. Agent has been in contact - retrospective application may be possible if overlooking issues can be addressed through design modifications. If not, enforcement notice to follow."
+  },
+  {
+    "case_id": "WCC-2026-10510",
+    "case_type": "change_of_use",
+    "status": "enforcement_notice_issued",
+    "caseworker": "James O'Brien",
+    "reporter": {
+      "name": "Multiple Reporters",
+      "reference": "REP-41001",
+      "ward": "Marylebone"
+    },
+    "location": {
+      "street": "Crawford Street",
+      "postcode": "W1H 1JW",
+      "lat": 51.5206,
+      "lon": -0.161
+    },
+    "assigned_to": "planning_enforcement_team",
+    "contractor": null,
+    "priority": "high",
+    "duplicate_count": 4,
+    "created_date": "2026-02-20",
+    "last_updated": "2026-04-14",
+    "planning_ref": "21/03456/FULL",
+    "conservation_area": "Marylebone",
+    "listed_building": false,
+    "timeline": [
+      {
+        "date": "2026-02-20",
+        "event": "complaint_received",
+        "note": "Residents report ground floor retail unit at 88 Crawford Street converted to a dark kitchen operation. Multiple delivery riders congregating outside. Constant motorcycle noise 11am-midnight. Planning permission 21/03456/FULL is for A1 retail."
+      },
+      {
+        "date": "2026-02-25",
+        "event": "site_visit_completed",
+        "note": "Inspector visited. Confirmed premises operating as commercial kitchen producing food for multiple delivery app brands. No retail function. Heavy extraction running. 15-20 delivery riders observed waiting outside."
+      },
+      {
+        "date": "2026-03-05",
+        "event": "planning_contravention_notice_issued",
+        "note": "PCN issued."
+      },
+      {
+        "date": "2026-03-26",
+        "event": "pcn_response_received",
+        "note": "Operator responded. Claims use falls within Use Class E (commercial/business/service). However, the specific planning permission restricts to retail (former A1)."
+      },
+      {
+        "date": "2026-04-02",
+        "event": "enforcement_notice_issued",
+        "note": "Enforcement Notice served. The specific condition restricting use to retail overrides the general Use Class E flexibility. Compliance period: 28 days (by 30 April)."
+      },
+      {
+        "date": "2026-04-14",
+        "event": "assessment_note",
+        "note": "Enforcement notice compliance deadline 30 April. Environmental Health referral made for extraction noise. Licensing check - no food premises registration found, referred to food safety team. 4 complaints from residents. Councillor enquiry received 10 April, response sent within SLA."
+      }
+    ],
+    "case_notes": "Unauthorised change from retail to dark kitchen at 88 Crawford Street. Multiple delivery app brands operating from single premises. Heavy rider congregation causing noise and obstruction. Enforcement notice served with 30 April compliance deadline. Cross-referrals made to Environmental Health (extraction noise) and food safety team (no registration). 4 complaints from residents. Use Class E argument rejected as specific retail condition overrides general class."
+  },
+  {
+    "case_id": "WCC-2026-10421",
+    "case_type": "unauthorised_construction",
+    "status": "enforcement_notice_issued",
+    "reporter": {
+      "name": "Community Group",
+      "reference": "REP-40021",
+      "ward": "Bayswater"
+    },
+    "location": {
+      "street": "Wigmore Street",
+      "postcode": "W1U 1AT",
+      "lat": 51.5174,
+      "lon": -0.1512
+    },
+    "assigned_to": "planning_enforcement_team",
+    "caseworker": "David Kim",
+    "contractor": null,
+    "priority": "high",
+    "duplicate_count": 0,
+    "created_date": "2026-02-20",
+    "last_updated": "2026-04-14",
+    "timeline": [
+      {
+        "date": "2026-02-20",
+        "event": "complaint_received",
+        "note": "Report of unauthorised construction at Wigmore Street."
+      },
+      {
+        "date": "2026-02-23",
+        "event": "site_visit_completed",
+        "note": "Inspector visited. Breach confirmed. Photographs taken."
+      },
+      {
+        "date": "2026-03-02",
+        "event": "planning_contravention_notice_issued",
+        "note": "PCN issued to owner requiring information within 21 days."
+      }
+    ],
+    "case_notes": "unauthorised construction case at Wigmore Street. Listed building \u2014 heritage sensitivity. Under investigation.",
+    "planning_ref": "23/04556/FULL",
+    "conservation_area": null,
+    "listed_building": true,
+    "listed_grade": "Grade II"
+  },
+  {
+    "case_id": "WCC-2026-10422",
+    "case_type": "breach_of_conditions",
+    "status": "site_visit_scheduled",
+    "reporter": {
+      "name": "Community Group",
+      "reference": "REP-40022",
+      "ward": "Maida Vale"
+    },
+    "location": {
+      "street": "Seymour Place",
+      "postcode": "W1H 2NS",
+      "lat": 51.5182,
+      "lon": -0.1625
+    },
+    "assigned_to": "planning_enforcement_team",
+    "caseworker": "Sarah Chen",
+    "contractor": null,
+    "priority": "high",
+    "duplicate_count": 3,
+    "created_date": "2026-04-05",
+    "last_updated": "2026-04-15",
+    "timeline": [
+      {
+        "date": "2026-04-05",
+        "event": "complaint_received",
+        "note": "Report of breach of conditions at Seymour Place."
+      },
+      {
+        "date": "2026-04-08",
+        "event": "site_visit_completed",
+        "note": "Inspector visited. Breach confirmed. Photographs taken."
+      }
+    ],
+    "case_notes": "breach of conditions case at Seymour Place. Within Fitzrovia Conservation Area. Under investigation.",
+    "planning_ref": null,
+    "conservation_area": "Fitzrovia",
+    "listed_building": false
+  },
+  {
+    "case_id": "WCC-2026-10423",
+    "case_type": "change_of_use",
+    "status": "compliance_monitoring",
+    "reporter": {
+      "name": "Property Manager",
+      "reference": "REP-40023",
+      "ward": "Lancaster Gate"
+    },
+    "location": {
+      "street": "Chiltern Street",
+      "postcode": "W1U 5QJ",
+      "lat": 51.5216,
+      "lon": -0.153
+    },
+    "assigned_to": "planning_enforcement_team",
+    "caseworker": "Marcus Williams",
+    "contractor": null,
+    "priority": "critical",
+    "duplicate_count": 0,
+    "created_date": "2026-03-03",
+    "last_updated": "2026-04-15",
+    "timeline": [
+      {
+        "date": "2026-03-03",
+        "event": "complaint_received",
+        "note": "Report of change of use at Chiltern Street."
+      },
+      {
+        "date": "2026-03-06",
+        "event": "site_visit_completed",
+        "note": "Inspector visited. Breach confirmed. Photographs taken."
+      },
+      {
+        "date": "2026-03-13",
+        "event": "planning_contravention_notice_issued",
+        "note": "PCN issued to owner requiring information within 21 days."
+      }
+    ],
+    "case_notes": "change of use case at Chiltern Street. Within Bayswater Conservation Area. Listed building \u2014 heritage sensitivity. Under investigation.",
+    "planning_ref": null,
+    "conservation_area": "Bayswater",
+    "listed_building": true,
+    "listed_grade": "Grade II"
+  },
+  {
+    "case_id": "WCC-2026-10424",
+    "case_type": "change_of_use",
+    "status": "investigation",
+    "reporter": {
+      "name": "WCC Officer",
+      "reference": "REP-40024",
+      "ward": "Regent's Park"
+    },
+    "location": {
+      "street": "Baker Street",
+      "postcode": "W1U 6TJ",
+      "lat": 51.5208,
+      "lon": -0.1567
+    },
+    "assigned_to": "planning_enforcement_team",
+    "caseworker": "Priya Patel",
+    "contractor": null,
+    "priority": "high",
+    "duplicate_count": 4,
+    "created_date": "2026-03-27",
+    "last_updated": "2026-04-13",
+    "timeline": [
+      {
+        "date": "2026-03-27",
+        "event": "complaint_received",
+        "note": "Report of change of use at Baker Street."
+      },
+      {
+        "date": "2026-03-30",
+        "event": "site_visit_completed",
+        "note": "Inspector visited. Breach confirmed. Photographs taken."
+      },
+      {
+        "date": "2026-04-06",
+        "event": "planning_contravention_notice_issued",
+        "note": "PCN issued to owner requiring information within 21 days."
+      }
+    ],
+    "case_notes": "change of use case at Baker Street. Within Soho Conservation Area. Under investigation.",
+    "planning_ref": null,
+    "conservation_area": "Soho",
+    "listed_building": false
+  },
+  {
+    "case_id": "WCC-2026-10425",
+    "case_type": "change_of_use",
+    "status": "resolved",
+    "reporter": {
+      "name": "Councillor Office",
+      "reference": "REP-40025",
+      "ward": "Maida Vale"
+    },
+    "location": {
+      "street": "St John's Wood High Street",
+      "postcode": "NW8 7SH",
+      "lat": 51.5313,
+      "lon": -0.172
+    },
+    "assigned_to": "planning_enforcement_team",
+    "caseworker": "James O'Brien",
+    "contractor": null,
+    "priority": "high",
+    "duplicate_count": 5,
+    "created_date": "2026-04-09",
+    "last_updated": "2026-04-10",
+    "timeline": [
+      {
+        "date": "2026-04-09",
+        "event": "complaint_received",
+        "note": "Report of change of use at St John's Wood High Street."
+      },
+      {
+        "date": "2026-04-12",
+        "event": "site_visit_completed",
+        "note": "Inspector visited. Breach confirmed. Photographs taken."
+      },
+      {
+        "date": "2026-04-14",
+        "event": "resolved",
+        "note": "Breach remedied. Case closed."
+      }
+    ],
+    "case_notes": "change of use case at St John's Wood High Street. Resolved.",
+    "planning_ref": null,
+    "conservation_area": null,
+    "listed_building": false
+  },
+  {
+    "case_id": "WCC-2026-10426",
+    "case_type": "unauthorised_construction",
+    "status": "site_visit_scheduled",
+    "reporter": {
+      "name": "Business Owner",
+      "reference": "REP-40026",
+      "ward": "Queen's Park"
+    },
+    "location": {
+      "street": "Weymouth Street",
+      "postcode": "W1G 7DT",
+      "lat": 51.5225,
+      "lon": -0.1467
+    },
+    "assigned_to": "planning_enforcement_team",
+    "caseworker": "David Kim",
+    "contractor": null,
+    "priority": "standard",
+    "duplicate_count": 0,
+    "created_date": "2026-03-04",
+    "last_updated": "2026-04-13",
+    "timeline": [
+      {
+        "date": "2026-03-04",
+        "event": "complaint_received",
+        "note": "Report of unauthorised construction at Weymouth Street."
+      },
+      {
+        "date": "2026-03-07",
+        "event": "site_visit_completed",
+        "note": "Inspector visited. Breach confirmed. Photographs taken."
+      },
+      {
+        "date": "2026-03-14",
+        "event": "planning_contravention_notice_issued",
+        "note": "PCN issued to owner requiring information within 21 days."
+      }
+    ],
+    "case_notes": "unauthorised construction case at Weymouth Street. Within Mayfair Conservation Area. Under investigation.",
+    "planning_ref": null,
+    "conservation_area": "Mayfair",
+    "listed_building": false
+  },
+  {
+    "case_id": "WCC-2026-10427",
+    "case_type": "breach_of_conditions",
+    "status": "compliance_monitoring",
+    "reporter": {
+      "name": "Anonymous Reporter",
+      "reference": "REP-40027",
+      "ward": "Bayswater"
+    },
+    "location": {
+      "street": "Chiltern Street",
+      "postcode": "W1U 5QJ",
+      "lat": 51.5216,
+      "lon": -0.153
+    },
+    "assigned_to": "planning_enforcement_team",
+    "caseworker": "Sarah Chen",
+    "contractor": null,
+    "priority": "critical",
+    "duplicate_count": 2,
+    "created_date": "2026-03-16",
+    "last_updated": "2026-04-11",
+    "timeline": [
+      {
+        "date": "2026-03-16",
+        "event": "complaint_received",
+        "note": "Report of breach of conditions at Chiltern Street."
+      },
+      {
+        "date": "2026-03-19",
+        "event": "site_visit_completed",
+        "note": "Inspector visited. Breach confirmed. Photographs taken."
+      },
+      {
+        "date": "2026-03-26",
+        "event": "planning_contravention_notice_issued",
+        "note": "PCN issued to owner requiring information within 21 days."
+      }
+    ],
+    "case_notes": "breach of conditions case at Chiltern Street. Under investigation.",
+    "planning_ref": null,
+    "conservation_area": null,
+    "listed_building": false
+  },
+  {
+    "case_id": "WCC-2026-10428",
+    "case_type": "change_of_use",
+    "status": "complaint_received",
+    "reporter": {
+      "name": "Neighbourhood Watch",
+      "reference": "REP-40028",
+      "ward": "Church Street"
+    },
+    "location": {
+      "street": "Blandford Street",
+      "postcode": "W1U 3DG",
+      "lat": 51.5197,
+      "lon": -0.1533
+    },
+    "assigned_to": "planning_enforcement_team",
+    "caseworker": "Marcus Williams",
+    "contractor": null,
+    "priority": "critical",
+    "duplicate_count": 4,
+    "created_date": "2026-02-22",
+    "last_updated": "2026-04-13",
+    "timeline": [
+      {
+        "date": "2026-02-22",
+        "event": "complaint_received",
+        "note": "Report of change of use at Blandford Street."
+      },
+      {
+        "date": "2026-02-25",
+        "event": "site_visit_completed",
+        "note": "Inspector visited. Breach confirmed. Photographs taken."
+      }
+    ],
+    "case_notes": "change of use case at Blandford Street. Under investigation.",
+    "planning_ref": "22/06901/FULL",
+    "conservation_area": null,
+    "listed_building": false
+  },
+  {
+    "case_id": "WCC-2026-10429",
+    "case_type": "change_of_use",
+    "status": "site_visit_scheduled",
+    "reporter": {
+      "name": "Street Patrol Officer",
+      "reference": "REP-40029",
+      "ward": "Marylebone"
+    },
+    "location": {
+      "street": "Chiltern Street",
+      "postcode": "W1U 5QJ",
+      "lat": 51.5216,
+      "lon": -0.153
+    },
+    "assigned_to": "planning_enforcement_team",
+    "caseworker": "Priya Patel",
+    "contractor": null,
+    "priority": "high",
+    "duplicate_count": 2,
+    "created_date": "2026-02-19",
+    "last_updated": "2026-04-15",
+    "timeline": [
+      {
+        "date": "2026-02-19",
+        "event": "complaint_received",
+        "note": "Report of change of use at Chiltern Street."
+      },
+      {
+        "date": "2026-02-22",
+        "event": "site_visit_completed",
+        "note": "Inspector visited. Breach confirmed. Photographs taken."
+      },
+      {
+        "date": "2026-03-01",
+        "event": "planning_contravention_notice_issued",
+        "note": "PCN issued to owner requiring information within 21 days."
+      }
+    ],
+    "case_notes": "change of use case at Chiltern Street. Within Pimlico Conservation Area. Under investigation.",
+    "planning_ref": "24/01804/FULL",
+    "conservation_area": "Pimlico",
+    "listed_building": false
+  },
+  {
+    "case_id": "WCC-2026-10430",
+    "case_type": "breach_of_conditions",
+    "status": "site_visit_scheduled",
+    "reporter": {
+      "name": "Councillor Office",
+      "reference": "REP-40030",
+      "ward": "Bayswater"
+    },
+    "location": {
+      "street": "Weymouth Street",
+      "postcode": "W1G 7DT",
+      "lat": 51.5225,
+      "lon": -0.1467
+    },
+    "assigned_to": "planning_enforcement_team",
+    "caseworker": "James O'Brien",
+    "contractor": null,
+    "priority": "high",
+    "duplicate_count": 0,
+    "created_date": "2026-02-28",
+    "last_updated": "2026-04-13",
+    "timeline": [
+      {
+        "date": "2026-02-28",
+        "event": "complaint_received",
+        "note": "Report of breach of conditions at Weymouth Street."
+      },
+      {
+        "date": "2026-03-03",
+        "event": "site_visit_completed",
+        "note": "Inspector visited. Breach confirmed. Photographs taken."
+      },
+      {
+        "date": "2026-03-10",
+        "event": "planning_contravention_notice_issued",
+        "note": "PCN issued to owner requiring information within 21 days."
+      }
+    ],
+    "case_notes": "breach of conditions case at Weymouth Street. Within Mayfair Conservation Area. Under investigation.",
+    "planning_ref": "25/08111/FULL",
+    "conservation_area": "Mayfair",
+    "listed_building": false
   }
 ]

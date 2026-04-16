@@ -1,12 +1,18 @@
+import { config as loadEnv } from "dotenv";
 import cors from "cors";
 import express from "express";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+// Load .env from project root (3 levels up from src/index.ts)
+const __dirname = dirname(fileURLToPath(import.meta.url));
+loadEnv({ path: join(__dirname, "..", "..", "..", ".env") });
+
 import {
   caseChat,
   generateSummary,
   managerInsight,
+  queryPolicies,
 } from "@repo/core/claude-service";
 import { createRepositories } from "@repo/core/data-layer";
 import { computeFlags } from "@repo/core/flag-engine";
@@ -28,7 +34,6 @@ import { computeWorkflowState } from "@repo/core/workflow-engine";
 
 // ─── Setup ──────────────────────────────────────────────────────────────────
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = join(__dirname, "..", "..", "..", "data");
 const PORT = parseInt(process.env.PORT ?? "3001", 10);
 const DEMO_TODAY = new Date("2026-04-15");
@@ -88,6 +93,7 @@ async function buildCaseListItem(c: Case): Promise<CaseListItem> {
     priority: c.priority,
     location: c.location,
     domain: getCaseDomain(c.case_type),
+    caseworker: c.caseworker,
     flag_count: flags.length,
     max_severity: maxSeverity(flags),
     last_updated: c.last_updated,
@@ -104,9 +110,15 @@ app.get("/api/cases", async (req, res) => {
     const validDomains = ["planning", "street", "all"];
     const filterDomain = validDomains.includes(domain) ? domain : "all";
 
-    const cases = await caseRepo.listCases({
+    const caseworkerFilter = req.query.caseworker as string | undefined;
+
+    let cases = await caseRepo.listCases({
       domain: filterDomain as "planning" | "street" | "all",
     });
+
+    if (caseworkerFilter) {
+      cases = cases.filter((c) => c.caseworker === caseworkerFilter);
+    }
 
     const items = await Promise.all(cases.map(buildCaseListItem));
 
@@ -321,6 +333,88 @@ app.get("/api/dashboard", requireRole("officer", "area_manager"), async (req, re
   }
 });
 
+// GET /api/dashboard/workload — caseworker workload breakdown with AI prioritisation
+app.get(
+  "/api/dashboard/workload",
+  requireRole("officer", "area_manager"),
+  async (_req, res) => {
+    try {
+      const allCases = await caseRepo.listCases();
+      const allPolicies = await policyRepo.getAllPolicies();
+
+      // Build per-caseworker stats
+      const workerMap = new Map<
+        string,
+        {
+          caseworker: string;
+          total: number;
+          critical: number;
+          high: number;
+          overdue: number;
+          resolved: number;
+          cases: { case_id: string; case_type: string; priority: string; flag_count: number; max_severity: string | null; status: string }[];
+        }
+      >();
+
+      for (const c of allCases) {
+        const flags = computeFlags(c, allPolicies, DEMO_TODAY);
+        const sev = maxSeverity(flags);
+        const name = c.caseworker ?? "Unassigned";
+
+        if (!workerMap.has(name)) {
+          workerMap.set(name, {
+            caseworker: name,
+            total: 0,
+            critical: 0,
+            high: 0,
+            overdue: 0,
+            resolved: 0,
+            cases: [],
+          });
+        }
+
+        const w = workerMap.get(name)!;
+        w.total++;
+        if (sev === "critical") w.critical++;
+        if (sev === "high") w.high++;
+        if (flags.some((f) => f.days_overdue > 0)) w.overdue++;
+        if (c.status === "closed" || c.status === "resolved") w.resolved++;
+
+        w.cases.push({
+          case_id: c.case_id,
+          case_type: c.case_type,
+          priority: c.priority,
+          flag_count: flags.length,
+          max_severity: sev,
+          status: c.status,
+        });
+      }
+
+      const caseworkers = [...workerMap.values()].sort(
+        (a, b) => b.critical * 10 + b.overdue - (a.critical * 10 + a.overdue)
+      );
+
+      // Identify who needs help: critical + overdue > 3 or total > 18
+      const needsHelp = caseworkers
+        .filter((w) => w.critical + w.overdue > 3 || w.total > 18)
+        .map((w) => ({
+          caseworker: w.caseworker,
+          reason:
+            w.critical > 2
+              ? `${w.critical} critical cases — immediate attention required`
+              : w.overdue > 3
+                ? `${w.overdue} overdue items — falling behind on SLAs`
+                : `${w.total} active cases — at capacity`,
+        }));
+
+      res.json({ caseworkers, needs_help: needsHelp });
+    } catch (err) {
+      console.error("GET /api/dashboard/workload error:", err);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  }
+);
+
 // GET /api/dashboard/insight — area manager insight (officer + area_manager only)
 app.get("/api/dashboard/insight", requireRole("officer", "area_manager"), async (_req, res) => {
   try {
@@ -436,6 +530,54 @@ app.post("/api/resident/:reference/chat", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+// ─── Admin: Policy Management ───────────────────────────────────────────────
+
+// GET /api/admin/policies — list all policies with metadata
+app.get(
+  "/api/admin/policies",
+  requireRole("officer", "area_manager"),
+  async (_req, res) => {
+    try {
+      const policies = await policyRepo.getAllPolicies();
+      const grouped = {
+        planning: policies.filter((p) => p.policy_id.startsWith("POL-PE")),
+        street: policies.filter((p) => !p.policy_id.startsWith("POL-PE")),
+      };
+      res.json({
+        total: policies.length,
+        planning_count: grouped.planning.length,
+        street_count: grouped.street.length,
+        policies,
+      });
+    } catch (err) {
+      console.error("GET /api/admin/policies error:", err);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  }
+);
+
+// POST /api/admin/policies/query — RAG-style policy Q&A with Claude
+app.post(
+  "/api/admin/policies/query",
+  requireRole("officer", "area_manager"),
+  async (req, res) => {
+    try {
+      const question = req.body?.question as string | undefined;
+      if (!question) {
+        res.status(400).json({ error: "question field required" });
+        return;
+      }
+
+      const policies = await policyRepo.getAllPolicies();
+      const answer = await queryPolicies(question, policies);
+      res.json({ question, answer });
+    } catch (err) {
+      console.error("POST /api/admin/policies/query error:", err);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  }
+);
 
 // ─── Start ──────────────────────────────────────────────────────────────────
 

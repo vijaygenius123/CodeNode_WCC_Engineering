@@ -28,6 +28,7 @@ export interface Case {
   reporter: Reporter;
   location: Location;
   assigned_to: string;
+  caseworker: string;
   contractor: string | null;
   priority: Priority;
   duplicate_count: number;
@@ -240,6 +241,7 @@ export interface CaseListItem {
   priority: Priority;
   location: Location;
   domain: CaseDomain;
+  caseworker: string;
   flag_count: number;
   max_severity: FlagSeverity | null;
   last_updated: string;

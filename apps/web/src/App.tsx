@@ -5,6 +5,7 @@ import CaseList from "./pages/CaseList";
 import CaseView from "./pages/CaseView";
 import Compare from "./pages/Compare";
 import Dashboard from "./pages/Dashboard";
+import PolicyAdmin from "./pages/PolicyAdmin";
 import Resident from "./pages/Resident";
 import type { AgentRole } from "./types";
 
@@ -53,6 +54,14 @@ export default function App() {
               }
             />
             <Route path="resident" element={<Resident />} />
+            <Route
+              path="admin/policies"
+              element={
+                <RoleGuard allowed={["officer", "area_manager"]} redirect="/resident">
+                  <PolicyAdmin />
+                </RoleGuard>
+              }
+            />
             <Route
               path="compare"
               element={

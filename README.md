@@ -43,6 +43,17 @@ CaseView/
 - **Generative UI**: Same 15 React components composed differently per case -- critical cases get nudge banners and red emphasis, routine cases get calm minimal layouts
 - **3 Claude Agents**: Officer (cites legislation), Resident (plain English, never leaks enforcement), Area Manager (cross-domain insight)
 - **Role-Based Access**: Caseworker sees enforcement details; applicant sees "We are investigating" -- same data, different views
+- **Policy RAG Q&A**: Admin page lets caseworkers query the full policy corpus in natural language -- Claude cites specific policy IDs, SLAs, and deadlines
+
+## Architecture
+
+See **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** for full Mermaid diagrams showing:
+- How CaseView solves the three Challenge 3 problems (information, policy, workflow)
+- Agentic architecture with three role-specific Claude agents
+- Data flow from raw JSON to adaptive UI
+- Policy RAG pipeline
+- Single source of truth with repository pattern for future multi-source integration
+- Generative UI contrast (critical vs routine case composition)
 
 ## Three User Perspectives
 
