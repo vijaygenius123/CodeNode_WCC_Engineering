@@ -6,6 +6,8 @@ A casework support tool for Westminster City Council that **displays cases clear
 
 ![CaseView — Case List Map View](home.png)
 
+> **[View Slide Deck →](https://vijaygenius123.github.io/CodeNode_WCC_Engineering/)**
+
 ## Quick Start
 
 ```bash
