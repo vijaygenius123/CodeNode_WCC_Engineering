@@ -1,16 +1,16 @@
 import Mermaid from "./components/Mermaid";
 
 const THREE_PROBLEMS = `graph TB
-    subgraph "The Three Problems - Challenge 3 Brief"
+    subgraph PROB["The Three Problems"]
         P1["Information Problem\\nCase data scattered across\\nsystems, notes, emails"]
-        P2["Policy Problem\\nWhich policy applies?\\n40-page doc, unclear version"]
-        P3["Workflow Problem\\nWhere is the case?\\nWhat deadline is approaching?"]
+        P2["Policy Problem\\nWhich policy applies\\n40-page doc, unclear version"]
+        P3["Workflow Problem\\nWhere is the case\\nWhat deadline is approaching"]
     end
 
-    subgraph "CaseView Solutions"
+    subgraph SOL["CaseView Solutions"]
         S1["Generative UI Engine\\n15 components composed per case\\nMost important info FIRST"]
-        S2["Policy Matcher + RAG Q&A\\nAuto-match by case_type\\nClaude-powered policy queries"]
-        S3["Flag Engine + Workflow Engine\\n14 flag types detect breaches\\nNudge banners say what to do next"]
+        S2["Policy Matcher + RAG\\nAuto-match by case_type\\nClaude-powered policy queries"]
+        S3["Flag + Workflow Engine\\n14 flag types detect breaches\\nNudge banners say what to do"]
     end
 
     P1 --> S1
@@ -25,16 +25,16 @@ const THREE_PROBLEMS = `graph TB
     style S3 fill:#00703c,color:#fff`;
 
 const SYSTEM_ARCH = `graph LR
-    subgraph "Data Sources"
-        D1[("cases.json\\n14 cases")]
-        D2[("policies.json\\n15 policies")]
-        D3[("workflows.json\\n13 workflows")]
-        D5[("Future: Dynamics 365")]
-        D6[("Future: Planning Portal")]
+    subgraph DS["Data Sources"]
+        D1["cases.json - 74 cases"]
+        D2["policies.json - 15 policies"]
+        D3["workflows.json - 13 workflows"]
+        D5["Future - Dynamics 365"]
+        D6["Future - Planning Portal"]
     end
 
-    subgraph "@repo/core Engines"
-        FE["Flag Engine\\n8 planning + 6 street"]
+    subgraph CORE["Core Engines"]
+        FE["Flag Engine"]
         PM["Policy Matcher"]
         WE["Workflow Engine"]
         NE["Nudge Engine"]
@@ -42,39 +42,48 @@ const SYSTEM_ARCH = `graph LR
         RS["Resident Service"]
     end
 
-    subgraph "Claude Layer"
+    subgraph CL["Claude Layer"]
         CS["3 Role Agents"]
-        PQ["Policy RAG Q&A"]
+        PQ["Policy RAG"]
     end
 
-    subgraph "API"
-        API["Express.js\\n11 endpoints + RBAC"]
+    subgraph AP["API"]
+        API["Express.js - 11 endpoints"]
     end
 
-    subgraph "Frontend"
-        UI["Vite + React\\n5 pages, 15 components"]
+    subgraph FN["Frontend"]
+        UI["Vite React - 5 pages"]
     end
 
-    D1 & D2 & D3 --> API
-    D5 & D6 -.-> API
-    API --> FE & PM & WE & NE & GU & RS
-    API --> CS & PQ
+    D1 --> API
+    D2 --> API
+    D3 --> API
+    D5 -.-> API
+    D6 -.-> API
+    API --> FE
+    API --> PM
+    API --> WE
+    API --> NE
+    API --> GU
+    API --> RS
+    API --> CS
+    API --> PQ
     API --> UI`;
 
 const AGENTIC = `graph TB
-    subgraph "User Roles"
+    subgraph UR["User Roles"]
         CW["Caseworker\\nManages 20-40 cases"]
         TL["Team Leader\\nOversees 200-300 cases"]
         AP["Applicant\\nWaiting for decision"]
     end
 
-    subgraph "Claude Agents"
-        OA["Officer Agent\\nCites POL-PE-001 etc.\\nReferences Section 9\\n3-sentence summaries"]
-        MA["Manager Agent\\nProsecution timeline risks\\nCross-domain SLA performance\\n3 bullet points max"]
+    subgraph CA["Claude Agents"]
+        OA["Officer Agent\\nCites POL-PE-001\\nReferences Section 9\\n3-sentence summaries"]
+        MA["Manager Agent\\nProsecution timeline risks\\nCross-domain SLA\\n3 bullet points max"]
         RA["Resident Agent\\nPlain English ONLY\\nNEVER reveals prosecution\\nor enforcement details"]
     end
 
-    subgraph "Deterministic Foundation"
+    subgraph DF["Deterministic Foundation"]
         DE["Flag Engine + Policy Matcher + Workflow Engine\\nWorks WITHOUT any language model"]
     end
 
@@ -82,7 +91,9 @@ const AGENTIC = `graph TB
     TL --> MA
     AP --> RA
 
-    OA & MA & RA --> DE
+    OA --> DE
+    MA --> DE
+    RA --> DE
 
     style DE fill:#0b0c0e,color:#fff
     style OA fill:#1d70b8,color:#fff
@@ -93,79 +104,83 @@ const DATA_FLOW = `sequenceDiagram
     participant User as Caseworker
     participant UI as React Frontend
     participant API as Express API
-    participant Core as @repo/core
+    participant Core as Core Engines
     participant Claude as Claude API
 
     User->>UI: Opens case WCC-10302
     UI->>API: GET /api/cases/WCC-10302/view
 
-    par Deterministic (no LLM)
-        API->>Core: computeFlags(case, policies, today)
-        Core-->>API: prosecution_file_overdue, heritage_damage
-        API->>Core: matchPolicies(case_type, allPolicies)
-        Core-->>API: POL-PE-001, POL-PE-002, POL-PE-005
-        API->>Core: computeWorkflowState(case, workflow)
-        Core-->>API: appeal_lodged, shouldBeIn: prosecution
-        API->>Core: computeNudges(case, flags)
-        Core-->>API: Submit prosecution file NOW
-        API->>Core: getDefaultLayout(case, flags)
-        Core-->>API: nudge_banner → flags → planning_info
+    rect rgb(240, 248, 255)
+    Note over API,Core: Deterministic - no LLM needed
+    API->>Core: computeFlags
+    Core-->>API: prosecution_file_overdue + heritage_damage
+    API->>Core: matchPolicies
+    Core-->>API: POL-PE-001 + POL-PE-002
+    API->>Core: computeWorkflowState
+    Core-->>API: appeal_lodged - should be prosecution
+    API->>Core: computeNudges
+    Core-->>API: Submit prosecution file NOW
+    API->>Core: getDefaultLayout
+    Core-->>API: nudge_banner then flags then planning_info
     end
 
-    opt Claude Enhancement
-        API->>Claude: generateSummary(case, flags)
-        Claude-->>API: CRIMINAL OFFENCE summary
+    rect rgb(255, 248, 240)
+    Note over API,Claude: Claude Enhancement Layer
+    API->>Claude: generateSummary
+    Claude-->>API: CRIMINAL OFFENCE summary
     end
 
     API-->>UI: Full response with adaptive layout
     UI-->>User: Nudge banner + flags + workflow bar`;
 
 const RAG_PIPELINE = `graph TB
-    subgraph "Policy Corpus - 15 policies"
-        PP["POL-PE-001: Investigation Timelines\\nPOL-PE-002: Heritage Enforcement\\nPOL-PE-003: Change of Use\\nPOL-PE-004: Breach of Conditions\\nPOL-PE-005: Councillor Enquiries\\n+ 10 street reporting policies"]
+    subgraph PC["Policy Corpus - 15 policies"]
+        PP["POL-PE-001 Investigation Timelines\\nPOL-PE-002 Heritage Enforcement\\nPOL-PE-003 Change of Use\\nPOL-PE-004 Breach of Conditions\\nPOL-PE-005 Councillor Enquiries\\nPlus 10 street reporting policies"]
     end
 
-    subgraph "Query Processing"
-        Q["User question:\\nWhat is the prosecution deadline\\nfor listed building offences?"]
-        SYS["System prompt +\\nfull policy corpus"]
+    subgraph QP["Query Processing"]
+        Q["User question -\\nWhat is the prosecution deadline\\nfor listed building offences"]
+        SYS["System prompt plus\\nfull policy corpus"]
     end
 
-    subgraph "Claude RAG"
+    subgraph CR["Claude RAG"]
         CL["Claude Sonnet\\nSearches corpus\\nCites policy IDs\\nQuotes relevant sections"]
     end
 
-    subgraph "Response"
-        R["POL-PE-002 states prosecution file\\nmust be submitted within 14 working\\ndays of confirming criminal offence."]
+    subgraph RS["Response"]
+        R["POL-PE-002 states prosecution file\\nmust be submitted within 14 working\\ndays of confirming criminal offence"]
     end
 
     PP --> SYS
-    Q --> SYS --> CL --> R
+    Q --> SYS
+    SYS --> CL
+    CL --> R
 
     style CL fill:#1d70b8,color:#fff
     style R fill:#00703c,color:#fff`;
 
 const SINGLE_SOURCE = `graph TB
-    subgraph "Current: JSON Files"
+    subgraph CUR["Current - JSON Files"]
         J1["cases.json"]
         J2["policies.json"]
         J3["workflows.json"]
     end
 
-    subgraph "Future: Live Data Sources"
+    subgraph FUT["Future - Live Data Sources"]
         DY["Dynamics 365 CRM"]
         PP["Planning Portal API"]
         HE["Historic England API"]
-        GIS["GIS / Mapping"]
+        GIS["GIS Mapping"]
     end
 
-    subgraph "Repository Pattern"
+    subgraph REPO["Repository Pattern"]
         CR["CaseRepository"]
         PR["PolicyRepository"]
         WR["WorkflowRepository"]
     end
 
-    subgraph "Business Logic - Unchanged"
-        BL["Flag Engine + Policy Matcher +\\nWorkflow Engine + Nudge Engine +\\nGenerative UI + Claude Service"]
+    subgraph BIZ["Business Logic - Unchanged"]
+        BL["Flag Engine + Policy Matcher\\nWorkflow Engine + Nudge Engine\\nGenerative UI + Claude Service"]
     end
 
     J1 --> CR
@@ -176,13 +191,14 @@ const SINGLE_SOURCE = `graph TB
     HE -.-> CR
     GIS -.-> CR
 
-    CR & PR & WR --> BL
+    CR --> BL
+    PR --> BL
+    WR --> BL
 
     style BL fill:#0b0c0e,color:#fff`;
 
-const GENERATIVE_UI = `graph LR
-    subgraph "WCC-10302: Criminal Offence"
-        direction TB
+const GENERATIVE_UI = `graph TB
+    subgraph CRIT["WCC-10302 Critical"]
         C1["nudge_banner CRITICAL"]
         C2["flags_panel CRITICAL"]
         C3["planning_info CRITICAL"]
@@ -192,16 +208,17 @@ const GENERATIVE_UI = `graph LR
         C7["policy_panel"]
         C8["workflow_state"]
         C9["case_notes collapsed"]
+        C1 --> C2 --> C3 --> C4 --> C5 --> C6 --> C7 --> C8 --> C9
     end
 
-    subgraph "WCC-10304: Routine Breach"
-        direction TB
+    subgraph CALM["WCC-10304 Routine"]
         R1["ai_summary"]
         R2["workflow_state"]
         R3["evidence_tracker"]
         R4["timeline"]
         R5["policy_panel collapsed"]
         R6["case_notes collapsed"]
+        R1 --> R2 --> R3 --> R4 --> R5 --> R6
     end
 
     style C1 fill:#d4351c,color:#fff
@@ -209,12 +226,12 @@ const GENERATIVE_UI = `graph LR
     style C3 fill:#d4351c,color:#fff`;
 
 const ROADMAP = `graph LR
-    NOW["Today: JSON + Local\\n14 cases, 15 policies\\nDeterministic engines\\nClaude enhancement"]
-    N1["1. Dynamics 365\\nSwap repository\\nLive case data"]
-    N2["2. Planning Portal\\nApplication data\\nCross-reference"]
-    N3["3. Heritage Register\\nHistoric England\\nAuto-escalate"]
-    N4["4. Pilot\\nWestminster\\nMeasure impact"]
-    N5["5. Generalise\\nAny casework domain\\nHousing, licensing"]
+    NOW["Today - JSON + Local\\n74 cases, 15 policies\\nDeterministic engines\\nClaude enhancement"]
+    N1["1 Dynamics 365\\nSwap repository\\nLive case data"]
+    N2["2 Planning Portal\\nApplication data\\nCross-reference"]
+    N3["3 Heritage Register\\nHistoric England\\nAuto-escalate"]
+    N4["4 Pilot\\nWestminster\\nMeasure impact"]
+    N5["5 Generalise\\nAny casework domain\\nHousing, licensing"]
 
     NOW --> N1 --> N2 --> N3 --> N4 --> N5
 
