@@ -5,6 +5,8 @@ import { fileURLToPath } from "node:url";
 
 import { createRepositories } from "@repo/core/data-layer";
 import { computeFlags } from "@repo/core/flag-engine";
+import { getDefaultLayout } from "@repo/core/generative-ui";
+import { computeNudges } from "@repo/core/nudge-engine";
 import { matchPolicies } from "@repo/core/policy-matcher";
 import { getResidentStatus } from "@repo/core/resident-service";
 import type {
@@ -133,13 +135,16 @@ app.get("/api/cases/:caseId", async (req, res) => {
       ? computeWorkflowState(caseData, workflowDef, DEMO_TODAY)
       : null;
 
+    const nudges = computeNudges(caseData, flags, workflow);
+    const layout = getDefaultLayout(caseData, flags, workflow);
+
     const response: CaseDetailResponse = {
       case_data: caseData,
       matched_policies: matchedPolicies,
       workflow: workflow!,
       flags,
-      nudges: [],
-      layout: { nudge_text: null, components: [] },
+      nudges,
+      layout,
       ai_summary: null,
     };
 
@@ -247,68 +252,16 @@ app.get("/api/cases/:caseId/view", async (req, res) => {
       ? computeWorkflowState(caseData, workflowDef, DEMO_TODAY)
       : null;
 
-    // Deterministic generative UI layout based on flags
-    const hasCritical = flags.some((f) => f.severity === "critical");
-    const isPlanning = getCaseDomain(caseData.case_type) === "planning";
-
-    type LayoutComponent = {
-      name: string;
-      emphasis: "critical" | "normal" | "collapsed";
-    };
-
-    let components: LayoutComponent[];
-    let nudgeText: string | null = null;
-
-    if (hasCritical) {
-      const topFlag = flags[0]!;
-      nudgeText = topFlag.message;
-      components = [
-        { name: "nudge_banner", emphasis: "critical" },
-        { name: "flags_panel", emphasis: "critical" },
-        ...(isPlanning
-          ? [{ name: "planning_info" as const, emphasis: "critical" as const }]
-          : []),
-        { name: "ai_summary", emphasis: "normal" },
-        { name: "evidence_tracker", emphasis: "normal" },
-        { name: "timeline", emphasis: "normal" },
-        { name: "workflow_state", emphasis: "normal" },
-        { name: "policy_panel", emphasis: "normal" },
-        { name: "case_notes", emphasis: "collapsed" },
-      ];
-    } else if (flags.length > 0) {
-      components = [
-        { name: "flags_panel", emphasis: "normal" },
-        { name: "ai_summary", emphasis: "normal" },
-        ...(isPlanning
-          ? [{ name: "planning_info" as const, emphasis: "normal" as const }]
-          : []),
-        { name: "workflow_state", emphasis: "normal" },
-        { name: "timeline", emphasis: "normal" },
-        { name: "evidence_tracker", emphasis: "normal" },
-        { name: "policy_panel", emphasis: "collapsed" },
-        { name: "case_notes", emphasis: "collapsed" },
-      ];
-    } else {
-      components = [
-        { name: "ai_summary", emphasis: "normal" },
-        { name: "workflow_state", emphasis: "normal" },
-        ...(isPlanning
-          ? [{ name: "planning_info" as const, emphasis: "normal" as const }]
-          : []),
-        { name: "timeline", emphasis: "normal" },
-        { name: "evidence_tracker", emphasis: "collapsed" },
-        { name: "policy_panel", emphasis: "collapsed" },
-        { name: "case_notes", emphasis: "collapsed" },
-      ];
-    }
+    const nudges = computeNudges(caseData, flags, workflow);
+    const layout = getDefaultLayout(caseData, flags, workflow);
 
     res.json({
       case_data: caseData,
       matched_policies: matchedPolicies,
       workflow,
       flags,
-      nudges: [],
-      layout: { nudge_text: nudgeText, components },
+      nudges,
+      layout,
       ai_summary: null,
     });
   } catch (err) {
