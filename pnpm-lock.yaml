@@ -109,6 +109,9 @@ importers:
       leaflet:
         specifier: ^1.9.4
         version: 1.9.4
+      govuk-frontend:
+        specifier: ^6.1.0
+        version: 6.1.0
       lucide-react:
         specifier: ^0.510.0
         version: 0.510.0(react@19.2.0)
@@ -2173,6 +2176,9 @@ packages:
 
   hachure-fill@0.5.2:
     resolution: {integrity: sha512-3GKBOn+m2LX9iq+JC1064cSFprJY4jL1jCXTcpnfER5HYE2l/4EfWSGzkPa/ZDBmYI0ZOEj5VHV/eKnPGkHuOg==}
+  govuk-frontend@6.1.0:
+    resolution: {integrity: sha512-sqivexZFa82LiDIDVMItsUlqEXE/wEUWWBqzEoxHvUFLBH7bY0C8lVrj1qsDThSnj5JEUMS7isBAbKnfQ5Qp6g==}
+    engines: {node: '>= 4.2.0'}
 
   has-bigints@1.1.0:
     resolution: {integrity: sha512-R3pbpkcIqv2Pm3dUwgjclDRVmWpTJW2DcMzcIhEXEx1oh/CEMObMm3KLmRJOdvhM7o4uQBnwr8pzRK2sJWIqfg==}
@@ -5195,6 +5201,7 @@ snapshots:
   gopd@1.2.0: {}
 
   hachure-fill@0.5.2: {}
+  govuk-frontend@6.1.0: {}
 
   has-bigints@1.1.0: {}
 

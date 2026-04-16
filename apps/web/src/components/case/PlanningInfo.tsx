@@ -20,21 +20,12 @@ export default function PlanningInfo({ caseData, policies }: Props) {
   return (
     <div>
       {isCriminal && (
-        <div
-          style={{
-            marginBottom: 14,
-            padding: "10px 14px",
-            background: "#fcd9d5",
-            borderLeft: "3px solid var(--govuk-red)",
-            borderRadius: 3,
-            fontSize: "0.875rem",
-            color: "#912b11",
-          }}
-          role="alert"
-        >
-          <strong>Criminal offence</strong> — Section 9, Planning (Listed
-          Buildings and Conservation Areas) Act 1990. Prosecution may be
-          pursued.
+        <div className="govuk-warning-text govuk-!-margin-bottom-4" role="alert">
+          <span className="govuk-warning-text__icon" aria-hidden="true">!</span>
+          <strong className="govuk-warning-text__text">
+            <span className="govuk-visually-hidden">Warning</span>
+            <strong>Criminal offence</strong> — Section 9, Planning (Listed Buildings and Conservation Areas) Act 1990. Prosecution may be pursued.
+          </strong>
         </div>
       )}
 
@@ -57,7 +48,7 @@ export default function PlanningInfo({ caseData, policies }: Props) {
             <div className="planning-info-item__value">
               <Landmark
                 size={14}
-                style={{ verticalAlign: "middle", marginRight: 4, color: "var(--heritage-gold)" }}
+                style={{ verticalAlign: "middle", marginRight: 4, color: "#6e4b00" }}
               />
               {listed_grade ?? "Grade unknown"}
             </div>
@@ -72,13 +63,13 @@ export default function PlanningInfo({ caseData, policies }: Props) {
       </div>
 
       {policies.length > 0 && (
-        <div style={{ marginTop: 8 }}>
-          <p className="text-grey text-small mb-4">Applicable legislation / policy:</p>
+        <div className="govuk-!-margin-top-3">
+          <p className="govuk-hint govuk-!-margin-bottom-2">Applicable legislation / policy:</p>
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
             {policies.map((p) => (
-              <span key={p.policy_id} className="govuk-tag govuk-tag--grey">
+              <strong key={p.policy_id} className="govuk-tag govuk-tag--grey">
                 {p.policy_id}
-              </span>
+              </strong>
             ))}
           </div>
         </div>

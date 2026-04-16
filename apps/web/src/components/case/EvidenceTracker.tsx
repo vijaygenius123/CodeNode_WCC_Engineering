@@ -44,19 +44,12 @@ export default function EvidenceTracker({
   return (
     <div>
       {overdueFlags.length > 0 && (
-        <div
-          style={{
-            marginBottom: 12,
-            padding: "8px 12px",
-            background: "#fcd9d5",
-            borderLeft: "3px solid var(--govuk-red)",
-            borderRadius: 3,
-            fontSize: "0.85rem",
-            color: "#912b11",
-          }}
-        >
-          {overdueFlags.length} item{overdueFlags.length !== 1 ? "s" : ""}{" "}
-          outstanding beyond policy threshold.
+        <div className="govuk-warning-text govuk-!-margin-bottom-3">
+          <span className="govuk-warning-text__icon" aria-hidden="true">!</span>
+          <strong className="govuk-warning-text__text">
+            <span className="govuk-visually-hidden">Warning</span>
+            {overdueFlags.length} item{overdueFlags.length !== 1 ? "s" : ""} outstanding beyond policy threshold.
+          </strong>
         </div>
       )}
 
@@ -91,9 +84,7 @@ export default function EvidenceTracker({
               <span>
                 {action}
                 {isOverdue && (
-                  <span className="text-red text-small" style={{ marginLeft: 6 }}>
-                    — overdue
-                  </span>
+                  <strong className="govuk-tag govuk-tag--red govuk-!-margin-left-2">overdue</strong>
                 )}
               </span>
             </li>

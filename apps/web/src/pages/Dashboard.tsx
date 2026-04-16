@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { AlertCircle, AlertTriangle, Brain, Building2, MapPin, Users } from "lucide-react";
+import { MapPin, Users } from "lucide-react";
 import { useApi } from "../hooks/useApi";
 import CaseMap from "../components/CaseMap";
 import type { CaseListItem, DashboardResponse } from "../types";
@@ -22,41 +22,40 @@ interface WorkloadResponse {
   needs_help: { caseworker: string; reason: string }[];
 }
 
+function flagTag(severity: CaseListItem["max_severity"], count: number) {
+  if (count === 0) return <strong className="govuk-tag govuk-tag--grey">No flags</strong>;
+  if (severity === "critical") return <strong className="govuk-tag govuk-tag--red">{count} critical</strong>;
+  if (severity === "high")     return <strong className="govuk-tag govuk-tag--orange">{count} high</strong>;
+  return <strong className="govuk-tag govuk-tag--blue">{count} flag{count !== 1 ? "s" : ""}</strong>;
+}
+
 function CaseRow({ c, onClick }: { c: CaseListItem; onClick: () => void }) {
   return (
     <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: "10px 0",
-        borderBottom: "1px solid #f0f0f0",
-        cursor: "pointer",
-        gap: 8,
-      }}
+      className="govuk-summary-list__row"
+      style={{ cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 0", borderBottom: "1px solid #b1b4b6", gap: 10 }}
       onClick={onClick}
       tabIndex={0}
-      onKeyDown={(e) => { if (e.key === "Enter") onClick(); }}
+      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") onClick(); }}
       role="button"
       aria-label={`Open case ${c.case_id}`}
     >
       <div>
-        <span className="case-id">{c.case_id}</span>
-        <span
-          className="text-grey text-small"
-          style={{ marginLeft: 8 }}
+        <a
+          className="govuk-link govuk-link--no-visited-state"
+          href={`/case/${c.case_id}`}
+          onClick={(e) => { e.preventDefault(); onClick(); }}
+          style={{ fontWeight: 700, marginRight: 10 }}
         >
+          {c.case_id}
+        </a>
+        <span className="govuk-body-s" style={{ color: "#505a5f" }}>
           {c.case_type.replace(/_/g, " ")}
         </span>
       </div>
       <div style={{ display: "flex", gap: 6, alignItems: "center", flexShrink: 0 }}>
-        {c.max_severity && (
-          <span className={`flag-badge flag-badge--${c.max_severity}`}>
-            <AlertCircle size={11} />
-            {c.flag_count}
-          </span>
-        )}
-        <span className={`govuk-tag govuk-tag--${c.domain}`}>{c.domain}</span>
+        {flagTag(c.max_severity, c.flag_count)}
+        <strong className={`govuk-tag govuk-tag--${c.domain}`}>{c.domain}</strong>
       </div>
     </div>
   );
@@ -75,25 +74,22 @@ function CasesSection({
 }) {
   const flagged = cases.filter((c) => c.flag_count > 0);
   return (
-    <div className={`govuk-panel dashboard-section--${domain}`}>
-      <div className="dashboard-section__header">
-        {domain === "planning" ? (
-          <Building2 size={18} color="var(--govuk-purple)" />
-        ) : (
-          <MapPin size={18} color="var(--govuk-blue)" />
-        )}
-        <h2 className="govuk-heading-m mb-0">{title}</h2>
-        <span className="govuk-tag govuk-tag--grey" style={{ marginLeft: "auto" }}>
-          {cases.length} cases
-        </span>
+    <div className={`dashboard-section--${domain}`}>
+      <div className="dashboard-section__heading">
+        <h2 className="govuk-heading-m govuk-!-margin-0">
+          {title}
+          <strong className="govuk-tag govuk-tag--grey govuk-!-margin-left-2">{cases.length}</strong>
+        </h2>
       </div>
 
       {flagged.length === 0 ? (
-        <p className="govuk-body-s text-grey mb-0">No flagged cases.</p>
+        <p className="govuk-body govuk-hint">No flagged cases.</p>
       ) : (
-        flagged.map((c) => (
-          <CaseRow key={c.case_id} c={c} onClick={() => onNavigate(c.case_id)} />
-        ))
+        <div>
+          {flagged.map((c) => (
+            <CaseRow key={c.case_id} c={c} onClick={() => onNavigate(c.case_id)} />
+          ))}
+        </div>
       )}
     </div>
   );
@@ -110,19 +106,26 @@ export default function Dashboard() {
     "/api/dashboard/workload"
   );
 
-  if (loading)
+  if (loading) {
     return (
       <div className="govuk-width-container">
-        <div className="loading-state">Loading dashboard…</div>
+        <p className="govuk-body">Loading dashboard…</p>
       </div>
     );
+  }
 
-  if (error)
+  if (error) {
     return (
       <div className="govuk-width-container">
-        <div className="error-state">Failed to load dashboard: {error}</div>
+        <div className="govuk-error-summary" role="alert">
+          <h2 className="govuk-error-summary__title">There is a problem</h2>
+          <div className="govuk-error-summary__body">
+            <p className="govuk-body">Failed to load dashboard: {error}</p>
+          </div>
+        </div>
       </div>
     );
+  }
 
   if (!data) return null;
 
@@ -131,18 +134,18 @@ export default function Dashboard() {
       <h1 className="govuk-heading-xl">Team Leader Dashboard</h1>
 
       {/* Summary cards */}
-      <div className="summary-card-row">
+      <div className="summary-cards">
         <div className="summary-card">
           <div className="summary-card__value">{data.total_cases}</div>
-          <div className="summary-card__label">Total Cases</div>
+          <div className="summary-card__label">Total cases</div>
         </div>
         <div className="summary-card summary-card--critical">
           <div className="summary-card__value">{data.planning_critical}</div>
-          <div className="summary-card__label">Planning Critical</div>
+          <div className="summary-card__label">Planning critical</div>
         </div>
         <div className="summary-card summary-card--critical">
           <div className="summary-card__value">{data.street_critical}</div>
-          <div className="summary-card__label">Street Critical</div>
+          <div className="summary-card__label">Street critical</div>
         </div>
         <div className="summary-card summary-card--warning">
           <div className="summary-card__value">{data.warnings}</div>
@@ -157,13 +160,10 @@ export default function Dashboard() {
       {/* AI insight */}
       {insight?.insight && insight.insight.length > 0 && (
         <div className="insight-panel" aria-live="polite">
-          <div className="insight-panel__label">
-            <Brain size={14} />
-            Area Manager Insight
-          </div>
-          <ul>
+          <p className="insight-panel__label govuk-!-margin-0">Area Manager Insight</p>
+          <ul className="govuk-list govuk-list--bullet">
             {insight.insight.map((line, i) => (
-              <li key={i}>{line}</li>
+              <li key={i} className="govuk-body">{line}</li>
             ))}
           </ul>
         </div>
@@ -171,53 +171,40 @@ export default function Dashboard() {
 
       {/* Caseworker Workload */}
       {workload && (
-        <div className="govuk-panel" style={{ marginBottom: 24 }}>
-          <div className="govuk-panel__title">
-            <Users size={16} />
+        <div className="case-section" style={{ marginBottom: 20 }}>
+          <div className="case-section__title" style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            <Users size={14} aria-hidden="true" />
             Caseworker Workload
           </div>
 
           {workload.needs_help.length > 0 && (
-            <div
-              style={{
-                background: "#fef3cd",
-                border: "1px solid #f0ad4e",
-                borderRadius: 4,
-                padding: "10px 14px",
-                marginBottom: 16,
-                fontSize: "0.88rem",
-              }}
-              role="alert"
-            >
-              <strong>
-                <AlertTriangle
-                  size={14}
-                  style={{ verticalAlign: "middle", marginRight: 4 }}
-                />
-                {workload.needs_help.length} caseworker(s) need support:
-              </strong>
-              <ul style={{ margin: "6px 0 0 20px", padding: 0 }}>
-                {workload.needs_help.map((h) => (
-                  <li key={h.caseworker}>
-                    <strong>{h.caseworker}</strong> — {h.reason}
-                  </li>
+            <div className="govuk-warning-text govuk-!-margin-bottom-4" role="alert">
+              <span className="govuk-warning-text__icon" aria-hidden="true">!</span>
+              <strong className="govuk-warning-text__text">
+                <span className="govuk-visually-hidden">Warning</span>
+                {workload.needs_help.length} caseworker{workload.needs_help.length !== 1 ? "s" : ""} need support:{" "}
+                {workload.needs_help.map((h, i) => (
+                  <span key={h.caseworker}>
+                    {i > 0 && ", "}
+                    <strong>{h.caseworker}</strong> ({h.reason})
+                  </span>
                 ))}
-              </ul>
+              </strong>
             </div>
           )}
 
-          <table className="case-table" style={{ width: "100%" }}>
-            <thead>
-              <tr>
-                <th>Caseworker</th>
-                <th style={{ textAlign: "center" }}>Active</th>
-                <th style={{ textAlign: "center" }}>Critical</th>
-                <th style={{ textAlign: "center" }}>Overdue</th>
-                <th style={{ textAlign: "center" }}>Resolved</th>
-                <th>Workload</th>
+          <table className="govuk-table govuk-!-margin-bottom-0">
+            <thead className="govuk-table__head">
+              <tr className="govuk-table__row">
+                <th scope="col" className="govuk-table__header" style={{ minWidth: 140 }}>Caseworker</th>
+                <th scope="col" className="govuk-table__header govuk-table__header--numeric">Active</th>
+                <th scope="col" className="govuk-table__header govuk-table__header--numeric">Critical</th>
+                <th scope="col" className="govuk-table__header govuk-table__header--numeric">Overdue</th>
+                <th scope="col" className="govuk-table__header govuk-table__header--numeric">Resolved</th>
+                <th scope="col" className="govuk-table__header" style={{ width: 180 }}>Workload</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="govuk-table__body">
               {workload.caseworkers.map((w) => {
                 const activeCount = w.total - w.resolved;
                 const load =
@@ -228,94 +215,44 @@ export default function Dashboard() {
                       : activeCount >= 12
                         ? "medium"
                         : "light";
+                const loadColor = load === "heavy" ? "#d4351c" : load === "medium" ? "#f47738" : "#00703c";
                 return (
                   <tr
                     key={w.caseworker}
-                    onClick={() =>
-                      navigate(`/?caseworker=${encodeURIComponent(w.caseworker)}`)
-                    }
-                    style={{ cursor: "pointer" }}
+                    className="govuk-table__row govuk-table__row--clickable"
+                    onClick={() => navigate(`/?caseworker=${encodeURIComponent(w.caseworker)}`)}
                     tabIndex={0}
                     onKeyDown={(e) => {
-                      if (e.key === "Enter")
-                        navigate(
-                          `/?caseworker=${encodeURIComponent(w.caseworker)}`
-                        );
+                      if (e.key === "Enter") navigate(`/?caseworker=${encodeURIComponent(w.caseworker)}`);
                     }}
                   >
-                    <td>
+                    <td className="govuk-table__cell">
                       <strong>{w.caseworker}</strong>
                     </td>
-                    <td style={{ textAlign: "center" }}>{activeCount}</td>
-                    <td style={{ textAlign: "center" }}>
-                      {w.critical > 0 ? (
-                        <span className="flag-badge flag-badge--critical">
-                          {w.critical}
-                        </span>
-                      ) : (
-                        "0"
-                      )}
+                    <td className="govuk-table__cell govuk-table__cell--numeric">{activeCount}</td>
+                    <td className="govuk-table__cell govuk-table__cell--numeric">
+                      {w.critical > 0
+                        ? <strong className="govuk-tag govuk-tag--red">{w.critical}</strong>
+                        : <span className="govuk-hint govuk-!-margin-0">0</span>}
                     </td>
-                    <td style={{ textAlign: "center" }}>
-                      {w.overdue > 0 ? (
-                        <span className="flag-badge flag-badge--high">
-                          {w.overdue}
-                        </span>
-                      ) : (
-                        "0"
-                      )}
+                    <td className="govuk-table__cell govuk-table__cell--numeric">
+                      {w.overdue > 0
+                        ? <strong className="govuk-tag govuk-tag--orange">{w.overdue}</strong>
+                        : <span className="govuk-hint govuk-!-margin-0">0</span>}
                     </td>
-                    <td style={{ textAlign: "center" }}>{w.resolved}</td>
-                    <td>
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: 6,
-                        }}
-                      >
-                        <div
-                          style={{
-                            flex: 1,
-                            height: 8,
-                            background: "#e0e0e0",
-                            borderRadius: 4,
-                            overflow: "hidden",
-                          }}
-                        >
-                          <div
-                            style={{
-                              width: `${Math.min((activeCount / 20) * 100, 100)}%`,
-                              height: "100%",
-                              background:
-                                load === "heavy"
-                                  ? "var(--govuk-red)"
-                                  : load === "medium"
-                                    ? "var(--govuk-orange)"
-                                    : "var(--govuk-green)",
-                              borderRadius: 4,
-                            }}
-                          />
+                    <td className="govuk-table__cell govuk-table__cell--numeric">{w.resolved}</td>
+                    <td className="govuk-table__cell">
+                      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                        <div style={{ flex: 1, height: 8, background: "#e8e9ea", borderRadius: 2, overflow: "hidden", minWidth: 80 }}>
+                          <div style={{
+                            width: `${Math.min((activeCount / 20) * 100, 100)}%`,
+                            height: "100%",
+                            background: loadColor,
+                            borderRadius: 2,
+                          }} />
                         </div>
-                        <span
-                          className="text-small"
-                          style={{
-                            color:
-                              load === "heavy"
-                                ? "var(--govuk-red)"
-                                : load === "medium"
-                                  ? "var(--govuk-orange)"
-                                  : "var(--govuk-green)",
-                            fontWeight: 700,
-                            width: 50,
-                            textAlign: "right",
-                          }}
-                        >
-                          {load === "heavy"
-                            ? "Heavy"
-                            : load === "medium"
-                              ? "Medium"
-                              : "Light"}
+                        <span style={{ color: loadColor, fontWeight: 700, fontSize: "0.8125rem", width: 44, textAlign: "right", flexShrink: 0 }}>
+                          {load === "heavy" ? "Heavy" : load === "medium" ? "Medium" : "Light"}
                         </span>
                       </div>
                     </td>
@@ -359,14 +296,11 @@ export default function Dashboard() {
 
       {/* All flagged cases */}
       {data.flagged_cases.length > 0 && (
-        <div className="govuk-panel" style={{ marginTop: 24 }}>
-          <div className="govuk-panel__title">
-            <AlertCircle size={14} />
-            All Cases Requiring Attention
-          </div>
+        <div className="govuk-!-margin-top-6">
+          <h2 className="govuk-heading-m">All cases requiring attention</h2>
           {data.flagged_cases.map((c) => (
             <CaseRow
-              key={c.case_id}
+              key={`flagged-${c.case_id}`}
               c={c}
               onClick={() => navigate(`/case/${c.case_id}`)}
             />

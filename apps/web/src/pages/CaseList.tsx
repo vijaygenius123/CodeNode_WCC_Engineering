@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { AlertCircle, Map as MapIcon, List } from "lucide-react";
+import { Map as MapIcon, List } from "lucide-react";
 import { useApi } from "../hooks/useApi";
 import CaseMap from "../components/CaseMap";
 import type { CaseListItem, FlagSeverity } from "../types";
@@ -10,36 +10,20 @@ interface CasesResponse {
   total: number;
 }
 
-function severityBadge(severity: FlagSeverity | null, count: number) {
-  if (count === 0)
-    return <span className="flag-badge flag-badge--none">No flags</span>;
-  const cls = `flag-badge flag-badge--${severity ?? "none"}`;
-  return (
-    <span className={cls}>
-      <AlertCircle size={12} />
-      {count} flag{count !== 1 ? "s" : ""}
-    </span>
-  );
+function severityTag(severity: FlagSeverity | null, count: number) {
+  if (count === 0) return <strong className="govuk-tag govuk-tag--grey">No flags</strong>;
+  if (severity === "critical")
+    return <strong className="govuk-tag govuk-tag--red">{count} flag{count !== 1 ? "s" : ""} — critical</strong>;
+  if (severity === "high")
+    return <strong className="govuk-tag govuk-tag--orange">{count} flag{count !== 1 ? "s" : ""} — high</strong>;
+  return <strong className="govuk-tag govuk-tag--blue">{count} flag{count !== 1 ? "s" : ""}</strong>;
 }
 
 function priorityTag(p: string) {
-  const cls =
-    p === "critical"
-      ? "govuk-tag govuk-tag--critical"
-      : p === "high"
-        ? "govuk-tag govuk-tag--high"
-        : p === "standard"
-          ? "govuk-tag govuk-tag--standard"
-          : "govuk-tag govuk-tag--grey";
-  return <span className={cls}>{p}</span>;
-}
-
-function formatCaseType(t: string) {
-  return t.replace(/_/g, " ");
-}
-
-function formatStatus(s: string) {
-  return s.replace(/_/g, " ");
+  if (p === "critical") return <strong className="govuk-tag govuk-tag--red">{p}</strong>;
+  if (p === "high")     return <strong className="govuk-tag govuk-tag--orange">{p}</strong>;
+  if (p === "standard") return <strong className="govuk-tag govuk-tag--blue">{p}</strong>;
+  return <strong className="govuk-tag govuk-tag--grey">{p}</strong>;
 }
 
 function formatDate(d: string) {
@@ -56,23 +40,28 @@ export default function CaseList() {
   const navigate = useNavigate();
   const [viewMode, setViewMode] = useState<"list" | "map">("list");
 
-  const { data, loading, error } = useApi<CasesResponse>(
-    `/api/cases?domain=${domain}`
-  );
+  const { data, loading, error } = useApi<CasesResponse>(`/api/cases?domain=${domain}`);
 
-  if (loading)
+  if (loading) {
     return (
       <div className="govuk-width-container">
-        <div className="loading-state">Loading cases…</div>
+        <p className="govuk-body">Loading cases…</p>
       </div>
     );
+  }
 
-  if (error)
+  if (error) {
     return (
       <div className="govuk-width-container">
-        <div className="error-state">Failed to load cases: {error}</div>
+        <div className="govuk-error-summary" role="alert">
+          <h2 className="govuk-error-summary__title">There is a problem</h2>
+          <div className="govuk-error-summary__body">
+            <p className="govuk-body">Failed to load cases: {error}</p>
+          </div>
+        </div>
       </div>
     );
+  }
 
   const cases = data?.cases ?? [];
 
@@ -119,69 +108,62 @@ export default function CaseList() {
         </div>
       )}
 
-      <table className="case-table" aria-label="Case list">
-        <thead>
-          <tr>
-            <th scope="col">Case ID</th>
-            <th scope="col">Type</th>
-            <th scope="col">Status</th>
-            <th scope="col">Priority</th>
-            <th scope="col">Location</th>
-            <th scope="col">Ward</th>
-            <th scope="col">Flags</th>
-            <th scope="col">Domain</th>
-            <th scope="col">Updated</th>
+      <table className="govuk-table" aria-label="Case list">
+        <thead className="govuk-table__head">
+          <tr className="govuk-table__row">
+            <th scope="col" className="govuk-table__header">Case ID</th>
+            <th scope="col" className="govuk-table__header">Type</th>
+            <th scope="col" className="govuk-table__header">Status</th>
+            <th scope="col" className="govuk-table__header">Priority</th>
+            <th scope="col" className="govuk-table__header">Location</th>
+            <th scope="col" className="govuk-table__header">Ward</th>
+            <th scope="col" className="govuk-table__header">Flags</th>
+            <th scope="col" className="govuk-table__header">Domain</th>
+            <th scope="col" className="govuk-table__header">Updated</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="govuk-table__body">
           {cases.map((c) => (
             <tr
               key={c.case_id}
-              className={`case-row--${c.domain}`}
+              className={`govuk-table__row govuk-table__row--clickable govuk-table__row--${c.domain}`}
               onClick={() => navigate(`/case/${c.case_id}`)}
               tabIndex={0}
               onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ")
-                  navigate(`/case/${c.case_id}`);
+                if (e.key === "Enter" || e.key === " ") navigate(`/case/${c.case_id}`);
               }}
               aria-label={`Open case ${c.case_id}`}
             >
-              <td>
-                <span className="case-id">{c.case_id}</span>
-              </td>
-              <td>
-                <span className="case-type-label">
-                  {formatCaseType(c.case_type)}
-                </span>
-              </td>
-              <td>
-                <span className="govuk-tag govuk-tag--grey">
-                  {formatStatus(c.status)}
-                </span>
-              </td>
-              <td>{priorityTag(c.priority)}</td>
-              <td>
-                <div style={{ fontSize: "0.85rem" }}>{c.location.street}</div>
-                <div className="text-grey text-small">{c.location.postcode}</div>
-              </td>
-              <td className="text-small text-grey">{c.reporter_ward}</td>
-              <td>{severityBadge(c.max_severity, c.flag_count)}</td>
-              <td>
-                <span
-                  className={`govuk-tag govuk-tag--${c.domain}`}
+              <td className="govuk-table__cell">
+                <a
+                  className="govuk-link govuk-link--no-visited-state"
+                  href={`/case/${c.case_id}`}
+                  onClick={(e) => { e.preventDefault(); navigate(`/case/${c.case_id}`); }}
                 >
-                  {c.domain}
-                </span>
+                  {c.case_id}
+                </a>
               </td>
-              <td className="text-small text-grey">
-                {formatDate(c.last_updated)}
+              <td className="govuk-table__cell">{c.case_type.replace(/_/g, " ")}</td>
+              <td className="govuk-table__cell">
+                <strong className="govuk-tag govuk-tag--grey">{c.status.replace(/_/g, " ")}</strong>
               </td>
+              <td className="govuk-table__cell">{priorityTag(c.priority)}</td>
+              <td className="govuk-table__cell">
+                <div>{c.location.street}</div>
+                <div className="govuk-hint govuk-!-margin-0" style={{ fontSize: "0.875rem" }}>{c.location.postcode}</div>
+              </td>
+              <td className="govuk-table__cell govuk-body-s">{c.reporter_ward}</td>
+              <td className="govuk-table__cell">{severityTag(c.max_severity, c.flag_count)}</td>
+              <td className="govuk-table__cell">
+                <strong className={`govuk-tag govuk-tag--${c.domain}`}>{c.domain}</strong>
+              </td>
+              <td className="govuk-table__cell govuk-body-s">{formatDate(c.last_updated)}</td>
             </tr>
           ))}
 
           {cases.length === 0 && (
-            <tr>
-              <td colSpan={9} style={{ textAlign: "center", color: "var(--govuk-grey)", padding: "32px" }}>
+            <tr className="govuk-table__row">
+              <td colSpan={9} className="govuk-table__cell" style={{ textAlign: "center", color: "#505a5f" }}>
                 No cases found.
               </td>
             </tr>

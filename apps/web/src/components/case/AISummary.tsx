@@ -1,4 +1,3 @@
-import { Sparkles } from "lucide-react";
 import type { Case, CaseSummary, Flag } from "../../types";
 
 interface Props {
@@ -36,14 +35,11 @@ export default function AISummary({ aiSummary, caseData, flags = [] }: Props) {
 
   return (
     <div className="ai-summary-card">
-      <div className="ai-summary__label">
-        <Sparkles size={13} />
-        Case Summary
-      </div>
-      <p className="ai-summary__text">{content.summary}</p>
-      <div className="ai-summary__next-action">
-        <div className="ai-summary__next-label">Recommended next action</div>
-        {content.next_action}
+      <p className="ai-summary-card__label govuk-!-margin-0">Case summary</p>
+      <p className="govuk-body govuk-!-margin-top-2 govuk-!-margin-bottom-0">{content.summary}</p>
+      <div className="ai-summary-card__next">
+        <p className="ai-summary-card__next-label govuk-!-margin-0">Recommended next action</p>
+        <p className="govuk-body govuk-!-margin-top-1 govuk-!-margin-bottom-0">{content.next_action}</p>
       </div>
     </div>
   );

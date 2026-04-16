@@ -1,4 +1,3 @@
-import { AlertTriangle, CheckCircle2, Circle } from "lucide-react";
 import type { ComputedWorkflowState } from "../../types";
 
 interface Props {
@@ -92,7 +91,7 @@ export default function WorkflowState({ workflow, caseType }: Props) {
                 <div className="workflow-step__connector" aria-hidden="true" />
               )}
               <div className="workflow-step__dot" aria-hidden="true" />
-              <div className="workflow-step__label">{formatState(stage)}</div>
+              <div className="workflow-step__label govuk-body-s">{formatState(stage)}</div>
             </div>
           );
         })}
@@ -100,48 +99,44 @@ export default function WorkflowState({ workflow, caseType }: Props) {
 
       {/* Mismatch warning */}
       {shouldBeIn && (
-        <div className="workflow-mismatch-note" role="alert">
-          <AlertTriangle
-            size={14}
-            style={{ verticalAlign: "middle", marginRight: 6 }}
-          />
-          Case should be in <strong>{formatState(shouldBeIn)}</strong> based on
-          time elapsed ({workflow.daysInState} days in current state).
+        <div className="govuk-warning-text govuk-!-margin-top-3" role="alert">
+          <span className="govuk-warning-text__icon" aria-hidden="true">!</span>
+          <strong className="govuk-warning-text__text">
+            <span className="govuk-visually-hidden">Warning</span>
+            Case should be in <strong>{formatState(shouldBeIn)}</strong> based on
+            time elapsed ({workflow.daysInState} days in current state).
+          </strong>
         </div>
       )}
 
       {/* Time in state */}
-      <p className="text-grey text-small" style={{ marginTop: 10 }}>
+      <p className="govuk-body-s govuk-hint govuk-!-margin-top-2">
         In <strong>{formatState(current)}</strong> for{" "}
         <strong>{workflow.daysInState} day{workflow.daysInState !== 1 ? "s" : ""}</strong>
         {workflow.currentState.sla_days != null && (
-          <> · SLA: {workflow.currentState.sla_days} days</>
+          <> &middot; SLA: {workflow.currentState.sla_days} days</>
         )}
       </p>
 
       {/* Required actions */}
       {workflow.requiredActions.length > 0 && (
-        <div className="workflow-actions">
-          <p className="govuk-heading-s mb-4">Required actions</p>
-          {workflow.requiredActions.map((action, i) => (
-            <div key={i} className="workflow-actions__item">
-              <CheckCircle2 size={15} style={{ color: "var(--govuk-orange)", flexShrink: 0, marginTop: 1 }} />
-              <span>{action}</span>
-            </div>
-          ))}
+        <div className="govuk-!-margin-top-3">
+          <h3 className="govuk-heading-s">Required actions</h3>
+          <ul className="govuk-list govuk-list--bullet">
+            {workflow.requiredActions.map((action, i) => (
+              <li key={i} className="govuk-body">{action}</li>
+            ))}
+          </ul>
         </div>
       )}
 
       {/* Allowed transitions */}
       {workflow.allowedTransitions.length > 0 && (
-        <div style={{ marginTop: 10 }}>
-          <p className="text-grey text-small mb-4">Next steps:</p>
+        <div className="govuk-!-margin-top-3">
+          <p className="govuk-hint govuk-!-margin-bottom-2">Next possible steps:</p>
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
             {workflow.allowedTransitions.map((t) => (
-              <span key={t} className="govuk-tag govuk-tag--grey">
-                <Circle size={9} style={{ marginRight: 4, verticalAlign: "middle" }} />
-                {formatState(t)}
-              </span>
+              <strong key={t} className="govuk-tag govuk-tag--grey">{formatState(t)}</strong>
             ))}
           </div>
         </div>

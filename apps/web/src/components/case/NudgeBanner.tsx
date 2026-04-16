@@ -1,4 +1,3 @@
-import { AlertTriangle, Check } from "lucide-react";
 import { useState } from "react";
 import { postAction } from "../../hooks/useApi";
 import { useRole } from "../../context/RoleContext";
@@ -25,36 +24,40 @@ export default function NudgeBanner({ text, nudges }: Props) {
       setConfirmedIdx(idx);
       setTimeout(() => setConfirmedIdx(null), 2000);
     } catch {
-      // Silently fail for demo — button stays clickable
+      // Silently fail for demo
     }
   }
 
   return (
-    <div className="nudge-banner" role="alert" aria-live="assertive">
-      <div className="nudge-banner__text">
-        <AlertTriangle size={20} style={{ flexShrink: 0, marginTop: 1 }} />
-        {text}
+    <div
+      className="govuk-notification-banner govuk-notification-banner--critical"
+      role="alert"
+      aria-labelledby="govuk-notification-banner-title"
+      aria-live="assertive"
+    >
+      <div className="govuk-notification-banner__header">
+        <h2 className="govuk-notification-banner__title" id="govuk-notification-banner-title">
+          Urgent action required
+        </h2>
       </div>
-      {immediateActions.length > 0 && (
-        <div className="nudge-banner__actions">
-          {immediateActions.map((a, i) => (
-            <button
-              key={i}
-              className="nudge-btn"
-              onClick={() => void handleAction(i)}
-              disabled={confirmedIdx === i}
-            >
-              {confirmedIdx === i ? (
-                <>
-                  <Check size={14} /> Done
-                </>
-              ) : (
-                a.label
-              )}
-            </button>
-          ))}
-        </div>
-      )}
+      <div className="govuk-notification-banner__content">
+        <p className="govuk-body govuk-!-font-weight-bold">{text}</p>
+        {immediateActions.length > 0 && (
+          <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 10 }}>
+            {immediateActions.map((a, i) => (
+              <button
+                key={i}
+                className="govuk-button govuk-button--inverse govuk-!-margin-0"
+                onClick={() => void handleAction(i)}
+                disabled={confirmedIdx === i}
+                style={{ background: "#00703c", color: "#fff", border: "none" }}
+              >
+                {confirmedIdx === i ? "Done" : a.label}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

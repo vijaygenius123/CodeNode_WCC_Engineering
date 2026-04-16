@@ -94,7 +94,7 @@ export default function PolicyAdmin() {
         Policy Library
       </h1>
 
-      <div className="summary-card-row" style={{ marginBottom: 24 }}>
+      <div className="summary-cards" style={{ marginBottom: 24, gridTemplateColumns: "repeat(3, 1fr)" }}>
         <div className="summary-card">
           <div className="summary-card__label">Total Policies</div>
           <div className="summary-card__value">{data?.total ?? 0}</div>
@@ -111,7 +111,7 @@ export default function PolicyAdmin() {
 
       {/* RAG Q&A Panel */}
       <div
-        className="govuk-panel"
+        className="case-section"
         style={{
           marginBottom: 24,
           background: "#f0f4f8",
@@ -154,7 +154,7 @@ export default function PolicyAdmin() {
 
         {queryAnswer && (
           <div
-            className="govuk-panel"
+            className="case-section"
             style={{
               marginTop: 12,
               background: "#fff",
@@ -217,7 +217,7 @@ export default function PolicyAdmin() {
           return (
             <div
               key={policy.policy_id}
-              className="govuk-panel"
+              className="case-section"
               style={{
                 borderLeft: `4px solid ${isPlanning ? "var(--govuk-purple)" : "var(--govuk-blue)"}`,
                 cursor: "pointer",

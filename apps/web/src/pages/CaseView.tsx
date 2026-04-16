@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { MessageSquare, Send } from "lucide-react";
 import { useApi, postMessage } from "../hooks/useApi";
 import { useRole } from "../context/RoleContext";
 import type {
@@ -139,35 +138,25 @@ function CasePanel({
 
   if (name === "nudge_banner") return <>{content}</>;
 
-  const panelCls = [
-    "govuk-panel",
-    emphasis === "critical" ? "govuk-panel--critical emphasis-critical" : "",
-  ]
-    .filter(Boolean)
-    .join(" ");
-
   const title = PANEL_TITLES[name];
 
   if (emphasis === "collapsed") {
     return (
-      <details className={`govuk-panel emphasis-collapsed`}>
+      <details className="case-section case-section--collapsed">
         <summary>
           {title || name.replace(/_/g, " ")}
-          <span
-            className="text-grey text-small"
-            style={{ fontWeight: 400 }}
-          >
-            ▸ expand
+          <span className="govuk-body-s" style={{ color: "#505a5f", fontWeight: 400 }}>
+            Show ▾
           </span>
         </summary>
-        {content}
+        <div className="case-section__body">{content}</div>
       </details>
     );
   }
 
   return (
-    <div className={panelCls}>
-      {title && <div className="govuk-panel__title">{title}</div>}
+    <div className={`case-section${emphasis === "critical" ? " case-section--critical" : ""}`}>
+      {title && <div className="case-section__title">{title}</div>}
       {content}
     </div>
   );
@@ -217,7 +206,6 @@ function ChatPanel({ caseId }: { caseId: string }) {
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
       >
-        <MessageSquare size={15} style={{ marginRight: 6, verticalAlign: "middle" }} />
         {open ? "Close chat" : "Ask the officer agent"}
       </button>
 
@@ -249,11 +237,10 @@ function ChatPanel({ caseId }: { caseId: string }) {
             />
             <button
               type="submit"
-              className="govuk-button"
+              className="govuk-button govuk-!-margin-0"
               disabled={sending || !input.trim()}
-              aria-label="Send message"
             >
-              <Send size={15} />
+              Send
             </button>
           </form>
         </div>
@@ -274,18 +261,19 @@ export default function CaseView() {
   if (loading)
     return (
       <div className="govuk-width-container">
-        <div className="loading-state">Loading case {caseId}…</div>
+        <p className="govuk-body">Loading case {caseId}…</p>
       </div>
     );
 
   if (error)
     return (
       <div className="govuk-width-container">
-        <Link to="/" className="govuk-body-s">
-          ← Back to cases
-        </Link>
-        <div className="error-state" style={{ marginTop: 12 }}>
-          {error}
+        <Link to="/" className="govuk-back-link">Back to cases</Link>
+        <div className="govuk-error-summary govuk-!-margin-top-4" role="alert">
+          <h2 className="govuk-error-summary__title">There is a problem</h2>
+          <div className="govuk-error-summary__body">
+            <p className="govuk-body">{error}</p>
+          </div>
         </div>
       </div>
     );
@@ -301,39 +289,39 @@ export default function CaseView() {
     <>
       {/* Sticky case header */}
       <div className={`case-header${isHeritage ? " case-header--heritage" : ""}`}>
-        <div className="case-header__top">
+        <div className="case-header__inner">
           <div>
-            <Link to="/" className="govuk-body-s text-grey" style={{ display: "block", marginBottom: 4 }}>
-              ← Cases
+            <Link to="/" className="govuk-back-link" style={{ display: "inline-block", marginBottom: 8 }}>
+              Cases
             </Link>
             <div className="case-header__id">{c.case_id}</div>
             <div className="case-header__meta">
-              <span className="text-grey text-small">
+              <span className="govuk-body-s govuk-hint govuk-!-margin-0">
                 {c.case_type.replace(/_/g, " ")}
               </span>
             </div>
           </div>
-          <div className="case-header__badges">
-            <span className="govuk-tag govuk-tag--grey">
+          <div className="case-header__meta">
+            <strong className="govuk-tag govuk-tag--grey">
               {c.status.replace(/_/g, " ")}
-            </span>
-            <span className={`govuk-tag govuk-tag--${getCaseDomain(c.case_type)}`}>
+            </strong>
+            <strong className={`govuk-tag govuk-tag--${getCaseDomain(c.case_type)}`}>
               {getCaseDomain(c.case_type)}
-            </span>
+            </strong>
             {hasCritical && (
-              <span className="govuk-tag govuk-tag--critical">
+              <strong className="govuk-tag govuk-tag--red">
                 {data.flags.filter((f) => f.severity === "critical").length} critical
-              </span>
+              </strong>
             )}
             {isHeritage && (
-              <span className="govuk-tag govuk-tag--heritage">
+              <strong className="govuk-tag govuk-tag--heritage">
                 Listed {c.listed_grade}
-              </span>
+              </strong>
             )}
             {c.conservation_area && (
-              <span className="govuk-tag govuk-tag--planning">
-                Conservation Area
-              </span>
+              <strong className="govuk-tag govuk-tag--planning">
+                Conservation area
+              </strong>
             )}
           </div>
         </div>

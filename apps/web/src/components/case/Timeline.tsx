@@ -79,7 +79,7 @@ export default function Timeline({ events, createdDate }: Props) {
   let lastMonth = "";
 
   return (
-    <ol className="timeline" style={{ listStyle: "none", padding: 0, margin: 0 }}>
+    <ol className="timeline">
       {allEvents.map((ev, i) => {
         const warning = isWarning(ev);
         const isToday = ev.date.startsWith(TODAY_ISO);

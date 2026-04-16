@@ -16,7 +16,7 @@ function PolicyCard({ policy, flagged }: { policy: Policy; flagged: boolean }) {
         <span className="policy-card__id">{policy.policy_id}</span>
         <span className="policy-card__title">{policy.title}</span>
         {flagged && (
-          <span className="govuk-tag govuk-tag--critical">Flagged</span>
+          <strong className="govuk-tag govuk-tag--red">Flagged</strong>
         )}
         <button
           onClick={() => setOpen((o) => !o)}

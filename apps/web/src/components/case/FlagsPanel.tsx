@@ -1,22 +1,13 @@
-import { AlertCircle } from "lucide-react";
 import type { Flag } from "../../types";
 
 interface Props {
   flags: Flag[];
 }
 
-function severityIcon(s: Flag["severity"]) {
-  const cls = `flag-icon--${s}`;
-  return <AlertCircle size={18} className={cls} aria-hidden="true" />;
-}
-
-function overdueLabel(days: number) {
-  if (days === 0) return null;
-  return (
-    <span className="text-red text-small text-bold">
-      {days} day{days !== 1 ? "s" : ""} overdue
-    </span>
-  );
+function severityTag(s: Flag["severity"]) {
+  if (s === "critical") return <strong className="govuk-tag govuk-tag--red">Critical</strong>;
+  if (s === "high")     return <strong className="govuk-tag govuk-tag--orange">High</strong>;
+  return <strong className="govuk-tag govuk-tag--blue">Standard</strong>;
 }
 
 export default function FlagsPanel({ flags }: Props) {
@@ -25,21 +16,22 @@ export default function FlagsPanel({ flags }: Props) {
   return (
     <div>
       {flags.map((f, i) => (
-        <div key={i} className="flag-row">
-          {severityIcon(f.severity)}
-          <div style={{ flex: 1 }}>
-            <div className="flag-message">{f.message}</div>
-            <div style={{ display: "flex", gap: 12, marginTop: 3, flexWrap: "wrap" }}>
-              {f.days_overdue > 0 && overdueLabel(f.days_overdue)}
-              <span className="flag-policy">{f.policy_ref}</span>
-              <span className="flag-meta text-small">
-                {f.type.replace(/_/g, " ")}
-              </span>
-            </div>
+        <div key={i} className="flag-item">
+          <div className={`flag-item__icon flag-item__icon--${f.severity}`} aria-hidden="true">
+            {f.severity === "critical" ? "⚠" : f.severity === "high" ? "!" : "ℹ"}
           </div>
-          <span className={`govuk-tag govuk-tag--${f.severity}`}>
-            {f.severity}
-          </span>
+          <div style={{ flex: 1 }}>
+            <p className="govuk-body govuk-!-margin-0 govuk-!-font-weight-bold">{f.message}</p>
+            <p className="govuk-body-s govuk-hint govuk-!-margin-top-1 govuk-!-margin-bottom-0">
+              {f.policy_ref} — {f.type.replace(/_/g, " ")}
+              {f.days_overdue > 0 && (
+                <strong style={{ color: "#d4351c", marginLeft: 8 }}>
+                  {f.days_overdue} day{f.days_overdue !== 1 ? "s" : ""} overdue
+                </strong>
+              )}
+            </p>
+          </div>
+          {severityTag(f.severity)}
         </div>
       ))}
     </div>
