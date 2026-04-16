@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CaseView — GDS AI Engineering Lab Hackathon</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: "GDS Transport", Arial, sans-serif;
+      background: #0b0c0e;
+      color: #ffffff;
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    /* ── Slide container ── */
+    .deck {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    .slide.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* ── Title slide ── */
+    .slide--title {
+      background: #1d70b8;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 24px;
+      padding: 60px;
+    }
+    .slide--title .crown {
+      font-size: 4rem;
+      line-height: 1;
+    }
+    .slide--title h1 {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    .slide--title .subtitle {
+      font-size: clamp(1rem, 2vw, 1.5rem);
+      opacity: 0.9;
+      max-width: 700px;
+    }
+    .slide--title .tag-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 8px;
+    }
+    .tag {
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 3px;
+      padding: 6px 14px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .tag--red   { background: #d4351c; border-color: #d4351c; }
+    .tag--green { background: #00703c; border-color: #00703c; }
+
+    /* ── Screenshot slides ── */
+    .slide--screen {
+      background: #0b0c0e;
+    }
+    .slide__header {
+      background: #0b0c0e;
+      padding: 14px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #333;
+      flex-shrink: 0;
+    }
+    .slide__title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+    .slide__meta {
+      font-size: 0.8rem;
+      opacity: 0.5;
+    }
+    .slide__body {
+      flex: 1;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 0;
+      background: #111;
+    }
+    .slide__body img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      object-position: top center;
+      display: block;
+    }
+    .slide__caption {
+      background: #0b0c0e;
+      padding: 10px 28px;
+      font-size: 0.8rem;
+      opacity: 0.55;
+      border-top: 1px solid #222;
+      flex-shrink: 0;
+      min-height: 36px;
+    }
+
+    /* ── End slide ── */
+    .slide--end {
+      background: #0b0c0e;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 20px;
+      padding: 60px;
+    }
+    .slide--end h2 { font-size: 2.5rem; font-weight: 700; }
+    .slide--end p  { font-size: 1.1rem; opacity: 0.65; max-width: 580px; line-height: 1.6; }
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 12px;
+      max-width: 800px;
+      width: 100%;
+    }
+    .pillar {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 6px;
+      padding: 18px 16px;
+      text-align: left;
+    }
+    .pillar__icon { font-size: 1.6rem; margin-bottom: 8px; }
+    .pillar__label { font-size: 0.85rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .pillar__desc  { font-size: 0.75rem; opacity: 0.55; line-height: 1.5; }
+
+    /* ── Navigation ── */
+    .nav {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(8px);
+      border: 1px solid #333;
+      border-radius: 40px;
+      padding: 8px 16px;
+      z-index: 100;
+    }
+    .nav button {
+      background: none;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      font-size: 1.2rem;
+      padding: 4px 10px;
+      border-radius: 20px;
+      transition: background 0.15s;
+      line-height: 1;
+    }
+    .nav button:hover  { background: rgba(255,255,255,0.15); }
+    .nav button:disabled { opacity: 0.25; cursor: default; }
+    .nav .progress {
+      font-size: 0.8rem;
+      opacity: 0.6;
+      min-width: 60px;
+      text-align: center;
+    }
+
+    /* ── Dot indicators ── */
+    .dots {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      z-index: 100;
+    }
+    .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      transition: background 0.2s;
+      cursor: pointer;
+    }
+    .dot.active { background: #fff; }
+
+    /* ── Keyboard hint ── */
+    .hint {
+      position: fixed;
+      bottom: 72px;
+      right: 28px;
+      font-size: 0.7rem;
+      opacity: 0.25;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+  <!-- 0: Title -->
+  <div class="slide slide--title active" id="slide-0">
+    <div class="crown">👑</div>
+    <h1>CaseView</h1>
+    <p class="subtitle">AI-Assisted Planning Enforcement &amp; Street Reporting Intelligence for Westminster City Council</p>
+    <div class="tag-row">
+      <span class="tag">GDS AI Engineering Lab Hackathon</span>
+      <span class="tag">Challenge 3: Supporting Casework Decisions</span>
+      <span class="tag tag--green">Team CodeNode</span>
+    </div>
+    <div class="tag-row" style="margin-top: 0;">
+      <span class="tag tag--red">🚨 Prosecution timeline tracking</span>
+      <span class="tag" style="background:#00703c;border-color:#00703c;">✓ Works without LLM</span>
+    </div>
+  </div>
+
+  <!-- 1 -->
+  <div class="slide slide--screen" id="slide-1">
+    <div class="slide__header">
+      <span class="slide__title">Case List — All Cases</span>
+      <span class="slide__meta">Caseworker View · 74 results</span>
+    </div>
+    <div class="slide__body">
+      <img src="screenshots/01-case-list-all.png" alt="Case List — All Cases" />
+    </div>
+    <div class="slide__caption">All 14 active cases ranked by severity — critical planning enforcement cases surface at the top.</div>
+  </div>
+
+  <!-- 2 -->
+  <div class="slide slide--screen" id="slide-2">
+    <div class="slide__header">
+      <span class="slide__title">Case List — Map View</span>
+      <span class="slide__meta">Westminster Borough · OpenStreetMap</span>
+    </div>
+    <div class="slide__body">
+      <img src="screenshots/02-case-list-map.png" alt="Case List — Map View" />
+    </div>
+    <div class="slide__caption">Toggle to map view to see the geographic distribution of cases across Westminster wards.</div>
+  </div>
+
+  <!-- 3 -->
+  <div class="slide slide--screen" id="slide-3">
+    <div class="slide__header">
+      <span class="slide__title">Planning Enforcement Cases</span>
+      <span class="slide__meta">Domain filter: Planning · 4 cases</span>
+    </div>
+    <div class="slide__body">
+      <img src="screenshots/03-case-list-planning.png" alt="Planning Enforcement Cases" />
+    </div>
+    <div class="slide__caption">4 planning enforcement cases including listed building criminal offences under Section 9 of the 1990 Act.</div>
+  </div>
+
+  <!-- 4 -->
+  <div class="slide slide--screen" id="slide-4">
+    <div class="slide__header">
+      <span class="slide__title">Street Reporting Cases</span>
+      <span class="slide__meta">Domain filter: Street · 10 cases</span>
+    </div>
+    <div class="slide__body">
+      <img src="screenshots/04-case-list-street.png" alt="Street Reporting Cases" />
+    </div>
+    <div class="slide__caption">10 street reporting cases — fly-tipping, potholes, graffiti, noise, rough sleeping — each with policy-backed SLA tracking.</div>
+  </div>
+
+  <!-- 5 -->
+  <div class="slide slide--screen" id="slide-5">
+    <div class="slide__header">
+      <span class="slide__title">Case View — Critical Case (WCC-2026-10302)</span>
+      <span class="slide__meta">Listed building breach · Prosecution file 12 days overdue</span>
+    </div>
+    <div class="slide__body">
+      <img src="screenshots/05-case-critical.png" alt="Case View — Critical" />
+    </div>
+    <div class="slide__caption">Generative UI: red nudge banner, prosecution timeline flags, legislation citations — all deterministic, no LLM required. Victorian shopfront at risk of irreversible damage.</div>
+  </div>
+
+  <!-- 6 -->
+  <div class="slide slide--screen" id="slide-6">
+    <div class="slide__header">
+      <span class="slide__title">Case View — Routine Case (WCC-2026-10304)</span>
+      <span class="slide__meta">Breach of conditions · Partial compliance</span>
+    </div>
+    <div class="slide__body">
+      <img src="screenshots/06-case-routine.png" alt="Case View — Routine" />
+    </div>
+    <div class="slide__caption">Same 15 React components — calm, minimal layout for a routine case. No nudge banner. Contrast with WCC-10302 demonstrates generative UI in action.</div>
+  </div>
+
+  <!-- 7 -->
+  <div class="slide slide--screen" id="slide-7">
+    <div class="slide__header">
+      <span class="slide__title">Compare View — Critical vs Routine</span>
+      <span class="slide__meta">WCC-2026-10302 vs WCC-2026-10304</span>
+    </div>
+    <div class="slide__body">
+      <img src="screenshots/07-compare.png" alt="Compare View" />
+    </div>
+    <div class="slide__caption">Side-by-side comparison demonstrates the "wow moment" — the same 15 components compose differently per case based on context and severity.</div>
+  </div>
+
+  <!-- 8 -->
+  <div class="slide slide--screen" id="slide-8">
+    <div class="slide__header">
+      <span class="slide__title">Team Leader Dashboard</span>
+      <span class="slide__meta">Area Manager View · Planning + Street split</span>
+    </div>
+    <div class="slide__body">
+      <img src="screenshots/08-dashboard.png" alt="Team Leader Dashboard" />
+    </div>
+    <div class="slide__caption">Cross-domain view for team leaders: caseworker workload, prosecution timeline risks, AI-generated insight bullets, and case map.</div>
+  </div>
+
+  <!-- 9 -->
+  <div class="slide slide--screen" id="slide-9">
+    <div class="slide__header">
+      <span class="slide__title">Policy Library</span>
+      <span class="slide__meta">15 policies · RAG Q&amp;A with Claude</span>
+    </div>
+    <div class="slide__body">
+      <img src="screenshots/09-policy-library.png" alt="Policy Library" />
+    </div>
+    <div class="slide__caption">Caseworkers can search 15 policies (5 planning + 10 street) or ask questions in natural language — Claude cites specific policy IDs, SLA deadlines, and required actions.</div>
+  </div>
+
+  <!-- 10 -->
+  <div class="slide slide--screen" id="slide-10">
+    <div class="slide__header">
+      <span class="slide__title">Applicant Status Lookup</span>
+      <span class="slide__meta">Resident View · Plain English · No enforcement details</span>
+    </div>
+    <div class="slide__body">
+      <img src="screenshots/10-resident.png" alt="Applicant Status Lookup" />
+    </div>
+    <div class="slide__caption">Same data, different view. Applicants see plain English status and "what happens next" — the system never reveals prosecution plans, enforcement notices, or officer names.</div>
+  </div>
+
+  <!-- 11: End -->
+  <div class="slide slide--end" id="slide-11">
+    <h2>Built for Westminster.</h2>
+    <p>A deterministic foundation — flags, policies, workflows, nudges — with Claude adding intelligence on top. Works offline.</p>
+    <div class="pillars">
+      <div class="pillar">
+        <div class="pillar__icon">🚩</div>
+        <div class="pillar__label">Flag Engine</div>
+        <div class="pillar__desc">14 flag types. Prosecution timelines, SLA breaches, heritage damage — all deterministic, referencing specific policy IDs and days overdue.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar__icon">🎨</div>
+        <div class="pillar__label">Generative UI</div>
+        <div class="pillar__desc">15 React components composed per case. Critical cases get urgent layouts. Routine cases get calm, minimal views. Claude selects the order.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar__icon">🤖</div>
+        <div class="pillar__label">3 Claude Agents</div>
+        <div class="pillar__desc">Officer cites Section 9 legislation. Resident gets plain English. Area Manager gets cross-domain insight. All with cached fallbacks.</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /deck -->
+
+<!-- Dots -->
+<div class="dots" id="dots"></div>
+
+<!-- Navigation -->
+<nav class="nav" aria-label="Slide navigation">
+  <button id="btn-prev" aria-label="Previous slide" disabled>◀</button>
+  <span class="progress" id="progress">1 / 12</span>
+  <button id="btn-next" aria-label="Next slide">▶</button>
+</nav>
+
+<div class="hint">← → arrow keys · Space to advance</div>
+
+<script>
+  const TOTAL = 12;
+  let current = 0;
+
+  const slides  = Array.from(document.querySelectorAll(".slide"));
+  const btnPrev = document.getElementById("btn-prev");
+  const btnNext = document.getElementById("btn-next");
+  const prog    = document.getElementById("progress");
+  const dotsEl  = document.getElementById("dots");
+
+  // Build dots
+  for (let i = 0; i < TOTAL; i++) {
+    const d = document.createElement("div");
+    d.className = "dot" + (i === 0 ? " active" : "");
+    d.addEventListener("click", () => go(i));
+    dotsEl.appendChild(d);
+  }
+
+  function go(n) {
+    slides[current].classList.remove("active");
+    dotsEl.children[current].classList.remove("active");
+    current = Math.max(0, Math.min(n, TOTAL - 1));
+    slides[current].classList.add("active");
+    dotsEl.children[current].classList.add("active");
+    prog.textContent = `${current + 1} / ${TOTAL}`;
+    btnPrev.disabled = current === 0;
+    btnNext.disabled = current === TOTAL - 1;
+  }
+
+  btnPrev.addEventListener("click", () => go(current - 1));
+  btnNext.addEventListener("click", () => go(current + 1));
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowRight" || e.key === " " || e.key === "ArrowDown")  { e.preventDefault(); go(current + 1); }
+    if (e.key === "ArrowLeft"  || e.key === "Backspace" || e.key === "ArrowUp") { e.preventDefault(); go(current - 1); }
+    if (e.key === "Home") go(0);
+    if (e.key === "End")  go(TOTAL - 1);
+  });
+</script>
+</body>
+</html>
