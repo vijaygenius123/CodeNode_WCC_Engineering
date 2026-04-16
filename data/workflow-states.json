@@ -1,0 +1,799 @@
+{
+  "case_types": {
+    "fly_tipping": {
+      "states": [
+        {
+          "state": "report_received",
+          "label": "Report received",
+          "description": "Report has been logged. Initial triage required.",
+          "allowed_transitions": [
+            "assigned",
+            "closed"
+          ],
+          "required_actions": [
+            "Assess report: standard or large-scale",
+            "Check for duplicate reports at same location",
+            "Auto-assign to waste contractor (Veolia)"
+          ]
+        },
+        {
+          "state": "assigned",
+          "label": "Assigned to contractor",
+          "description": "Case assigned. Contractor to attend and clear.",
+          "allowed_transitions": [
+            "cleared",
+            "awaiting_evidence",
+            "escalated"
+          ],
+          "required_actions": [
+            "Contractor to attend within SLA (48hrs standard, 24hrs large-scale)",
+            "Photograph waste before and after clearance",
+            "Check for evidence of perpetrator in waste"
+          ],
+          "sla_hours": {
+            "standard": 48,
+            "large_scale": 24
+          }
+        },
+        {
+          "state": "cleared",
+          "label": "Waste cleared",
+          "description": "Fly-tipping has been cleared from site.",
+          "allowed_transitions": [
+            "awaiting_evidence",
+            "closed"
+          ],
+          "required_actions": [
+            "Confirm clearance with before/after photos",
+            "If evidence found, refer to enforcement within 24hrs",
+            "Check if hotspot review triggered (3+ reports in 30 days)"
+          ]
+        },
+        {
+          "state": "awaiting_evidence",
+          "label": "Awaiting evidence",
+          "description": "Evidence gathering in progress for enforcement action.",
+          "allowed_transitions": [
+            "enforcement_action",
+            "closed",
+            "escalated"
+          ],
+          "required_actions": [
+            "Request CCTV footage if available",
+            "Preserve physical evidence",
+            "Prepare enforcement case file"
+          ]
+        },
+        {
+          "state": "enforcement_action",
+          "label": "Enforcement action",
+          "description": "Enforcement proceedings initiated.",
+          "allowed_transitions": [
+            "closed"
+          ],
+          "required_actions": [
+            "Serve Fixed Penalty Notice or prosecution referral",
+            "Log enforcement outcome"
+          ]
+        },
+        {
+          "state": "escalated",
+          "label": "Escalated",
+          "description": "Case escalated to area manager.",
+          "allowed_transitions": [
+            "assigned",
+            "awaiting_evidence",
+            "closed"
+          ],
+          "required_actions": [
+            "Brief area manager on case history",
+            "Identify reason for escalation (SLA breach, recurrence, volume)",
+            "Await instruction"
+          ]
+        },
+        {
+          "state": "closed",
+          "label": "Closed",
+          "description": "Case resolved and closed.",
+          "allowed_transitions": [],
+          "required_actions": [
+            "Notify reporter of outcome",
+            "Update case record",
+            "Send satisfaction survey if reporter contactable"
+          ]
+        }
+      ]
+    },
+    "pothole": {
+      "states": [
+        {
+          "state": "report_received",
+          "label": "Report received",
+          "description": "Defect reported. Triage required.",
+          "allowed_transitions": [
+            "inspection_scheduled",
+            "emergency_response"
+          ],
+          "required_actions": [
+            "Check for injury/near-miss mentions \u2014 if found, flag Category 1",
+            "Check for duplicate reports",
+            "Assign to FM Conway highways team"
+          ]
+        },
+        {
+          "state": "emergency_response",
+          "label": "Emergency response",
+          "description": "Category 1 defect. Make-safe within 2 hours.",
+          "allowed_transitions": [
+            "repair_scheduled"
+          ],
+          "required_actions": [
+            "Deploy emergency crew within 2 hours",
+            "Make safe (temporary repair, barriers, signage)",
+            "Log make-safe time and method",
+            "Schedule permanent repair within 7 working days"
+          ],
+          "sla_hours": {
+            "make_safe": 2,
+            "permanent_repair_days": 7
+          }
+        },
+        {
+          "state": "inspection_scheduled",
+          "label": "Inspection scheduled",
+          "description": "Inspection booked. Awaiting site assessment.",
+          "allowed_transitions": [
+            "repair_scheduled",
+            "emergency_response",
+            "closed"
+          ],
+          "required_actions": [
+            "Inspect and categorise defect (Cat 1/2/3)",
+            "Photograph and measure defect",
+            "If Category 1, transition to emergency response immediately"
+          ]
+        },
+        {
+          "state": "repair_scheduled",
+          "label": "Repair scheduled",
+          "description": "Repair booked with contractor.",
+          "allowed_transitions": [
+            "closed",
+            "escalated"
+          ],
+          "required_actions": [
+            "Schedule repair within SLA (Cat 1: 7 days, Cat 2: 7 days, Cat 3: 28 days)",
+            "Notify reporter of estimated repair date",
+            "Complete repair and log"
+          ]
+        },
+        {
+          "state": "escalated",
+          "label": "Escalated",
+          "description": "Escalated to highways manager.",
+          "allowed_transitions": [
+            "repair_scheduled",
+            "closed"
+          ],
+          "required_actions": [
+            "Brief highways manager",
+            "Explain reason for SLA breach",
+            "Await instruction"
+          ]
+        },
+        {
+          "state": "closed",
+          "label": "Closed",
+          "description": "Defect repaired or assessed as no action required.",
+          "allowed_transitions": [],
+          "required_actions": [
+            "Notify reporter of outcome",
+            "Log repair details or reason for closure",
+            "Update highway defect register"
+          ]
+        }
+      ]
+    },
+    "graffiti": {
+      "states": [
+        {
+          "state": "report_received",
+          "label": "Report received",
+          "description": "Graffiti reported. Classification required.",
+          "allowed_transitions": [
+            "assigned",
+            "closed"
+          ],
+          "required_actions": [
+            "Classify as offensive/hate-related or non-offensive",
+            "If hate-related: report to Metropolitan Police and set 24hr SLA",
+            "If near school/hospital/place of worship: auto-uplift to high priority",
+            "Assign to Veolia cleansing team"
+          ]
+        },
+        {
+          "state": "assigned",
+          "label": "Assigned to contractor",
+          "description": "Removal job assigned.",
+          "allowed_transitions": [
+            "owner_notification",
+            "cleared",
+            "escalated"
+          ],
+          "required_actions": [
+            "Determine if graffiti is on council or private property",
+            "If council property: schedule removal within SLA",
+            "If private property: notify property owner"
+          ],
+          "sla_hours": {
+            "hate_related": 24,
+            "non_offensive_working_days": 10
+          }
+        },
+        {
+          "state": "owner_notification",
+          "label": "Owner notified",
+          "description": "Private property owner notified. 14-day window for self-removal.",
+          "allowed_transitions": [
+            "assigned",
+            "closed"
+          ],
+          "required_actions": [
+            "Send notification letter to property owner",
+            "Allow 14 days for owner to arrange removal",
+            "If not removed after 14 days, consider defacement removal notice"
+          ]
+        },
+        {
+          "state": "cleared",
+          "label": "Graffiti removed",
+          "description": "Graffiti has been removed.",
+          "allowed_transitions": [
+            "closed"
+          ],
+          "required_actions": [
+            "Confirm removal with photograph",
+            "Log removal method and date"
+          ]
+        },
+        {
+          "state": "escalated",
+          "label": "Escalated",
+          "description": "Case escalated \u2014 SLA breach or councillor enquiry.",
+          "allowed_transitions": [
+            "assigned",
+            "closed"
+          ],
+          "required_actions": [
+            "Brief area manager",
+            "If councillor enquiry: respond within 5 working days",
+            "Arrange expedited removal"
+          ]
+        },
+        {
+          "state": "closed",
+          "label": "Closed",
+          "description": "Case resolved.",
+          "allowed_transitions": [],
+          "required_actions": [
+            "Notify reporter of outcome",
+            "Update case record"
+          ]
+        }
+      ]
+    },
+    "street_lighting": {
+      "states": [
+        {
+          "state": "report_received",
+          "label": "Report received",
+          "description": "Lighting fault reported. Classification required.",
+          "allowed_transitions": [
+            "assigned",
+            "emergency_response"
+          ],
+          "required_actions": [
+            "Classify: single lamp, area outage (3+), or emergency (column down/exposed wiring)",
+            "If emergency: deploy within 2 hours",
+            "Assign to Citelum lighting team"
+          ]
+        },
+        {
+          "state": "assigned",
+          "label": "Assigned to contractor",
+          "description": "Fault assigned to lighting contractor.",
+          "allowed_transitions": [
+            "under_review",
+            "escalated"
+          ],
+          "required_actions": [
+            "Contractor to inspect within 5 working days",
+            "Diagnose fault and log findings",
+            "If third-party coordination needed (UKPN), log reference and chase weekly"
+          ],
+          "sla_working_days": {
+            "single_lamp": 14,
+            "area_outage": 5,
+            "emergency_hours": 2
+          }
+        },
+        {
+          "state": "under_review",
+          "label": "Under review",
+          "description": "Fault diagnosed. Repair in progress or awaiting third party.",
+          "allowed_transitions": [
+            "closed",
+            "escalated"
+          ],
+          "required_actions": [
+            "Monitor repair progress",
+            "If area outage >7 days: conduct pedestrian safety assessment",
+            "If approaching double-SLA: prepare escalation report"
+          ]
+        },
+        {
+          "state": "emergency_response",
+          "label": "Emergency response",
+          "description": "Emergency lighting fault. Make-safe within 2 hours.",
+          "allowed_transitions": [
+            "assigned",
+            "closed"
+          ],
+          "required_actions": [
+            "Make safe within 2 hours",
+            "Barrier/cordon if column down",
+            "Schedule permanent repair"
+          ]
+        },
+        {
+          "state": "escalated",
+          "label": "Escalated",
+          "description": "Case escalated to highways manager.",
+          "allowed_transitions": [
+            "assigned",
+            "closed"
+          ],
+          "required_actions": [
+            "Written explanation from contractor",
+            "Management review of delay",
+            "Revised repair timeline"
+          ]
+        },
+        {
+          "state": "closed",
+          "label": "Closed",
+          "description": "Fault repaired.",
+          "allowed_transitions": [],
+          "required_actions": [
+            "Confirm repair",
+            "Notify reporter",
+            "Update street lighting asset register"
+          ]
+        }
+      ]
+    },
+    "noise_complaint": {
+      "states": [
+        {
+          "state": "report_received",
+          "label": "Report received",
+          "description": "Noise complaint logged. Assessment required.",
+          "allowed_transitions": [
+            "investigation",
+            "closed"
+          ],
+          "required_actions": [
+            "Classify noise source (construction, residential, commercial, entertainment)",
+            "Check for existing cases at same location",
+            "Assign to Environmental Health team"
+          ]
+        },
+        {
+          "state": "investigation",
+          "label": "Under investigation",
+          "description": "Environmental Health officer investigating.",
+          "allowed_transitions": [
+            "notice_served",
+            "escalated",
+            "closed"
+          ],
+          "required_actions": [
+            "Initial investigation within 5 working days",
+            "Site visit and noise assessment",
+            "If statutory nuisance confirmed: serve abatement/Section 60 notice",
+            "If 3+ complaints in 30 days: classify as persistent, escalate"
+          ]
+        },
+        {
+          "state": "notice_served",
+          "label": "Notice served",
+          "description": "Statutory notice served on noise source.",
+          "allowed_transitions": [
+            "monitoring",
+            "escalated",
+            "closed"
+          ],
+          "required_actions": [
+            "Log notice type, date, and conditions",
+            "Monitor compliance",
+            "If breach observed: evidence gathering for prosecution"
+          ]
+        },
+        {
+          "state": "monitoring",
+          "label": "Monitoring compliance",
+          "description": "Monitoring compliance with notice conditions.",
+          "allowed_transitions": [
+            "escalated",
+            "closed"
+          ],
+          "required_actions": [
+            "Regular checks (frequency based on risk)",
+            "Log any breaches with evidence",
+            "If breach + previous history: prepare prosecution file"
+          ]
+        },
+        {
+          "state": "escalated",
+          "label": "Escalated",
+          "description": "Referred to senior EH officer or legal.",
+          "allowed_transitions": [
+            "closed"
+          ],
+          "required_actions": [
+            "Brief senior officer or legal services",
+            "Provide full case chronology and evidence",
+            "Await instruction on prosecution/further action"
+          ]
+        },
+        {
+          "state": "closed",
+          "label": "Closed",
+          "description": "Case resolved \u2014 noise ceased, notice complied with, or no action required.",
+          "allowed_transitions": [],
+          "required_actions": [
+            "Notify all complainants of outcome",
+            "Log case outcome",
+            "Schedule monitoring if notice remains active"
+          ]
+        }
+      ]
+    },
+    "rough_sleeping": {
+      "states": [
+        {
+          "state": "report_received",
+          "label": "Report received",
+          "description": "Rough sleeping concern reported.",
+          "allowed_transitions": [
+            "outreach_assigned"
+          ],
+          "required_actions": [
+            "Route to outreach provider via StreetLink",
+            "Check if individual is known to services",
+            "Flag any welfare/health concerns mentioned in report"
+          ]
+        },
+        {
+          "state": "outreach_assigned",
+          "label": "Outreach assigned",
+          "description": "Outreach team attending.",
+          "allowed_transitions": [
+            "under_review",
+            "closed"
+          ],
+          "required_actions": [
+            "First visit within 24hrs (winter) or 48hrs (other)",
+            "If not located: two further attempts within 7 days",
+            "Record engagement outcome"
+          ],
+          "sla_hours": {
+            "winter": 24,
+            "other": 48
+          }
+        },
+        {
+          "state": "under_review",
+          "label": "Under review",
+          "description": "Individual engaged. Support plan being developed.",
+          "allowed_transitions": [
+            "closed",
+            "escalated"
+          ],
+          "required_actions": [
+            "If health concerns: NHS outreach GP referral within 48hrs",
+            "Explore accommodation options",
+            "Respect individual's consent and choices",
+            "Log all engagement attempts and outcomes"
+          ]
+        },
+        {
+          "state": "escalated",
+          "label": "Escalated",
+          "description": "Referred to senior outreach coordinator or multi-agency panel.",
+          "allowed_transitions": [
+            "under_review",
+            "closed"
+          ],
+          "required_actions": [
+            "Multi-agency referral if needed (mental health, substance use, immigration)",
+            "Case conference if individual at significant risk",
+            "Do NOT pursue enforcement without exhausting support options"
+          ]
+        },
+        {
+          "state": "closed",
+          "label": "Closed",
+          "description": "Individual housed, moved on, or no longer at location.",
+          "allowed_transitions": [],
+          "required_actions": [
+            "Log outcome (housed, reconnected, no longer rough sleeping, not found)",
+            "Notify reporter if appropriate",
+            "Schedule follow-up check if individual was housed"
+          ]
+        }
+      ]
+    },
+    "commercial_waste": {
+      "states": [
+        {
+          "state": "report_received",
+          "label": "Report received",
+          "description": "Commercial waste issue reported.",
+          "allowed_transitions": [
+            "evidence_gathering"
+          ],
+          "required_actions": [
+            "Log report with location and description",
+            "Assign to waste enforcement team",
+            "Check if premises has previous enforcement history"
+          ]
+        },
+        {
+          "state": "evidence_gathering",
+          "label": "Evidence gathering",
+          "description": "Collecting evidence for enforcement action.",
+          "allowed_transitions": [
+            "notice_served",
+            "closed"
+          ],
+          "required_actions": [
+            "Photograph waste and location",
+            "Request CCTV footage if available",
+            "Identify responsible business",
+            "Prepare Section 34 investigation notice within 7 days"
+          ]
+        },
+        {
+          "state": "notice_served",
+          "label": "Investigation notice served",
+          "description": "Section 34 notice served. Awaiting business response.",
+          "allowed_transitions": [
+            "pending_decision",
+            "escalated"
+          ],
+          "required_actions": [
+            "Business must respond within 14 days",
+            "Review waste transfer notes if provided",
+            "If no response after 14 days: proceed to FPN"
+          ]
+        },
+        {
+          "state": "pending_decision",
+          "label": "Pending decision",
+          "description": "Evidence reviewed. Enforcement decision pending.",
+          "allowed_transitions": [
+            "closed",
+            "escalated"
+          ],
+          "required_actions": [
+            "If breach confirmed: issue FPN (GBP 400)",
+            "If compliant: close with advisory letter",
+            "If FPN not paid in 14 days: prosecution referral"
+          ]
+        },
+        {
+          "state": "escalated",
+          "label": "Escalated",
+          "description": "Referred to senior enforcement officer or legal.",
+          "allowed_transitions": [
+            "pending_decision",
+            "closed"
+          ],
+          "required_actions": [
+            "Provide full evidence pack to senior officer",
+            "If prosecution: refer to legal services",
+            "Await instruction"
+          ]
+        },
+        {
+          "state": "closed",
+          "label": "Closed",
+          "description": "Case concluded \u2014 FPN paid, prosecution complete, or no action.",
+          "allowed_transitions": [],
+          "required_actions": [
+            "Log enforcement outcome",
+            "Schedule duty of care audit within 6 months if breach found",
+            "Update enforcement register"
+          ]
+        }
+      ]
+    },
+    "abandoned_vehicle": {
+      "states": [
+        {
+          "state": "report_received",
+          "label": "Report received",
+          "description": "Abandoned vehicle reported.",
+          "allowed_transitions": [
+            "inspection_scheduled"
+          ],
+          "required_actions": [
+            "Log location and vehicle description",
+            "Assign to NSL parking enforcement",
+            "Check for duplicate reports"
+          ]
+        },
+        {
+          "state": "inspection_scheduled",
+          "label": "Inspection scheduled",
+          "description": "Officer inspection within 3 working days.",
+          "allowed_transitions": [
+            "notice_affixed",
+            "closed"
+          ],
+          "required_actions": [
+            "Inspect within 3 working days",
+            "Confirm vehicle meets abandoned criteria (2+ indicators)",
+            "If not abandoned: close with reason"
+          ]
+        },
+        {
+          "state": "notice_affixed",
+          "label": "Removal notice affixed",
+          "description": "7-day removal notice posted on vehicle.",
+          "allowed_transitions": [
+            "awaiting_evidence",
+            "closed"
+          ],
+          "required_actions": [
+            "Affix 7-day removal notice",
+            "Submit DVLA trace",
+            "Photograph notice and vehicle"
+          ]
+        },
+        {
+          "state": "awaiting_evidence",
+          "label": "Awaiting DVLA response",
+          "description": "Waiting for DVLA trace result and notice period to expire.",
+          "allowed_transitions": [
+            "removal_arranged",
+            "closed"
+          ],
+          "required_actions": [
+            "Check vehicle status after 7-day notice expires",
+            "If taxed with registered keeper: send warning letter",
+            "If no keeper found or untaxed: arrange removal"
+          ]
+        },
+        {
+          "state": "removal_arranged",
+          "label": "Removal arranged",
+          "description": "Vehicle removal scheduled.",
+          "allowed_transitions": [
+            "closed"
+          ],
+          "required_actions": [
+            "Arrange removal via contractor",
+            "Vehicle held for 14 days before disposal",
+            "Notify registered keeper if known"
+          ]
+        },
+        {
+          "state": "closed",
+          "label": "Closed",
+          "description": "Vehicle removed, reclaimed by owner, or confirmed not abandoned.",
+          "allowed_transitions": [],
+          "required_actions": [
+            "Log outcome",
+            "Notify reporter",
+            "Update vehicle records"
+          ]
+        }
+      ]
+    },
+    "overflowing_bin": {
+      "states": [
+        {
+          "state": "report_received",
+          "label": "Report received",
+          "description": "Overflowing bin reported.",
+          "allowed_transitions": [
+            "assigned"
+          ],
+          "required_actions": [
+            "Log location and bin identifier",
+            "Check for duplicate/recurring reports at this location",
+            "Assign to Veolia waste team"
+          ]
+        },
+        {
+          "state": "assigned",
+          "label": "Assigned to contractor",
+          "description": "Emptying job assigned to waste contractor.",
+          "allowed_transitions": [
+            "cleared",
+            "escalated"
+          ],
+          "required_actions": [
+            "Contractor to empty within next scheduled round or 24hrs if urgent",
+            "If recurring (3+ reports in 30 days): flag for capacity review"
+          ]
+        },
+        {
+          "state": "cleared",
+          "label": "Bin emptied",
+          "description": "Bin has been emptied.",
+          "allowed_transitions": [
+            "closed",
+            "capacity_review"
+          ],
+          "required_actions": [
+            "Confirm emptying",
+            "Check if recurring pattern triggers capacity review"
+          ]
+        },
+        {
+          "state": "capacity_review",
+          "label": "Capacity review",
+          "description": "Reviewing whether bin needs replacement or increased collection frequency.",
+          "allowed_transitions": [
+            "awaiting_evidence",
+            "closed"
+          ],
+          "required_actions": [
+            "Request footfall data for location",
+            "Assess current collection frequency vs demand",
+            "Recommend: increased frequency, larger bin, or BigBelly compactor"
+          ]
+        },
+        {
+          "state": "awaiting_evidence",
+          "label": "Awaiting evidence",
+          "description": "Awaiting data to support infrastructure change.",
+          "allowed_transitions": [
+            "closed",
+            "escalated"
+          ],
+          "required_actions": [
+            "Gather footfall data, collection logs, report history",
+            "Build business case for change"
+          ]
+        },
+        {
+          "state": "escalated",
+          "label": "Escalated",
+          "description": "Escalated to area manager for infrastructure decision.",
+          "allowed_transitions": [
+            "closed"
+          ],
+          "required_actions": [
+            "Present business case to area manager",
+            "Await decision on bin replacement or schedule change"
+          ]
+        },
+        {
+          "state": "closed",
+          "label": "Closed",
+          "description": "Issue resolved \u2014 bin emptied, replaced, or schedule adjusted.",
+          "allowed_transitions": [],
+          "required_actions": [
+            "Notify reporter(s) of outcome",
+            "Update bin asset register if changed",
+            "Log case outcome"
+          ]
+        }
+      ]
+    }
+  }
+}

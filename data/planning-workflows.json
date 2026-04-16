@@ -1,0 +1,490 @@
+{
+  "unauthorised_construction": {
+    "case_type": "unauthorised_construction",
+    "label": "Unauthorised Construction / Development",
+    "states": [
+      {
+        "state": "complaint_received",
+        "label": "Complaint Received",
+        "description": "Report of unauthorised construction received and logged",
+        "allowed_transitions": [
+          "site_visit_scheduled"
+        ],
+        "required_actions": [
+          "Acknowledge complaint within 3 working days",
+          "Assess priority level",
+          "Schedule site visit"
+        ],
+        "sla_days": 5
+      },
+      {
+        "state": "site_visit_scheduled",
+        "label": "Site Visit Scheduled",
+        "description": "Inspector assigned and visit date set",
+        "allowed_transitions": [
+          "investigation"
+        ],
+        "required_actions": [
+          "Conduct site visit",
+          "Take photographs and measurements",
+          "Check planning history on portal"
+        ],
+        "sla_days": null
+      },
+      {
+        "state": "investigation",
+        "label": "Under Investigation",
+        "description": "Site visited, breach confirmed or assessment ongoing",
+        "allowed_transitions": [
+          "pcn_issued",
+          "enforcement_notice_issued",
+          "no_further_action"
+        ],
+        "required_actions": [
+          "Issue PCN if information needed from owner",
+          "Assess whether PD rights apply",
+          "Check conservation area and listed status",
+          "Prepare enforcement recommendation"
+        ],
+        "sla_days": 56
+      },
+      {
+        "state": "pcn_issued",
+        "label": "PCN Issued",
+        "description": "Planning Contravention Notice served \u2014 awaiting response",
+        "allowed_transitions": [
+          "enforcement_notice_issued",
+          "retrospective_application_invited",
+          "no_further_action"
+        ],
+        "required_actions": [
+          "Monitor 21-day PCN response deadline",
+          "Chase if no response received"
+        ],
+        "sla_days": 21
+      },
+      {
+        "state": "enforcement_notice_issued",
+        "label": "Enforcement Notice Served",
+        "description": "Formal enforcement notice issued with compliance deadline",
+        "allowed_transitions": [
+          "monitoring",
+          "appeal_lodged",
+          "prosecution"
+        ],
+        "required_actions": [
+          "Set compliance monitoring date",
+          "Prepare for potential appeal"
+        ],
+        "sla_days": 28
+      },
+      {
+        "state": "appeal_lodged",
+        "label": "Appeal Lodged",
+        "description": "Owner has appealed the enforcement notice to the Planning Inspectorate",
+        "allowed_transitions": [
+          "appeal_dismissed",
+          "appeal_allowed",
+          "monitoring"
+        ],
+        "required_actions": [
+          "Prepare council's appeal statement",
+          "Gather evidence"
+        ],
+        "sla_days": null
+      },
+      {
+        "state": "monitoring",
+        "label": "Compliance Monitoring",
+        "description": "Monitoring compliance with enforcement notice or approved works",
+        "allowed_transitions": [
+          "resolved",
+          "prosecution"
+        ],
+        "required_actions": [
+          "Site visit to verify compliance",
+          "Photograph current state"
+        ],
+        "sla_days": 7
+      },
+      {
+        "state": "prosecution",
+        "label": "Prosecution Proceedings",
+        "description": "Non-compliance \u2014 prosecution case being prepared",
+        "allowed_transitions": [
+          "resolved"
+        ],
+        "required_actions": [
+          "Submit prosecution file to legal",
+          "Prepare witness statements"
+        ],
+        "sla_days": 14
+      },
+      {
+        "state": "resolved",
+        "label": "Case Resolved",
+        "description": "Breach remedied or enforcement action concluded",
+        "allowed_transitions": [],
+        "required_actions": [
+          "Notify complainant of outcome",
+          "Update planning records",
+          "Close case"
+        ],
+        "sla_days": null
+      }
+    ]
+  },
+  "listed_building_breach": {
+    "case_type": "listed_building_breach",
+    "label": "Listed Building \u2014 Unauthorised Works",
+    "states": [
+      {
+        "state": "complaint_received",
+        "label": "Complaint Received",
+        "description": "Report of unauthorised works to listed building",
+        "allowed_transitions": [
+          "urgent_investigation"
+        ],
+        "required_actions": [
+          "URGENT: Site visit same day or next working day",
+          "Check listing details on Historic England register",
+          "Notify heritage enforcement team"
+        ],
+        "sla_days": 1
+      },
+      {
+        "state": "urgent_investigation",
+        "label": "Urgent Investigation",
+        "description": "Site visited \u2014 assessing nature and extent of works",
+        "allowed_transitions": [
+          "temporary_stop_notice",
+          "listed_building_enforcement_notice",
+          "no_further_action"
+        ],
+        "required_actions": [
+          "Document all works with photos and video",
+          "Assess whether works constitute criminal offence",
+          "If criminal offence: notify police within 24 hours",
+          "Issue Temporary Stop Notice if works ongoing"
+        ],
+        "sla_days": 1
+      },
+      {
+        "state": "temporary_stop_notice",
+        "label": "Temporary Stop Notice",
+        "description": "TSN served \u2014 all works must cease for 28 days",
+        "allowed_transitions": [
+          "listed_building_enforcement_notice",
+          "prosecution"
+        ],
+        "required_actions": [
+          "Monitor compliance with TSN",
+          "Prepare Listed Building Enforcement Notice",
+          "Begin prosecution file if criminal offence confirmed",
+          "Submit prosecution file to legal within 14 working days"
+        ],
+        "sla_days": 28
+      },
+      {
+        "state": "listed_building_enforcement_notice",
+        "label": "LB Enforcement Notice",
+        "description": "Listed Building Enforcement Notice served requiring reinstatement",
+        "allowed_transitions": [
+          "monitoring",
+          "appeal_lodged",
+          "prosecution"
+        ],
+        "required_actions": [
+          "Set compliance period (typically 3-6 months)",
+          "Specify reinstatement requirements"
+        ],
+        "sla_days": null
+      },
+      {
+        "state": "appeal_lodged",
+        "label": "Appeal Lodged",
+        "description": "Owner appealing enforcement notice",
+        "allowed_transitions": [
+          "appeal_dismissed",
+          "appeal_allowed",
+          "monitoring"
+        ],
+        "required_actions": [
+          "Prepare council's statement of case",
+          "Commission heritage impact assessment if needed"
+        ],
+        "sla_days": null
+      },
+      {
+        "state": "prosecution",
+        "label": "Criminal Prosecution",
+        "description": "Prosecution under Section 9 of the Listed Buildings Act",
+        "allowed_transitions": [
+          "resolved"
+        ],
+        "required_actions": [
+          "File with legal team",
+          "Prepare evidence bundle",
+          "Coordinate with police"
+        ],
+        "sla_days": 14
+      },
+      {
+        "state": "monitoring",
+        "label": "Compliance Monitoring",
+        "description": "Monitoring reinstatement or compliance",
+        "allowed_transitions": [
+          "resolved",
+          "prosecution"
+        ],
+        "required_actions": [
+          "Heritage officer site visit to verify reinstatement quality"
+        ],
+        "sla_days": null
+      },
+      {
+        "state": "resolved",
+        "label": "Case Resolved",
+        "description": "Works ceased and reinstatement completed or prosecution concluded",
+        "allowed_transitions": [],
+        "required_actions": [
+          "Notify complainant",
+          "Update Historic England if required",
+          "Close case"
+        ],
+        "sla_days": null
+      }
+    ]
+  },
+  "change_of_use": {
+    "case_type": "change_of_use",
+    "label": "Unauthorised Change of Use",
+    "states": [
+      {
+        "state": "complaint_received",
+        "label": "Complaint Received",
+        "description": "Report of unauthorised change of use",
+        "allowed_transitions": [
+          "site_visit_scheduled"
+        ],
+        "required_actions": [
+          "Acknowledge within 3 working days",
+          "Check planning history",
+          "Schedule site visit (5 working days for high priority)"
+        ],
+        "sla_days": 5
+      },
+      {
+        "state": "site_visit_scheduled",
+        "label": "Site Visit Scheduled",
+        "description": "Visit arranged to verify use",
+        "allowed_transitions": [
+          "investigation"
+        ],
+        "required_actions": [
+          "Visit at time when alleged use is occurring (e.g., evening for late-night use)",
+          "Document evidence of use"
+        ],
+        "sla_days": null
+      },
+      {
+        "state": "investigation",
+        "label": "Under Investigation",
+        "description": "Use confirmed or under assessment",
+        "allowed_transitions": [
+          "pcn_issued",
+          "enforcement_notice_issued",
+          "no_further_action"
+        ],
+        "required_actions": [
+          "Issue PCN within 10 working days",
+          "Assess harm to residential amenity",
+          "Check licensing status",
+          "Cross-refer to Environmental Health if noise/smoke/odour"
+        ],
+        "sla_days": 42
+      },
+      {
+        "state": "pcn_issued",
+        "label": "PCN Issued",
+        "description": "Planning Contravention Notice served",
+        "allowed_transitions": [
+          "enforcement_notice_issued",
+          "no_further_action"
+        ],
+        "required_actions": [
+          "Monitor 21-day response deadline"
+        ],
+        "sla_days": 21
+      },
+      {
+        "state": "enforcement_notice_issued",
+        "label": "Enforcement Notice Served",
+        "description": "Notice requiring cessation of unauthorised use",
+        "allowed_transitions": [
+          "compliance_monitoring",
+          "appeal_lodged",
+          "prosecution"
+        ],
+        "required_actions": [
+          "Set compliance deadline (typically 28 days)",
+          "Schedule compliance monitoring visit"
+        ],
+        "sla_days": 28
+      },
+      {
+        "state": "compliance_monitoring",
+        "label": "Compliance Monitoring",
+        "description": "Checking whether use has ceased",
+        "allowed_transitions": [
+          "resolved",
+          "prosecution"
+        ],
+        "required_actions": [
+          "Site visit within 7 days of compliance deadline",
+          "Document whether use has ceased"
+        ],
+        "sla_days": 7
+      },
+      {
+        "state": "prosecution",
+        "label": "Prosecution",
+        "description": "Non-compliance with enforcement notice \u2014 prosecution proceedings",
+        "allowed_transitions": [
+          "resolved"
+        ],
+        "required_actions": [
+          "Prepare prosecution file within 14 days",
+          "Submit to legal"
+        ],
+        "sla_days": 14
+      },
+      {
+        "state": "resolved",
+        "label": "Case Resolved",
+        "description": "Unauthorised use ceased or enforcement concluded",
+        "allowed_transitions": [],
+        "required_actions": [
+          "Notify complainant",
+          "Continue monitoring for recurrence"
+        ],
+        "sla_days": null
+      }
+    ]
+  },
+  "breach_of_conditions": {
+    "case_type": "breach_of_conditions",
+    "label": "Breach of Planning Conditions",
+    "states": [
+      {
+        "state": "complaint_received",
+        "label": "Complaint Received",
+        "description": "Report of condition breach",
+        "allowed_transitions": [
+          "site_visit_scheduled"
+        ],
+        "required_actions": [
+          "Acknowledge within 3 working days",
+          "Retrieve planning permission and conditions",
+          "Identify specific conditions alleged to be breached"
+        ],
+        "sla_days": 15
+      },
+      {
+        "state": "site_visit_scheduled",
+        "label": "Site Visit Scheduled",
+        "description": "Visit arranged to verify condition compliance",
+        "allowed_transitions": [
+          "investigation"
+        ],
+        "required_actions": [
+          "Visit at time relevant to condition (e.g., after 10pm for hours condition)",
+          "Document breach with evidence"
+        ],
+        "sla_days": null
+      },
+      {
+        "state": "investigation",
+        "label": "Under Investigation",
+        "description": "Assessing whether condition is breached and harm level",
+        "allowed_transitions": [
+          "bcn_issued",
+          "specialist_assessment",
+          "no_further_action"
+        ],
+        "required_actions": [
+          "Review condition wording",
+          "Assess harm from breach",
+          "Commission specialist assessment if needed (noise, odour)"
+        ],
+        "sla_days": 56
+      },
+      {
+        "state": "specialist_assessment",
+        "label": "Specialist Assessment",
+        "description": "Awaiting noise/odour/technical assessment",
+        "allowed_transitions": [
+          "bcn_issued",
+          "no_further_action"
+        ],
+        "required_actions": [
+          "Commission assessment within 10 working days",
+          "Report due within 20 working days"
+        ],
+        "sla_days": 20
+      },
+      {
+        "state": "bcn_issued",
+        "label": "Breach of Condition Notice",
+        "description": "BCN served \u2014 no right of appeal, immediate compliance required",
+        "allowed_transitions": [
+          "compliance_monitoring",
+          "prosecution"
+        ],
+        "required_actions": [
+          "Monitor compliance",
+          "Note: BCN has NO right of appeal"
+        ],
+        "sla_days": null
+      },
+      {
+        "state": "compliance_monitoring",
+        "label": "Compliance Monitoring",
+        "description": "Checking whether conditions are now met",
+        "allowed_transitions": [
+          "resolved",
+          "prosecution"
+        ],
+        "required_actions": [
+          "Site visit to verify",
+          "Document compliance or continued breach"
+        ],
+        "sla_days": 7
+      },
+      {
+        "state": "prosecution",
+        "label": "Prosecution",
+        "description": "Non-compliance with BCN \u2014 prosecution proceedings",
+        "allowed_transitions": [
+          "resolved"
+        ],
+        "required_actions": [
+          "Prepare prosecution file",
+          "Submit to legal within 14 days"
+        ],
+        "sla_days": 14
+      },
+      {
+        "state": "resolved",
+        "label": "Case Resolved",
+        "description": "Conditions now complied with or enforcement concluded",
+        "allowed_transitions": [],
+        "required_actions": [
+          "Notify complainant",
+          "Schedule proactive monitoring if appropriate"
+        ],
+        "sla_days": null
+      }
+    ]
+  }
+}

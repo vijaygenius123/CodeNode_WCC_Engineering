@@ -1,0 +1,49 @@
+[
+  {
+    "policy_id": "POL-PE-001",
+    "title": "Planning Enforcement Investigation Timelines",
+    "applicable_case_types": [
+      "unauthorised_construction",
+      "listed_building_breach",
+      "change_of_use",
+      "breach_of_conditions"
+    ],
+    "body": "Westminster Local Enforcement Plan \u2014 Investigation Timelines:\n\n1. URGENT (same day/next working day site visit): Works to listed buildings, demolition in conservation areas, works that are causing or likely to cause irreversible harm.\n\n2. HIGH PRIORITY (site visit within 5 working days): Unauthorised development in conservation areas, significant operational development without permission, material change of use causing residential amenity harm, loss of residential accommodation.\n\n3. STANDARD (site visit within 15 working days): Breach of conditions, minor operational development, advertisements, changes of use with limited harm.\n\n4. LOW PRIORITY (site visit within 20 working days): Boundary disputes, householder alterations outside conservation areas, minor advertisement breaches.\n\nAll complaints must be acknowledged within 3 working days.\nInitial assessment decision must be communicated within 8 weeks.\nPlanning Contravention Notices: response required within 21 days.\nTemporary Stop Notices: effective for 28 days from service.\nEnforcement Notices: minimum 28 days before taking effect.\nBreach of Condition Notices: no right of appeal; immediate compliance required."
+  },
+  {
+    "policy_id": "POL-PE-002",
+    "title": "Conservation Area and Heritage Enforcement",
+    "applicable_case_types": [
+      "unauthorised_construction",
+      "listed_building_breach"
+    ],
+    "body": "Westminster Heritage Enforcement Policy:\n\n1. LISTED BUILDINGS: Unauthorised works to a listed building constitute a CRIMINAL OFFENCE under Section 9 of the Planning (Listed Buildings and Conservation Areas) Act 1990. Penalty: unlimited fine and/or up to 2 years imprisonment.\n\n- Any report of works to a listed building without consent: site visit same day or next working day.\n- If criminal offence confirmed: (a) serve Temporary Stop Notice immediately, (b) notify police within 24 hours, (c) prepare prosecution file within 14 working days.\n- Listed Building Enforcement Notice: can require reinstatement of removed features. Compliance period typically 3-6 months.\n\n2. CONSERVATION AREAS (Westminster has 56 conservation areas):\n- Permitted development rights are restricted in conservation areas.\n- Demolition requires conservation area consent.\n- Material alterations visible from the highway require planning permission.\n- Rear extensions exceeding single storey require permission.\n\n3. PROSECUTION ESCALATION:\n- If works continue after stop notice: immediate prosecution referral.\n- Prosecution file must be submitted to legal within 14 working days of decision to prosecute.\n- Westminster prioritises heritage enforcement \u2014 cases involving irreversible loss of historic fabric are treated as critical."
+  },
+  {
+    "policy_id": "POL-PE-003",
+    "title": "Change of Use Enforcement",
+    "applicable_case_types": [
+      "change_of_use"
+    ],
+    "body": "Westminster Change of Use Enforcement:\n\n1. RESIDENTIAL PROTECTION: The loss of permanent residential accommodation to any other use (short-term let, office, storage) is Westminster's highest enforcement priority. Enforcement notice to be served within 4 weeks of breach confirmation.\n\n2. COMMERCIAL CHANGE OF USE: Unauthorised changes (e.g., retail to restaurant, office to residential) assessed against harm to residential amenity.\n- If causing noise, odour, or late-night disturbance: HIGH PRIORITY \u2014 enforcement notice within 6 weeks.\n- PCN should be issued within 10 working days of site visit.\n- If PCN not responded to within 21 days: proceed directly to enforcement notice.\n\n3. COMPLIANCE MONITORING:\n- Enforcement notice compliance to be monitored with site visit within 7 days of compliance deadline.\n- Non-compliance after enforcement notice: prosecution proceedings to commence within 14 days.\n\n4. CROSS-REFERRALS:\n- Licensing breaches: refer to licensing within 5 working days.\n- Environmental Health (noise, smoke, odour): refer within 3 working days.\n- Health Act 2006 (indoor smoking): immediate referral."
+  },
+  {
+    "policy_id": "POL-PE-004",
+    "title": "Breach of Planning Conditions Enforcement",
+    "applicable_case_types": [
+      "breach_of_conditions"
+    ],
+    "body": "Westminster Breach of Conditions Policy:\n\n1. ASSESSMENT: Not all condition breaches justify enforcement action. Assess harm caused by the breach against the purpose of the condition.\n\n2. BREACH OF CONDITION NOTICE (BCN):\n- BCNs have NO RIGHT OF APPEAL.\n- Compliance is required immediately or within the period specified.\n- Use for: operating hours, noise conditions, external seating/furniture, delivery times, use restrictions.\n- If non-compliance after BCN: prosecution. Fixed penalty or prosecution in Magistrates Court.\n\n3. CONDITIONS REQUIRING SPECIALIST ASSESSMENT:\n- Noise conditions (extraction, plant, music): require independent acoustic assessment. Commission within 10 working days of complaint. Report due within 20 working days.\n- Odour conditions: Environmental Health assessment within 5 working days.\n- Landscaping/boundary conditions: site visit to verify within 15 working days.\n\n4. MONITORING:\n- New permissions with sensitive conditions: proactive monitoring visit within 3 months of occupation/use commencing.\n- Repeated breach after BCN: escalate to injunction application if prosecution insufficient."
+  },
+  {
+    "policy_id": "POL-PE-005",
+    "title": "Councillor and Public Enquiry Response",
+    "applicable_case_types": [
+      "unauthorised_construction",
+      "listed_building_breach",
+      "change_of_use",
+      "breach_of_conditions"
+    ],
+    "body": "Westminster Member and Public Enquiry Protocol:\n\n1. COUNCILLOR ENQUIRIES: Written response within 5 working days. If the case involves ongoing enforcement, provide: current case status, next enforcement step planned, expected timeline for resolution.\n\n2. PUBLIC COMPLAINTS: Acknowledge within 3 working days. Substantive update at 8-week point.\n\n3. RESIDENTS ASSOCIATION / AMENITY GROUP enquiries: Treat as councillor-equivalent priority.\n\n4. MP ENQUIRIES: Response within 3 working days.\n\n5. PRESS ENQUIRIES: Refer to communications team immediately. Do not provide case details to press without comms approval.\n\n6. When 3+ separate complaints received about the same breach: automatic escalation to senior enforcement officer review."
+  }
+]

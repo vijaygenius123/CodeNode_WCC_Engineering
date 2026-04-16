@@ -1,0 +1,250 @@
+[
+  {
+    "case_id": "WCC-2026-10301",
+    "case_type": "unauthorised_construction",
+    "status": "investigation",
+    "reporter": {
+      "name": "Mrs Patricia Hammond",
+      "reference": "REP-30101",
+      "ward": "Bayswater"
+    },
+    "location": {
+      "street": "Porchester Terrace",
+      "postcode": "W2 3TL",
+      "lat": 51.5133,
+      "lon": -0.1876
+    },
+    "assigned_to": "planning_enforcement_team",
+    "contractor": null,
+    "priority": "high",
+    "duplicate_count": 4,
+    "created_date": "2026-03-10",
+    "last_updated": "2026-04-12",
+    "planning_ref": null,
+    "conservation_area": "Bayswater",
+    "listed_building": false,
+    "timeline": [
+      {
+        "date": "2026-03-10",
+        "event": "complaint_received",
+        "note": "Neighbour reports extensive rear extension construction at 14 Porchester Terrace. No planning application visible on portal. Work appears to be a two-storey rear extension with roof terrace."
+      },
+      {
+        "date": "2026-03-12",
+        "event": "site_visit_scheduled",
+        "note": "Site visit scheduled for 14 March."
+      },
+      {
+        "date": "2026-03-14",
+        "event": "site_visit_completed",
+        "note": "Inspector visited. Confirmed two-storey rear extension under construction, approximately 6m depth. No planning permission found. Property is within Bayswater Conservation Area. Roof terrace with glass balustrade visible. Significant overlooking of neighbouring gardens. Photos taken."
+      },
+      {
+        "date": "2026-03-14",
+        "event": "planning_contravention_notice_issued",
+        "note": "PCN issued to owner requiring information about the works within 21 days."
+      },
+      {
+        "date": "2026-04-04",
+        "event": "pcn_response_received",
+        "note": "Owner's solicitor responds claiming works are permitted development under Class A. However, property is in conservation area \u2014 PD rights are restricted."
+      },
+      {
+        "date": "2026-04-07",
+        "event": "assessment_note",
+        "note": "Legal review confirms: Class A PD rights DO NOT apply in conservation areas for rear extensions of this scale. Two-storey extensions require planning permission. The roof terrace also requires permission. Owner has been advised but construction continues."
+      },
+      {
+        "date": "2026-04-12",
+        "event": "councillor_enquiry",
+        "note": "Cllr Davidson contacts enforcement team on behalf of 3 residents. Requests urgent update on enforcement action. Notes construction noise at weekends (breach of construction hours condition even if permitted)."
+      }
+    ],
+    "case_notes": "Unauthorised two-storey rear extension and roof terrace at 14 Porchester Terrace, within Bayswater Conservation Area. Owner claims PD rights but these are restricted in conservation areas. Construction continuing despite being informed permission is required. 4 complaints from neighbouring properties citing overlooking, loss of light, and weekend construction noise. Councillor enquiry received. Legal review confirms enforcement notice appropriate. ENFORCEMENT NOTICE NOT YET ISSUED \u2014 36 days since site visit confirmed breach."
+  },
+  {
+    "case_id": "WCC-2026-10302",
+    "case_type": "listed_building_breach",
+    "status": "urgent_investigation",
+    "reporter": {
+      "name": "Westminster Conservation Trust",
+      "reference": "REP-30201",
+      "ward": "St James's"
+    },
+    "location": {
+      "street": "Jermyn Street",
+      "postcode": "SW1Y 6HP",
+      "lat": 51.5075,
+      "lon": -0.1372
+    },
+    "assigned_to": "heritage_enforcement_team",
+    "contractor": null,
+    "priority": "critical",
+    "duplicate_count": 2,
+    "created_date": "2026-04-02",
+    "last_updated": "2026-04-14",
+    "planning_ref": "22/06891/LBC",
+    "conservation_area": "St James's",
+    "listed_building": true,
+    "listed_grade": "Grade II",
+    "timeline": [
+      {
+        "date": "2026-04-02",
+        "event": "complaint_received",
+        "note": "Westminster Conservation Trust reports unauthorised internal alterations at 47 Jermyn Street, Grade II listed building. Original Victorian shopfront being removed and replaced with modern aluminium. Internal ornamental plasterwork and cornicing reportedly being stripped out."
+      },
+      {
+        "date": "2026-04-02",
+        "event": "site_visit_completed",
+        "note": "URGENT: Inspector attended same day. Confirmed removal of original Victorian shopfront in progress \u2014 approximately 60% removed. Internal works visible: ornamental ceiling rose removed, original cornicing being hacked off. This constitutes a criminal offence under Section 9 of the Planning (Listed Buildings and Conservation Areas) Act 1990. Photos and video taken as evidence."
+      },
+      {
+        "date": "2026-04-03",
+        "event": "temporary_stop_notice_issued",
+        "note": "Temporary Stop Notice served requiring all works to cease immediately. Effective for 28 days."
+      },
+      {
+        "date": "2026-04-03",
+        "event": "police_notified",
+        "note": "Police informed of criminal offence \u2014 unauthorised works to a listed building. Case reference MET-2026-PL-4421."
+      },
+      {
+        "date": "2026-04-07",
+        "event": "listed_building_enforcement_notice_issued",
+        "note": "Listed Building Enforcement Notice served requiring: (1) cessation of all works, (2) reinstatement of removed shopfront elements, (3) reinstatement of internal plasterwork where possible. Compliance period: 3 months."
+      },
+      {
+        "date": "2026-04-10",
+        "event": "owner_appeal_lodged",
+        "note": "Owner's solicitor lodges appeal against the Listed Building Enforcement Notice with the Planning Inspectorate. Claims works are 'like-for-like replacement' not requiring consent."
+      },
+      {
+        "date": "2026-04-14",
+        "event": "assessment_note",
+        "note": "Heritage officer review: the replacement is NOT like-for-like. Original was timber Victorian shopfront with decorative pilasters; replacement is modern aluminium with no historic character. Appeal unlikely to succeed. However, further damage occurring during appeal period is a concern \u2014 original fabric cannot be recovered once destroyed. PROSECUTION FILE BEING PREPARED but not yet submitted to legal. Irreversible heritage loss ongoing."
+      }
+    ],
+    "case_notes": "CRIMINAL OFFENCE \u2014 unauthorised works to Grade II listed building at 47 Jermyn Street, St James's Conservation Area. Victorian shopfront being replaced with modern aluminium. Internal ornamental plasterwork stripped. Temporary Stop Notice served but owner appealing. Original heritage fabric being irreversibly destroyed. Prosecution file in preparation but NOT YET SUBMITTED to legal \u2014 12 days since criminal offence confirmed. Westminster Conservation Trust and 2 heritage bodies have complained. Press interest likely given Jermyn Street's prominence."
+  },
+  {
+    "case_id": "WCC-2026-10303",
+    "case_type": "change_of_use",
+    "status": "compliance_monitoring",
+    "reporter": {
+      "name": "Mr James Whitfield",
+      "reference": "REP-30301",
+      "ward": "Marylebone"
+    },
+    "location": {
+      "street": "Edgware Road",
+      "postcode": "W2 2EA",
+      "lat": 51.5155,
+      "lon": -0.1685
+    },
+    "assigned_to": "planning_enforcement_team",
+    "contractor": null,
+    "priority": "high",
+    "duplicate_count": 7,
+    "created_date": "2026-02-15",
+    "last_updated": "2026-04-13",
+    "planning_ref": "19/04221/FULL",
+    "conservation_area": null,
+    "listed_building": false,
+    "timeline": [
+      {
+        "date": "2026-02-15",
+        "event": "complaint_received",
+        "note": "Resident reports 142 Edgware Road (approved as A1 retail) is operating as a late-night shisha lounge. Open until 3am, smoke and noise affecting 12 flats above. Planning permission 19/04221/FULL was for retail use only."
+      },
+      {
+        "date": "2026-02-18",
+        "event": "site_visit_completed",
+        "note": "Inspector visited at 10pm. Confirmed: premises operating as shisha lounge/caf\u00e9 with indoor smoking area. No planning permission for A3/sui generis use. No late-night licence visible. Significant extraction fan noise. Tobacco smoke odour in common areas of flats above."
+      },
+      {
+        "date": "2026-02-25",
+        "event": "planning_contravention_notice_issued",
+        "note": "PCN issued to premises operator requiring information about the use within 21 days."
+      },
+      {
+        "date": "2026-03-15",
+        "event": "pcn_response_received",
+        "note": "No response received within 21 days. PCN deadline missed."
+      },
+      {
+        "date": "2026-03-20",
+        "event": "enforcement_notice_issued",
+        "note": "Enforcement Notice served requiring cessation of shisha lounge use and return to A1 retail. Compliance period: 28 days (by 17 April 2026)."
+      },
+      {
+        "date": "2026-03-25",
+        "event": "environmental_health_referral",
+        "note": "Referred to Environmental Health for indoor smoking (Health Act 2006 breach) and noise nuisance investigation."
+      },
+      {
+        "date": "2026-04-10",
+        "event": "monitoring_visit",
+        "note": "Site visit at 11pm. Shisha lounge STILL OPERATING despite enforcement notice. Full house, approximately 40 customers. Smoke extraction running. Non-compliance with enforcement notice noted."
+      },
+      {
+        "date": "2026-04-13",
+        "event": "councillor_enquiry",
+        "note": "Cllr Ahmed contacts team \u2014 7 separate complaints from residents above. Requests prosecution timeline. Ward surgery raised this as top issue."
+      }
+    ],
+    "case_notes": "Unauthorised change of use from A1 retail to shisha lounge at 142 Edgware Road. Enforcement Notice served with 28-day compliance (deadline 17 April 2026). Monitoring visit on 10 April confirmed NON-COMPLIANCE \u2014 lounge still operating at 11pm with ~40 customers. Indoor smoking breach referred to Environmental Health. 7 complaints from residents, councillor enquiry received. ENFORCEMENT NOTICE DEADLINE IN 2 DAYS (17 April) \u2014 if non-compliant, prosecution proceedings should commence. Prosecution file NOT YET PREPARED. Cross-referral to licensing not yet actioned."
+  },
+  {
+    "case_id": "WCC-2026-10304",
+    "case_type": "breach_of_conditions",
+    "status": "investigation",
+    "reporter": {
+      "name": "Marylebone Village Residents Association",
+      "reference": "REP-30401",
+      "ward": "Marylebone"
+    },
+    "location": {
+      "street": "Paddington Street",
+      "postcode": "W1U 5QH",
+      "lat": 51.5207,
+      "lon": -0.1544
+    },
+    "assigned_to": "planning_enforcement_team",
+    "contractor": null,
+    "priority": "standard",
+    "duplicate_count": 3,
+    "created_date": "2026-03-25",
+    "last_updated": "2026-04-11",
+    "planning_ref": "23/08104/FULL",
+    "conservation_area": "Marylebone",
+    "listed_building": false,
+    "timeline": [
+      {
+        "date": "2026-03-25",
+        "event": "complaint_received",
+        "note": "Residents association reports new restaurant at 28 Paddington Street breaching multiple conditions of planning permission 23/08104/FULL. Conditions breached: (1) Operating beyond permitted hours (10pm close, observed open until midnight), (2) External seating area not removed by 9:30pm as required, (3) Kitchen extraction system not installed to approved specification \u2014 odour and noise complaints."
+      },
+      {
+        "date": "2026-03-28",
+        "event": "site_visit_completed",
+        "note": "Inspector visited at 10:30pm. Confirmed: restaurant open and serving, external tables still occupied with diners. Condition 4 requires closure by 10pm. Condition 7 requires external seating removal by 9:30pm. Kitchen extraction unit audibly louder than submitted noise assessment predicted \u2014 appears to be a different unit than approved."
+      },
+      {
+        "date": "2026-04-02",
+        "event": "breach_of_condition_notice_issued",
+        "note": "Breach of Condition Notice served for conditions 4 (operating hours) and 7 (external seating). Immediate compliance required \u2014 there is no right of appeal against a BCN."
+      },
+      {
+        "date": "2026-04-08",
+        "event": "monitoring_visit",
+        "note": "Site visit at 10:15pm. Restaurant now closed by 10pm \u2014 condition 4 compliance achieved. However, external furniture still out at 10:15pm (should be removed by 9:30pm). Condition 7 still breached."
+      },
+      {
+        "date": "2026-04-11",
+        "event": "noise_assessment_requested",
+        "note": "Independent noise assessment commissioned to verify kitchen extraction compliance with condition 12. Report due by 25 April."
+      }
+    ],
+    "case_notes": "Multiple condition breaches at 28 Paddington Street restaurant (planning ref 23/08104/FULL). Breach of Condition Notice served for hours and seating. Partial compliance: operating hours now met, but seating still not removed on time. Kitchen extraction noise/odour remains unresolved \u2014 independent assessment pending. 3 complaints from residents association. This is a manageable case progressing through normal enforcement process \u2014 no SLA breach but condition 12 (extraction) assessment overdue if not received by 25 April."
+  }
+]

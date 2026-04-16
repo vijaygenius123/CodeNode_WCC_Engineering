@@ -1,0 +1,96 @@
+[
+  {
+    "policy_id": "POL-FT-001",
+    "title": "Fly-tipping response and clearance",
+    "applicable_case_types": [
+      "fly_tipping"
+    ],
+    "body": "All fly-tipping reports must be assessed within 4 hours of receipt. Standard fly-tipping (household waste, small scale) must be cleared within 48 hours. Large-scale fly-tipping (construction waste, hazardous materials, or more than 5 cubic metres) must be cleared within 24 hours and reported to the Environment Agency if hazardous. Where evidence of the perpetrator is found during clearance, the evidence must be preserved and referred to the waste enforcement team within 24 hours. Failure to refer evidence is a process failure that must be logged. Recurrent fly-tipping at the same location (3+ reports within 30 days) triggers a hotspot review requiring covert monitoring consideration."
+  },
+  {
+    "policy_id": "POL-HW-001",
+    "title": "Pothole and highway defect response",
+    "applicable_case_types": [
+      "pothole"
+    ],
+    "body": "Highway defects are categorised on inspection as follows. Category 1 (emergency/safety hazard): defects presenting an immediate risk to public safety, including any defect where an injury has been reported or is likely. Response time: make-safe within 2 hours, permanent repair within 7 working days. Category 2 (significant defect): defects likely to cause injury or vehicle damage if left unattended. Response time: 7 working days for repair. Category 3 (minor defect): defects that do not present an immediate risk. Response time: 28 working days. Any report that mentions an injury or near-miss must be automatically flagged for Category 1 triage and inspected within 2 hours. Failure to triage an injury-related report within 24 hours is a critical process failure."
+  },
+  {
+    "policy_id": "POL-GR-001",
+    "title": "Graffiti removal standards",
+    "applicable_case_types": [
+      "graffiti"
+    ],
+    "body": "Graffiti is classified as either offensive/hate-related or non-offensive. Offensive or hate-related graffiti (containing racial, religious, sexual, or discriminatory content) must be removed within 24 hours of report. Non-offensive graffiti on council property must be removed within 10 working days. Graffiti on private property requires owner notification; if the owner does not remove it within 14 days, the council may serve a defacement removal notice under the Anti-social Behaviour Act 2003. All hate-related graffiti must be reported to the Metropolitan Police as a hate incident. Graffiti near schools, hospitals, or places of worship is automatically classified as high priority regardless of content."
+  },
+  {
+    "policy_id": "POL-SL-001",
+    "title": "Street lighting maintenance and repair",
+    "applicable_case_types": [
+      "street_lighting"
+    ],
+    "body": "Street lighting faults are classified as: single lamp outage (standard priority, 14 working day repair), area outage (3+ consecutive lamps, high priority, 5 working day repair), and emergency (knocked down column or exposed wiring, 2-hour make-safe). Where repair requires third-party coordination (UKPN, TfL), the contractor must log the third-party reference number and chase weekly. If a lighting fault exceeds double the standard SLA (28 working days for single lamp, 10 working days for area outage), the case must be escalated to the highways manager with a written explanation. Pedestrian safety assessments must be conducted for area outages lasting more than 7 days."
+  },
+  {
+    "policy_id": "POL-AV-001",
+    "title": "Abandoned vehicle removal process",
+    "applicable_case_types": [
+      "abandoned_vehicle"
+    ],
+    "body": "A vehicle is considered abandoned if it appears to have been left with no intention of collection and meets two or more of the following criteria: no registration plates, flat tyres, broken windows, significant damage, or has been stationary for more than 14 days with unpaid parking penalties. Process: (1) inspection within 3 working days of report, (2) if confirmed abandoned, affix 7-day removal notice, (3) submit DVLA trace for registered keeper, (4) if vehicle remains after 7-day notice period, arrange removal via contractor, (5) vehicle held for 14 days before disposal. If the vehicle is taxed and has a registered keeper, a warning letter must be sent before removal."
+  },
+  {
+    "policy_id": "POL-NC-001",
+    "title": "Noise nuisance response and enforcement",
+    "applicable_case_types": [
+      "noise_complaint"
+    ],
+    "body": "Noise complaints are assessed based on source type and hours. Construction noise: permitted hours are 8am-6pm Monday to Friday, 8am-1pm Saturday. No work on Sundays or bank holidays. Section 60 (Control of Pollution Act 1974) notices may be served to restrict hours or methods. Breach of a Section 60 notice is a criminal offence. Residential noise: initial investigation within 5 working days, noise monitoring equipment deployed if warranted, abatement notice under Environmental Protection Act 1990 section 80 for statutory nuisance. Where 3 or more complaints are received about the same source within 30 days, the case must be classified as persistent nuisance and escalated to a senior Environmental Health officer. Prosecution should be considered where: (a) a notice has been breached, and (b) the offender has a previous enforcement history."
+  },
+  {
+    "policy_id": "POL-RS-001",
+    "title": "Rough sleeping welfare and outreach protocol",
+    "applicable_case_types": [
+      "rough_sleeping"
+    ],
+    "body": "All rough sleeping reports are treated as welfare concerns, not enforcement matters. Reports are routed to the commissioned outreach provider (currently St Mungo's) via the StreetLink referral system. Outreach response time: first visit within 24 hours of referral during winter (November-March) or within 48 hours at other times. If the individual is not located on first visit, two further attempts must be made within 7 days. Where health concerns are identified, a referral to the NHS outreach GP service must be made within 48 hours. The individual's consent must be sought before sharing personal information with health services. No enforcement action (such as Public Spaces Protection Orders) may be taken against rough sleepers without first evidencing that outreach and support options have been exhausted."
+  },
+  {
+    "policy_id": "POL-WE-001",
+    "title": "Commercial waste enforcement and duty of care",
+    "applicable_case_types": [
+      "commercial_waste"
+    ],
+    "body": "All commercial premises must hold a valid waste transfer note demonstrating a duty of care arrangement under Section 34 of the Environmental Protection Act 1990. Enforcement process: (1) evidence gathering \u2014 photographs, CCTV, witness statements, (2) Section 34 investigation notice served on business within 7 days of evidence collection, requiring production of waste transfer documentation within 14 days, (3) if breach confirmed, Fixed Penalty Notice of GBP 400, (4) if FPN not paid within 14 days, prosecution referral. Soho, Covent Garden, and West End special zones have restricted collection windows (typically 8pm-5am) and enhanced enforcement. Duty of care audits should be conducted at least annually for food and hospitality premises."
+  },
+  {
+    "policy_id": "POL-ESC-001",
+    "title": "Escalation thresholds and management review",
+    "applicable_case_types": [
+      "fly_tipping",
+      "pothole",
+      "graffiti",
+      "street_lighting",
+      "abandoned_vehicle",
+      "noise_complaint",
+      "rough_sleeping",
+      "commercial_waste",
+      "overflowing_bin"
+    ],
+    "body": "The following escalation thresholds apply across all case types. Amber flag: case is within 48 hours of its SLA deadline with no resolution action logged. Red flag: case has breached its SLA deadline. Double-SLA flag: case has exceeded twice the standard SLA \u2014 requires written explanation from contractor and management review. Duplicate report threshold: 3 or more reports about the same issue triggers automatic priority uplift. Councillor or MP enquiry: any case linked to a member enquiry must be responded to within 5 working days and flagged to the relevant area manager. Injury or safeguarding reports: must be triaged within 2 hours regardless of case type."
+  },
+  {
+    "policy_id": "POL-DUP-001",
+    "title": "Duplicate report handling and priority uplift",
+    "applicable_case_types": [
+      "fly_tipping",
+      "pothole",
+      "graffiti",
+      "street_lighting",
+      "abandoned_vehicle",
+      "noise_complaint",
+      "overflowing_bin"
+    ],
+    "body": "When multiple reports are received for the same issue, they must be linked as duplicates in the case management system. The original report retains the master case reference. Duplicate thresholds: 3+ reports within 7 days triggers a priority uplift to the next level. 5+ reports within 14 days triggers automatic escalation to area manager. 10+ reports within 30 days triggers a formal service review. Each linked report must be individually acknowledged to the reporter. When a master case is resolved, all linked reporters must be notified of the outcome."
+  }
+]

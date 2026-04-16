@@ -1,0 +1,532 @@
+[
+  {
+    "case_id": "WCC-2026-10042",
+    "case_type": "fly_tipping",
+    "status": "awaiting_evidence",
+    "reporter": {
+      "name": "Anonymous Reporter",
+      "reference": "REP-77291",
+      "ward": "Church Street"
+    },
+    "location": {
+      "street": "Lisson Grove",
+      "postcode": "NW8 8LN",
+      "lat": 51.5247,
+      "lon": -0.1698,
+      "what3words": "caves.origin.surely"
+    },
+    "assigned_to": "veolia_waste",
+    "contractor": "Veolia",
+    "created_date": "2026-03-28",
+    "last_updated": "2026-04-14",
+    "priority": "high",
+    "duplicate_count": 5,
+    "timeline": [
+      {
+        "date": "2026-03-28",
+        "event": "report_received",
+        "note": "Fly-tipping reported via FixMyStreet app. Photos attached showing mattresses, bin bags, and building materials dumped on pavement."
+      },
+      {
+        "date": "2026-03-28",
+        "event": "auto_assigned",
+        "note": "Auto-routed to Veolia waste team based on report category."
+      },
+      {
+        "date": "2026-03-29",
+        "event": "duplicate_linked",
+        "note": "3 additional reports linked to same location within 24 hours."
+      },
+      {
+        "date": "2026-04-02",
+        "event": "site_visit",
+        "note": "Veolia crew attended. Waste cleared. Noted branded packaging from nearby commercial premises."
+      },
+      {
+        "date": "2026-04-02",
+        "event": "evidence_found",
+        "note": "Evidence of commercial origin identified in waste. Photographs taken. NOT referred to enforcement team."
+      },
+      {
+        "date": "2026-04-08",
+        "event": "duplicate_linked",
+        "note": "2 further reports of new fly-tipping at same location. Recurrence pattern established."
+      },
+      {
+        "date": "2026-04-14",
+        "event": "awaiting_evidence",
+        "note": "Awaiting CCTV footage request from highways CCTV team. Request submitted 7 April."
+      }
+    ],
+    "case_notes": "Persistent fly-tipping hotspot on Lisson Grove near Church Street estate. Cleared once on 2 April but recurred within 6 days. Evidence of commercial waste origin found during clearance (branded packaging from food business) but was NOT referred to the enforcement team for investigation - this is a process failure. 5 duplicate reports from residents indicate high community impact. CCTV footage requested but not yet received. 48-hour clearance SLA was breached on initial report (cleared day 5). Recurrence suggests need for enforcement action and possible covert monitoring."
+  },
+  {
+    "case_id": "WCC-2026-10087",
+    "case_type": "pothole",
+    "status": "report_received",
+    "reporter": {
+      "name": "Dr Sarah Okonkwo",
+      "reference": "REP-88102",
+      "ward": "Bayswater"
+    },
+    "location": {
+      "street": "Westbourne Grove",
+      "postcode": "W2 5RH",
+      "lat": 51.5154,
+      "lon": -0.1923,
+      "what3words": "planet.sheets.wings"
+    },
+    "assigned_to": "fm_conway_highways",
+    "contractor": "FM Conway",
+    "created_date": "2026-04-13",
+    "last_updated": "2026-04-13",
+    "priority": "critical",
+    "duplicate_count": 2,
+    "timeline": [
+      {
+        "date": "2026-04-13",
+        "event": "report_received",
+        "note": "Pothole reported with attached photo. Reporter states cyclist was injured at this location yesterday. Pothole approximately 30cm wide and 10cm deep in cycle lane."
+      },
+      {
+        "date": "2026-04-13",
+        "event": "injury_flagged",
+        "note": "Injury report attached. System flagged for urgent triage."
+      },
+      {
+        "date": "2026-04-13",
+        "event": "duplicate_linked",
+        "note": "1 additional report received same day referencing the cyclist incident."
+      }
+    ],
+    "case_notes": "Dangerous pothole in cycle lane on Westbourne Grove near junction with Chepstow Road. Cyclist injury reported - reporter states they witnessed the incident and cyclist was taken to St Mary's A&E. Pothole is approximately 30cm wide and 10cm deep. Located in a busy cycle commuter route. This should be triaged as Category 1 (safety hazard requiring 2-hour response) due to the injury report, but has NOT been triaged or assigned a category yet after 48 hours. Two reports received. FM Conway highways team has been auto-assigned but no inspection or make-safe action logged."
+  },
+  {
+    "case_id": "WCC-2026-10103",
+    "case_type": "graffiti",
+    "status": "escalated",
+    "reporter": {
+      "name": "Cllr James Meredith",
+      "reference": "REP-90034",
+      "ward": "Pimlico South"
+    },
+    "location": {
+      "street": "Lupus Street",
+      "postcode": "SW1V 3AT",
+      "lat": 51.4878,
+      "lon": -0.1375,
+      "what3words": "bigger.grand.stone"
+    },
+    "assigned_to": "veolia_cleansing",
+    "contractor": "Veolia",
+    "created_date": "2026-04-04",
+    "last_updated": "2026-04-14",
+    "priority": "urgent",
+    "duplicate_count": 3,
+    "timeline": [
+      {
+        "date": "2026-04-04",
+        "event": "report_received",
+        "note": "Hate-related graffiti reported on residential wall facing primary school entrance. Offensive racial slurs and symbols."
+      },
+      {
+        "date": "2026-04-04",
+        "event": "priority_upgraded",
+        "note": "Auto-escalated to urgent priority due to hate-related content classification."
+      },
+      {
+        "date": "2026-04-05",
+        "event": "police_notified",
+        "note": "Metropolitan Police notified via standard hate crime reporting channel. Crime ref: CAD-5591/26."
+      },
+      {
+        "date": "2026-04-07",
+        "event": "duplicate_linked",
+        "note": "2 further reports from parents at adjacent school. Councillor enquiry received from Cllr Meredith."
+      },
+      {
+        "date": "2026-04-09",
+        "event": "councillor_enquiry",
+        "note": "Councillor enquiry logged. Response due within 5 working days (by 16 April)."
+      },
+      {
+        "date": "2026-04-14",
+        "event": "escalated",
+        "note": "Escalated to area manager. 24-hour SLA for hate-related graffiti breached by 10 days. Councillor enquiry response overdue in 2 days."
+      }
+    ],
+    "case_notes": "Hate-related graffiti on residential wall on Lupus Street, directly facing Churchill Gardens Primary School entrance. Content includes racial slurs and offensive symbols. Police notified (CAD-5591/26). 24-hour removal SLA for hate-related graffiti has been breached by 10 days - this is a serious service failure. Property owner has been contacted but removal requires specialist paint-over due to surface type. Councillor Meredith has raised this directly - response due by 16 April. 3 reports from community, including parents concerned about children seeing the content. Escalated to area manager for immediate resolution."
+  },
+  {
+    "case_id": "WCC-2026-10118",
+    "case_type": "street_lighting",
+    "status": "under_review",
+    "reporter": {
+      "name": "Fatima Al-Hassan",
+      "reference": "REP-94421",
+      "ward": "Marylebone High Street"
+    },
+    "location": {
+      "street": "York Street",
+      "postcode": "W1H 1PZ",
+      "lat": 51.5195,
+      "lon": -0.1583,
+      "what3words": "divide.master.plans"
+    },
+    "assigned_to": "citelum_lighting",
+    "contractor": "Citelum",
+    "created_date": "2026-03-20",
+    "last_updated": "2026-04-10",
+    "priority": "medium",
+    "duplicate_count": 1,
+    "timeline": [
+      {
+        "date": "2026-03-20",
+        "event": "report_received",
+        "note": "Area street lighting outage reported. 4 consecutive lamp columns not working on York Street between Seymour Place and Wyndham Place."
+      },
+      {
+        "date": "2026-03-21",
+        "event": "auto_assigned",
+        "note": "Routed to Citelum lighting maintenance team."
+      },
+      {
+        "date": "2026-03-25",
+        "event": "inspection_completed",
+        "note": "Citelum inspected. Identified supply cable fault affecting 4 columns. Requires UKPN coordination for excavation."
+      },
+      {
+        "date": "2026-04-01",
+        "event": "contractor_update",
+        "note": "UKPN excavation permit requested. Estimated 10 working days for approval."
+      },
+      {
+        "date": "2026-04-10",
+        "event": "under_review",
+        "note": "UKPN permit still pending. 21 days since report. Approaching double-SLA threshold."
+      }
+    ],
+    "case_notes": "Area outage affecting 4 lamp columns on York Street. Supply cable fault identified by Citelum - not a simple bulb replacement. Requires UKPN coordination for excavation work. UKPN permit requested 1 April but not yet approved. Standard lighting SLA is 14 working days for non-emergency repairs. Now at 26 days (approaching double-SLA escalation threshold of 28 working days). Resident concern about pedestrian safety on unlit section, particularly given proximity to Marylebone station with high evening foot traffic."
+  },
+  {
+    "case_id": "WCC-2026-10134",
+    "case_type": "abandoned_vehicle",
+    "status": "awaiting_evidence",
+    "reporter": {
+      "name": "Thomas Whitfield",
+      "reference": "REP-62190",
+      "ward": "Westbourne"
+    },
+    "location": {
+      "street": "Porchester Road",
+      "postcode": "W2 5DP",
+      "lat": 51.5172,
+      "lon": -0.1877,
+      "what3words": "light.purely.closed"
+    },
+    "assigned_to": "nsl_parking",
+    "contractor": "NSL",
+    "created_date": "2026-04-08",
+    "last_updated": "2026-04-12",
+    "priority": "standard",
+    "duplicate_count": 0,
+    "timeline": [
+      {
+        "date": "2026-04-08",
+        "event": "report_received",
+        "note": "Abandoned vehicle reported. White Ford Transit van, no plates, flat tyres, appears to have been stationary for several weeks."
+      },
+      {
+        "date": "2026-04-09",
+        "event": "auto_assigned",
+        "note": "Routed to NSL parking enforcement team."
+      },
+      {
+        "date": "2026-04-10",
+        "event": "inspection_completed",
+        "note": "NSL officer inspected. Confirmed vehicle has no plates, flat tyres, and parking ticket dated 18 March (21 days old). 7-day removal notice affixed to windscreen."
+      },
+      {
+        "date": "2026-04-12",
+        "event": "awaiting_evidence",
+        "note": "7-day notice period in progress. Vehicle to be checked again on 17 April. DVLA check submitted."
+      }
+    ],
+    "case_notes": "Standard abandoned vehicle case. White Ford Transit van on Porchester Road, no registration plates, two flat tyres. NSL inspection confirmed vehicle appears abandoned. 7-day removal notice posted on 10 April - expiry 17 April. DVLA trace submitted to confirm registered keeper. If vehicle remains after notice period, removal will be arranged through contractor. Process on track, no SLA issues."
+  },
+  {
+    "case_id": "WCC-2026-10152",
+    "case_type": "noise_complaint",
+    "status": "escalated",
+    "reporter": {
+      "name": "Multiple Reporters",
+      "reference": "REP-55887",
+      "ward": "Hyde Park"
+    },
+    "location": {
+      "street": "Praed Street",
+      "postcode": "W2 1RH",
+      "lat": 51.5168,
+      "lon": -0.176,
+      "what3words": "frame.deeply.found"
+    },
+    "assigned_to": "wcc_environmental_health",
+    "contractor": "WCC (in-house)",
+    "created_date": "2026-02-15",
+    "last_updated": "2026-04-14",
+    "priority": "high",
+    "duplicate_count": 12,
+    "timeline": [
+      {
+        "date": "2026-02-15",
+        "event": "report_received",
+        "note": "First noise complaint about construction site operating outside permitted hours (before 8am and after 6pm weekdays)."
+      },
+      {
+        "date": "2026-02-20",
+        "event": "warning_issued",
+        "note": "Section 60 notice served on site operator. Hours restricted to 8am-6pm Mon-Fri, 8am-1pm Sat."
+      },
+      {
+        "date": "2026-03-05",
+        "event": "duplicate_linked",
+        "note": "4 further complaints received. Residents report work continuing at 7am and past 8pm."
+      },
+      {
+        "date": "2026-03-10",
+        "event": "site_visit",
+        "note": "Environmental Health officer visited at 7:15am. Confirmed breach of Section 60 notice. Formal warning issued."
+      },
+      {
+        "date": "2026-03-22",
+        "event": "duplicate_linked",
+        "note": "6 additional complaints. Pattern of weekend working reported."
+      },
+      {
+        "date": "2026-04-01",
+        "event": "escalated",
+        "note": "Escalated to senior EH officer. Prosecution file being prepared. 12 complaints total across 3 separate reporters."
+      },
+      {
+        "date": "2026-04-14",
+        "event": "legal_referral",
+        "note": "Case file referred to legal services for prosecution under Control of Pollution Act 1974."
+      }
+    ],
+    "case_notes": "Persistent noise nuisance from construction site on Praed Street near Paddington Station. Developer: Greystone Developments Ltd. Section 60 notice served 20 February but breached multiple times. Environmental Health officer confirmed breach during early morning visit on 10 March. 12 complaints from at least 8 different households across two residential blocks. Pattern of early morning starts (before 7am) and late evening working (past 9pm), plus unauthorised Saturday afternoon work. Previous prosecution history: Greystone were fined GBP 8,000 in 2024 for similar breach at a Maida Vale site. Case referred to legal services for prosecution under Control of Pollution Act 1974, section 60(8)."
+  },
+  {
+    "case_id": "WCC-2026-10168",
+    "case_type": "rough_sleeping",
+    "status": "under_review",
+    "reporter": {
+      "name": "PC David Chen (Met Police)",
+      "reference": "REP-79003",
+      "ward": "St James's"
+    },
+    "location": {
+      "street": "The Strand",
+      "postcode": "WC2R 1LA",
+      "lat": 51.5102,
+      "lon": -0.1195,
+      "what3words": "leads.store.sharp"
+    },
+    "assigned_to": "st_mungos_outreach",
+    "contractor": "St Mungo's",
+    "created_date": "2026-04-01",
+    "last_updated": "2026-04-14",
+    "priority": "welfare",
+    "duplicate_count": 2,
+    "timeline": [
+      {
+        "date": "2026-04-01",
+        "event": "report_received",
+        "note": "Police referral for rough sleeper welfare concern. Individual known to outreach services. Appears to have deteriorating health."
+      },
+      {
+        "date": "2026-04-02",
+        "event": "auto_assigned",
+        "note": "Routed to St Mungo's outreach team via StreetLink referral."
+      },
+      {
+        "date": "2026-04-03",
+        "event": "outreach_visit",
+        "note": "St Mungo's outreach worker attended. Individual located. Refused hostel placement but accepted food parcel and sleeping bag. Health concerns noted - persistent cough, weight loss."
+      },
+      {
+        "date": "2026-04-08",
+        "event": "follow_up_visit",
+        "note": "Second outreach visit. Individual not found at reported location. Checked 3 known alternative locations - not located."
+      },
+      {
+        "date": "2026-04-14",
+        "event": "under_review",
+        "note": "Follow-up visit due today. If individual located, health referral to be made to NHS outreach GP service."
+      }
+    ],
+    "case_notes": "Welfare concern for known rough sleeper on The Strand, referred by Met Police. Individual is known to St Mungo's (client ref SM-4412). Previous engagements recorded over 18 months. Health concerns flagged by referring officer - persistent cough and visible weight loss. First outreach contact made 3 April - individual declined hostel but accepted support items. Not located on follow-up visit 8 April. Third visit due today (15 April). If located, plan is to make NHS outreach GP referral. Case requires sensitive handling - individual has history of disengaging from services when pressured. Welfare-priority case, not enforcement."
+  },
+  {
+    "case_id": "WCC-2026-10189",
+    "case_type": "commercial_waste",
+    "status": "pending_decision",
+    "reporter": {
+      "name": "WCC Street Patrol Officer",
+      "reference": "REP-66210",
+      "ward": "West End"
+    },
+    "location": {
+      "street": "Berwick Street",
+      "postcode": "W1F 0PH",
+      "lat": 51.5137,
+      "lon": -0.1343,
+      "what3words": "cards.habit.quest"
+    },
+    "assigned_to": "wcc_waste_enforcement",
+    "contractor": "WCC (in-house)",
+    "created_date": "2026-03-25",
+    "last_updated": "2026-04-13",
+    "priority": "high",
+    "duplicate_count": 0,
+    "timeline": [
+      {
+        "date": "2026-03-25",
+        "event": "report_received",
+        "note": "Street patrol officer identified commercial waste dumped outside licensed premises at 6:30am, outside permitted collection window."
+      },
+      {
+        "date": "2026-03-25",
+        "event": "evidence_collected",
+        "note": "Photographs taken. CCTV footage requested from council cameras. Waste traced to specific business via branded bags and receipts."
+      },
+      {
+        "date": "2026-03-28",
+        "event": "cctv_received",
+        "note": "CCTV footage received. Shows staff member from identified premises depositing waste bags at 5:45am. Collection window is 7pm-7am - waste deposited after window closed."
+      },
+      {
+        "date": "2026-04-02",
+        "event": "investigation_notice",
+        "note": "Section 34 investigation notice drafted. Due to be served by 5 April."
+      },
+      {
+        "date": "2026-04-08",
+        "event": "notice_served",
+        "note": "Section 34 Environmental Protection Act 1990 investigation notice served on business. 14-day response window."
+      },
+      {
+        "date": "2026-04-13",
+        "event": "pending_decision",
+        "note": "Awaiting business response to investigation notice. Response deadline: 22 April."
+      }
+    ],
+    "case_notes": "Commercial waste enforcement case on Berwick Street, Soho. Street patrol officer identified waste dumped at 6:30am outside the permitted collection window. CCTV evidence confirmed staff from 'Soho Bites' restaurant depositing waste at 5:45am - technically after the overnight collection window closed at 5am (not 7am as initially noted; Soho special zone window is 8pm-5am). Section 34 investigation notice served 8 April. Business has until 22 April to respond. Note: investigation notice was due to be served by 5 April but was served 3 days late - minor process delay. Previous duty of care audit on this premises was 14 months ago with no issues. Fixed Penalty Notice of GBP 400 likely if duty of care breach confirmed."
+  },
+  {
+    "case_id": "WCC-2026-10205",
+    "case_type": "fly_tipping",
+    "status": "closed",
+    "reporter": {
+      "name": "Mrs Doreen Wilkins",
+      "reference": "REP-71049",
+      "ward": "Maida Vale"
+    },
+    "location": {
+      "street": "Elgin Avenue",
+      "postcode": "W9 3QP",
+      "lat": 51.5272,
+      "lon": -0.1863,
+      "what3words": "weeks.hobby.farms"
+    },
+    "assigned_to": "veolia_waste",
+    "contractor": "Veolia",
+    "created_date": "2026-04-10",
+    "last_updated": "2026-04-12",
+    "priority": "standard",
+    "duplicate_count": 0,
+    "timeline": [
+      {
+        "date": "2026-04-10",
+        "event": "report_received",
+        "note": "Fly-tipping reported. Small amount of household furniture left on pavement (sofa and coffee table)."
+      },
+      {
+        "date": "2026-04-10",
+        "event": "auto_assigned",
+        "note": "Routed to Veolia waste team."
+      },
+      {
+        "date": "2026-04-11",
+        "event": "cleared",
+        "note": "Veolia crew attended. Items removed and disposed of. No evidence of commercial origin."
+      },
+      {
+        "date": "2026-04-12",
+        "event": "closed",
+        "note": "Case closed. Reporter notified via app. Satisfaction survey sent."
+      }
+    ],
+    "case_notes": "Small-scale fly-tipping on Elgin Avenue - household furniture (sofa and coffee table). Cleared within 24 hours by Veolia. No evidence of commercial origin, no enforcement action required. Standard case resolved within SLA. Reporter notified of resolution."
+  },
+  {
+    "case_id": "WCC-2026-10221",
+    "case_type": "overflowing_bin",
+    "status": "awaiting_evidence",
+    "reporter": {
+      "name": "Multiple Reporters",
+      "reference": "REP-81773",
+      "ward": "West End"
+    },
+    "location": {
+      "street": "Oxford Street (near Selfridges)",
+      "postcode": "W1C 1JB",
+      "lat": 51.5142,
+      "lon": -0.1525,
+      "what3words": "spend.square.hoped"
+    },
+    "assigned_to": "veolia_waste",
+    "contractor": "Veolia",
+    "created_date": "2026-03-18",
+    "last_updated": "2026-04-14",
+    "priority": "medium",
+    "duplicate_count": 8,
+    "timeline": [
+      {
+        "date": "2026-03-18",
+        "event": "report_received",
+        "note": "Overflowing litter bin reported near Selfridges entrance. Waste spilling onto pavement."
+      },
+      {
+        "date": "2026-03-19",
+        "event": "cleared",
+        "note": "Bin emptied by Veolia on scheduled round."
+      },
+      {
+        "date": "2026-03-25",
+        "event": "duplicate_linked",
+        "note": "3 further reports of same bin overflowing."
+      },
+      {
+        "date": "2026-03-26",
+        "event": "cleared",
+        "note": "Bin emptied again."
+      },
+      {
+        "date": "2026-04-02",
+        "event": "duplicate_linked",
+        "note": "3 more reports. Recurring pattern established - bin overflows between 2pm-6pm on high footfall days."
+      },
+      {
+        "date": "2026-04-05",
+        "event": "capacity_review",
+        "note": "Veolia area supervisor reviewed. Recommended either increasing collection frequency or replacing with larger bin."
+      },
+      {
+        "date": "2026-04-14",
+        "event": "awaiting_evidence",
+        "note": "Awaiting footfall data from highways team to justify bin replacement or schedule change. 8 reports in 4 weeks."
+      }
+    ],
+    "case_notes": "Recurring overflowing bin on Oxford Street near Selfridges. 8 reports in 4 weeks from multiple reporters. Pattern: bin overflows between 2pm-6pm on busy retail days (Thursdays through Saturdays). Current collection schedule appears insufficient for this location's footfall. Veolia area supervisor has recommended either increasing collection frequency to 3x daily (from current 2x) or replacing with a BigBelly compacting bin. Awaiting footfall data from highways team to build business case for bin upgrade. This is a high-visibility location with tourist and retail footfall - reputational risk for the council if left unresolved."
+  }
+]
