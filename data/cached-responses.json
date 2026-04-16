@@ -1,0 +1,41 @@
+{
+  "summaries": {
+    "WCC-2026-10302": {
+      "summary": "CRIMINAL OFFENCE: Unauthorised removal of a Grade II listed Victorian shopfront at 47 Jermyn Street, St James's Conservation Area. Temporary Stop Notice served but original fabric is being irreversibly destroyed during the appeal period. Prosecution file has NOT been submitted to legal — POL-PE-002 requires submission within 14 working days of offence confirmation; 13 days have elapsed.",
+      "next_action": "Submit prosecution file to legal immediately. Commission urgent heritage impact assessment to quantify irreversible loss for the prosecution evidence bundle."
+    },
+    "WCC-2026-10301": {
+      "summary": "Unauthorised two-storey rear extension and roof terrace at 14 Porchester Terrace, within Bayswater Conservation Area. Site visit confirmed breach 36 days ago but no enforcement notice has been issued — approaching the 8-week investigation SLA (POL-PE-001). Councillor enquiry received and response approaching deadline.",
+      "next_action": "Issue enforcement notice requiring cessation of works and removal of unauthorised structures. Draft councillor response by end of day — POL-PE-005 requires response within 5 working days."
+    },
+    "WCC-2026-10303": {
+      "summary": "Unauthorised change of use from A1 retail to shisha lounge at 142 Edgware Road. Enforcement notice compliance deadline is 17 April — 2 days away. Monitoring visit on 10 April confirmed NON-COMPLIANCE: lounge still operating with approximately 40 customers at 11pm. 7 complaints from residents, councillor enquiry received.",
+      "next_action": "Begin prosecution preparation immediately — if non-compliant on 17 April, prosecution proceedings should commence within 14 days per POL-PE-003. Refer to licensing team for late-night licence check."
+    },
+    "WCC-2026-10304": {
+      "summary": "Breach of conditions case at 28 Paddington Street restaurant (planning ref 23/08104/FULL) progressing through normal enforcement process. Partial compliance achieved: operating hours now met. External seating and kitchen extraction conditions still outstanding — independent noise assessment due by 25 April.",
+      "next_action": "Monitor condition 7 (seating) compliance on next evening visit. Chase noise assessment report — due 25 April per POL-PE-004."
+    },
+    "WCC-2026-10087": {
+      "summary": "Dangerous pothole in cycle lane on Westbourne Grove with reported cyclist injury. Category 1 safety hazard requiring 2-hour triage response per POL-HW-001, but case has NOT been triaged after 48 hours. This is a critical process failure with potential liability exposure.",
+      "next_action": "Reclassify as Category 1 immediately and deploy emergency make-safe crew within 2 hours. Escalate to highways manager — injury-related triage SLA has been breached."
+    }
+  },
+  "chat_responses": {
+    "WCC-2026-10302": {
+      "Is this a criminal offence?": "Yes. Unauthorised works to a listed building are a criminal offence under Section 9 of the Planning (Listed Buildings and Conservation Areas) Act 1990. The penalty on conviction is an unlimited fine and/or up to 2 years imprisonment. The offence was confirmed during the site visit on 2 April when the inspector documented the removal of the original Victorian shopfront.",
+      "What should I do first?": "Submit the prosecution file to legal immediately. POL-PE-002 requires the prosecution file within 14 working days of confirming the criminal offence — we are at day 13. The file should include: site visit photographs and video from 2 April, the Temporary Stop Notice served on 3 April, the police notification (MET-2026-PL-4421), and the heritage officer's assessment of irreversible damage.",
+      "What's the maximum penalty?": "Under Section 9 of the Planning (Listed Buildings and Conservation Areas) Act 1990, the maximum penalty for unauthorised works to a listed building is an unlimited fine and/or imprisonment for up to 2 years on conviction. The court must have regard to the financial benefit the offender has gained, or expects to gain, from the offence.",
+      "Can they continue during appeal?": "The owner has appealed the Listed Building Enforcement Notice, but this does NOT affect the Temporary Stop Notice (TSN) which remains in force for 28 days from service (expires 1 May). If works continue in breach of the TSN, that is a separate criminal offence. The appeal suspends the enforcement notice but not the stop notice. Any further works during the appeal period compound the prosecution case."
+    },
+    "WCC-2026-10303": {
+      "What happens if they don't comply by the 17th?": "If the shisha lounge is still operating after the 17 April compliance deadline, prosecution proceedings should commence within 14 days per POL-PE-003. The prosecution file should include: the enforcement notice served 20 March, the monitoring visit evidence from 10 April confirming non-compliance, and the 7 resident complaints. Note that the operator has a previous enforcement history — this strengthens the prosecution case.",
+      "Should we refer to licensing?": "Yes, two referrals are needed. First, licensing — the premises may be operating without a late-night refreshment licence (open until 3am). POL-PE-003 requires licensing referral within 5 working days. Second, Environmental Health for the indoor smoking — this is a breach of the Health Act 2006 (smoke-free premises) and requires immediate referral. The EH referral was eventually made on 25 March but was 25 working days late."
+    }
+  },
+  "manager_insight": [
+    "URGENT: Two prosecution timeline risks. The Jermyn Street listed building (WCC-10302) prosecution file has not been submitted 13 days after criminal offence confirmation — POL-PE-002 deadline is 14 working days. Submit today.",
+    "The Edgware Road shisha lounge (WCC-10303) enforcement notice expires 17 April with confirmed non-compliance — prosecution preparation should begin immediately. 7 complaints and a councillor enquiry are escalating pressure.",
+    "Street reporting: Westbourne Grove pothole (WCC-10087) has a cyclist injury untriaged for 48 hours — Category 1 SLA requires 2-hour response. This is the highest liability exposure across both domains."
+  ]
+}

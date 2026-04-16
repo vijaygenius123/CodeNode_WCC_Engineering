@@ -3,6 +3,11 @@ import express from "express";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import {
+  caseChat,
+  generateSummary,
+  managerInsight,
+} from "@repo/core/claude-service";
 import { createRepositories } from "@repo/core/data-layer";
 import { computeFlags } from "@repo/core/flag-engine";
 import { getDefaultLayout } from "@repo/core/generative-ui";
@@ -155,7 +160,7 @@ app.get("/api/cases/:caseId", async (req, res) => {
   }
 });
 
-// GET /api/cases/:caseId/summary — Claude summary (stub with cached fallback)
+// GET /api/cases/:caseId/summary — Claude summary with cached fallback
 app.get("/api/cases/:caseId/summary", async (req, res) => {
   try {
     const caseData = await caseRepo.getCase(req.params.caseId);
@@ -166,35 +171,22 @@ app.get("/api/cases/:caseId/summary", async (req, res) => {
 
     const allPolicies = await policyRepo.getAllPolicies();
     const flags = computeFlags(caseData, allPolicies, DEMO_TODAY);
+    const matchedPolicies = matchPolicies(caseData.case_type, allPolicies);
 
-    // Deterministic summary based on flags (no LLM required)
-    const criticalFlags = flags.filter((f) => f.severity === "critical");
-    const highFlags = flags.filter((f) => f.severity === "high");
-
-    let summary: string;
-    let nextAction: string;
-
-    if (criticalFlags.length > 0) {
-      const topFlag = criticalFlags[0]!;
-      summary = `URGENT: ${caseData.case_id} has ${criticalFlags.length} critical flag(s). ${topFlag.message}`;
-      nextAction = `Immediate action required: address ${topFlag.type.replace(/_/g, " ")} (${topFlag.policy_ref}).`;
-    } else if (highFlags.length > 0) {
-      const topFlag = highFlags[0]!;
-      summary = `${caseData.case_id} has ${highFlags.length} high-priority flag(s). ${topFlag.message}`;
-      nextAction = `Priority action: address ${topFlag.type.replace(/_/g, " ")} (${topFlag.policy_ref}).`;
-    } else {
-      summary = `${caseData.case_id} (${caseData.case_type.replace(/_/g, " ")}) is currently in ${caseData.status.replace(/_/g, " ")} status. No critical issues detected.`;
-      nextAction = "Continue standard process as per workflow.";
-    }
-
-    res.json({ summary, next_action: nextAction });
+    const result = await generateSummary(
+      caseData,
+      flags,
+      matchedPolicies,
+      DATA_DIR
+    );
+    res.json(result);
   } catch (err) {
     console.error("GET /api/cases/:caseId/summary error:", err);
     res.status(500).json({ error: "Internal server error" });
   }
 });
 
-// POST /api/cases/:caseId/chat — Claude chat (stub)
+// POST /api/cases/:caseId/chat — Claude chat with cached fallback
 app.post("/api/cases/:caseId/chat", async (req, res) => {
   try {
     const caseData = await caseRepo.getCase(req.params.caseId);
@@ -210,22 +202,18 @@ app.post("/api/cases/:caseId/chat", async (req, res) => {
       return;
     }
 
-    // Deterministic fallback response (no LLM required)
-    let response: string;
-    if (role === "resident") {
-      response =
-        "Thank you for your question. We can't share details of any enforcement action, but we are actively working on this matter. If you need further assistance, please contact our customer service team.";
-    } else {
-      const allPolicies = await policyRepo.getAllPolicies();
-      const flags = computeFlags(caseData, allPolicies, DEMO_TODAY);
-      const flagSummary =
-        flags.length > 0
-          ? `This case has ${flags.length} active flag(s): ${flags.map((f) => f.type.replace(/_/g, " ")).join(", ")}.`
-          : "No active flags on this case.";
-      response = `${flagSummary} Current status: ${caseData.status.replace(/_/g, " ")}. Please refer to the relevant policies for guidance on next steps.`;
-    }
+    const allPolicies = await policyRepo.getAllPolicies();
+    const flags = computeFlags(caseData, allPolicies, DEMO_TODAY);
 
-    res.json({ role: "assistant", content: response });
+    const content = await caseChat(
+      caseData,
+      flags,
+      role,
+      message,
+      [],
+      DATA_DIR
+    );
+    res.json({ role: "assistant", content });
   } catch (err) {
     console.error("POST /api/cases/:caseId/chat error:", err);
     res.status(500).json({ error: "Internal server error" });
@@ -319,34 +307,19 @@ app.get("/api/dashboard", async (req, res) => {
   }
 });
 
-// GET /api/dashboard/insight — area manager insight (stub)
+// GET /api/dashboard/insight — area manager insight (Claude with cached fallback)
 app.get("/api/dashboard/insight", async (_req, res) => {
   try {
     const allCases = await caseRepo.listCases();
     const allPolicies = await policyRepo.getAllPolicies();
 
-    let criticalCount = 0;
-    let planningFlags = 0;
-    let streetFlags = 0;
+    const allFlags = allCases.map((c) => ({
+      caseId: c.case_id,
+      flags: computeFlags(c, allPolicies, DEMO_TODAY),
+    }));
 
-    for (const c of allCases) {
-      const flags = computeFlags(c, allPolicies, DEMO_TODAY);
-      const hasCritical = flags.some((f) => f.severity === "critical");
-      if (hasCritical) criticalCount++;
-      if (getCaseDomain(c.case_type) === "planning") {
-        planningFlags += flags.length;
-      } else {
-        streetFlags += flags.length;
-      }
-    }
-
-    res.json({
-      insight: [
-        `${criticalCount} case(s) require immediate attention across both domains.`,
-        `Planning enforcement has ${planningFlags} active flag(s) — prosecution timeline risk on WCC-2026-10302.`,
-        `Street reporting has ${streetFlags} active flag(s) — injury triage failure on WCC-2026-10087 is highest risk.`,
-      ],
-    });
+    const insight = await managerInsight(allFlags, DATA_DIR);
+    res.json({ insight });
   } catch (err) {
     console.error("GET /api/dashboard/insight error:", err);
     res.status(500).json({ error: "Internal server error" });
