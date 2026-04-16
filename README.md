@@ -4,6 +4,8 @@
 
 A casework support tool for Westminster City Council that **displays cases clearly**, **surfaces relevant policy matched by case type**, **shows where each case sits in its workflow and what action is required next**, and **flags evidence outstanding beyond policy thresholds** -- built entirely without a language model, with Claude enhancing the experience on top.
 
+![CaseView — Case List Map View](home.png)
+
 ## Quick Start
 
 ```bash
