@@ -16,15 +16,16 @@ The tool helps Westminster City Council **caseworkers**, **team leaders**, and *
 
 ```sh
 pnpm install              # Install all dependencies
-pnpm dev                  # Run all apps in parallel (web :3000, docs :3001)
+pnpm dev                  # Run all apps in parallel (web :3000, backend :3001)
 pnpm build                # Build all apps and packages
 pnpm lint                 # Lint all apps and packages (--max-warnings 0)
 pnpm format               # Format all .ts, .tsx, .md files with Prettier
 pnpm check-types          # Type-check all packages
 
 # Target a specific app/package
-pnpm exec turbo dev --filter=web
-pnpm exec turbo build --filter=docs
+pnpm exec turbo dev --filter=web       # Next.js frontend only (:3000)
+pnpm exec turbo dev --filter=backend   # Express API only (:3001)
+pnpm exec turbo build --filter=@repo/core
 pnpm exec turbo lint --filter=@repo/ui
 ```
 
@@ -35,27 +36,28 @@ This is a **pnpm + Turborepo monorepo** with two workspaces: `apps/*` and `packa
 ```
 CaseView/
 ├── apps/
-│   ├── web/              ← Main CaseView app (Next.js 16, App Router, port 3000)
+│   ├── web/              ← Next.js 16 frontend (App Router, port 3000)
 │   │   └── app/
 │   │       ├── page.tsx                         ← Case list (landing page)
 │   │       ├── case/[caseId]/page.tsx           ← Officer case view (generative UI)
 │   │       ├── dashboard/page.tsx               ← Team leader dashboard
 │   │       ├── resident/page.tsx                ← Applicant status lookup
 │   │       ├── compare/page.tsx                 ← Side-by-side case comparison
-│   │       ├── layout.tsx                       ← Root layout with header + role switcher
-│   │       └── api/                             ← API routes
-│   │           ├── cases/route.ts               ← GET: list all 14 cases, ?domain=planning|street|all
-│   │           ├── cases/[caseId]/route.ts      ← GET: full case + policies + workflow + flags
-│   │           ├── cases/[caseId]/summary/route.ts  ← GET: Claude summary + next action
-│   │           ├── cases/[caseId]/chat/route.ts     ← POST: Claude chat (officer agent)
-│   │           ├── cases/[caseId]/view/route.ts     ← GET: case + generative layout + nudges
-│   │           ├── dashboard/route.ts               ← GET: aggregated stats
-│   │           ├── dashboard/insight/route.ts       ← GET: Claude area manager insight
-│   │           └── resident/[reference]/route.ts    ← GET: sanitised applicant status
+│   │       └── layout.tsx                       ← Root layout with header + role switcher
+│   ├── backend/          ← Express.js API server (port 3001)
+│   │   └── src/
+│   │       └── index.ts                         ← All API routes
 │   └── docs/             ← Documentation site (ignore for hackathon)
 ├── packages/
 │   ├── ui/               ← React components (@repo/ui) — case view components go here
 │   ├── core/             ← Business logic (@repo/core) — flag engine, policy matcher, etc.
+│   │   └── src/
+│   │       ├── types.ts                         ← All TypeScript interfaces
+│   │       ├── data-layer.ts                    ← Repository pattern (loads JSON data)
+│   │       ├── flag-engine.ts                   ← THE CORE: SLA breach detection
+│   │       ├── policy-matcher.ts                ← Match policies by case type
+│   │       ├── workflow-engine.ts               ← Workflow state + mismatch detection
+│   │       └── resident-service.ts              ← Sanitised status for applicants
 │   ├── typescript-config/ ← Shared TS configs
 │   └── eslint-config/    ← Shared ESLint configs
 └── data/                 ← Synthetic JSON data (cases, policies, workflows)
@@ -63,13 +65,14 @@ CaseView/
 
 ### Apps
 
-- **`apps/web`** — Main CaseView app (Next.js 16, App Router, port 3000). All pages and API routes.
-- **`apps/docs`** — Documentation site (port 3001). Ignore for hackathon builds.
+- **`apps/web`** — Next.js 16 frontend (App Router, port 3000). Pages only — no API routes. Fetches from backend.
+- **`apps/backend`** — Express.js API server (port 3001). All REST endpoints. Imports business logic from `@repo/core`.
+- **`apps/docs`** — Documentation site. Ignore for hackathon builds.
 
 ### Shared Packages
 
 - **`@repo/ui`** (`packages/ui`) — React component library. Exports via wildcard: `import { Button } from "@repo/ui/button"`. Components may use `"use client"` directive.
-- **`@repo/core`** (`packages/core`) — **TO CREATE.** All business logic: flag engine, policy matcher, workflow engine, nudge engine, generative UI, Claude service, data layer. Pure TypeScript functions with no framework dependencies. Testable in isolation.
+- **`@repo/core`** (`packages/core`) — All business logic: flag engine, policy matcher, workflow engine, resident service, data layer. Pure TypeScript functions with no framework dependencies. Testable in isolation. **IMPLEMENTED.**
 - **`@repo/eslint-config`** (`packages/eslint-config`) — Three ESLint configs: `base`, `next-js`, `react-internal`.
 - **`@repo/typescript-config`** (`packages/typescript-config`) — Three tsconfig bases: `base.json`, `nextjs.json`, `react-library.json`.
 
@@ -288,40 +291,40 @@ Role set via UI switcher in header, sent as `X-CaseView-Role` header:
 
 7. **Flag engine functions take `today: Date` as parameter** for testability. Never use `new Date()` inside the engine.
 
-## Creating `@repo/core`
+8. **Pre-commit quality gate:** A Claude Code hook runs `pnpm check-types && pnpm lint` before every `git commit`. If either fails, the commit is blocked. Fix all type errors and lint warnings (zero-warning policy) before committing.
 
-```bash
-mkdir -p packages/core/src
+## Backend API (Express.js — `apps/backend`)
+
+The Express.js server on port 3001 exposes all REST endpoints. The Next.js frontend fetches from this server.
+
+### API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/cases` | List all 14 cases with summary flags. `?domain=planning\|street\|all` |
+| GET | `/api/cases/:caseId` | Full case + matched policies + workflow + flags |
+| GET | `/api/cases/:caseId/summary` | Deterministic summary + next action (Claude-enhanced later) |
+| POST | `/api/cases/:caseId/chat` | Chat endpoint (deterministic fallback, Claude later) |
+| GET | `/api/cases/:caseId/view` | Case data + generative layout + nudges |
+| GET | `/api/dashboard` | Aggregated stats split by domain |
+| GET | `/api/dashboard/insight` | Area manager insight bullets |
+| GET | `/api/resident/:reference` | Sanitised applicant status (never leaks enforcement) |
+
+### Running the backend
+
+```sh
+pnpm exec turbo dev --filter=backend   # tsx watch on port 3001
 ```
 
-`packages/core/package.json`:
-```json
-{
-  "name": "@repo/core",
-  "version": "0.0.0",
-  "private": true,
-  "type": "module",
-  "exports": {
-    "./*": "./src/*.ts"
-  },
-  "dependencies": {
-    "anthropic": "^0.39.0"
-  },
-  "devDependencies": {
-    "@repo/typescript-config": "workspace:*",
-    "typescript": "5.9.2"
-  }
-}
-```
+### Imports from @repo/core
 
-Then add to `apps/web/package.json`:
-```json
-"dependencies": {
-  "@repo/core": "workspace:*"
-}
+```typescript
+import { createRepositories } from "@repo/core/data-layer";
+import { computeFlags } from "@repo/core/flag-engine";
+import { matchPolicies } from "@repo/core/policy-matcher";
+import { computeWorkflowState } from "@repo/core/workflow-engine";
+import { getResidentStatus } from "@repo/core/resident-service";
 ```
-
-All business logic lives in `@repo/core`. The web app imports and calls it. Pure functions, no framework dependencies.
 
 ## Adding UI Components to `@repo/ui`
 
@@ -330,9 +333,7 @@ Follow existing pattern: one file per component in `packages/ui/src/`. Export vi
 ```typescript
 // packages/ui/src/nudge-banner.tsx
 "use client";
-import { type ReactNode } from "react";
-// ...
-export function NudgeBanner({ ... }) { ... }
+export function NudgeBanner(props: { text: string }) { /* ... */ }
 
 // Usage in apps/web:
 import { NudgeBanner } from "@repo/ui/nudge-banner";
@@ -341,9 +342,9 @@ import { NudgeBanner } from "@repo/ui/nudge-banner";
 ## Environment Variables
 
 ```env
-ANTHROPIC_API_KEY=your-key          # Claude API access
-DATA_SOURCE=json                     # "json" for hackathon
-NEXT_PUBLIC_APP_URL=http://localhost:3000
+ANTHROPIC_API_KEY=your-key          # Claude API access (optional — works without it)
+PORT=3001                            # Backend API port
+NEXT_PUBLIC_API_URL=http://localhost:3001  # Backend URL for frontend
 ```
 
 ## What "Done" Looks Like
