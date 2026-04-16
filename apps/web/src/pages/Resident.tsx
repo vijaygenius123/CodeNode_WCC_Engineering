@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Search } from "lucide-react";
 import { useRole } from "../context/RoleContext";
-import { postMessage } from "../hooks/useApi";
+import { postResidentChat } from "../hooks/useApi";
 import type { ResidentStatusResponse } from "../types";
 
 const BASE_URL = import.meta.env.VITE_API_URL ?? "";
@@ -73,8 +73,7 @@ export default function Resident() {
     setChatSending(true);
 
     try {
-      // Resident chat uses reference as caseId lookup — use the reference-based endpoint
-      const reply = await postMessage(submitted, msg, role);
+      const reply = await postResidentChat(submitted, msg);
       setChatMsgs((prev) => [
         ...prev,
         { role: "assistant", content: reply.content },
@@ -112,7 +111,7 @@ export default function Resident() {
               type="text"
               value={reference}
               onChange={(e) => setReference(e.target.value)}
-              placeholder="e.g. REF-10302"
+              placeholder="e.g. REP-30101"
               aria-label="Report reference number"
               autoComplete="off"
             />

@@ -56,6 +56,20 @@ function getRole(req: express.Request): AgentRole {
   return "officer";
 }
 
+function requireRole(...roles: AgentRole[]) {
+  return (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
+    if (!roles.includes(getRole(req))) {
+      res.status(403).json({ error: "Insufficient permissions" });
+      return;
+    }
+    next();
+  };
+}
+
 function maxSeverity(flags: Flag[]): FlagSeverity | null {
   if (flags.length === 0) return null;
   if (flags.some((f) => f.severity === "critical")) return "critical";
@@ -258,8 +272,8 @@ app.get("/api/cases/:caseId/view", async (req, res) => {
   }
 });
 
-// GET /api/dashboard — aggregated stats split by domain
-app.get("/api/dashboard", async (req, res) => {
+// GET /api/dashboard — aggregated stats split by domain (officer + area_manager only)
+app.get("/api/dashboard", requireRole("officer", "area_manager"), async (req, res) => {
   try {
     const allCases = await caseRepo.listCases();
 
@@ -307,8 +321,8 @@ app.get("/api/dashboard", async (req, res) => {
   }
 });
 
-// GET /api/dashboard/insight — area manager insight (Claude with cached fallback)
-app.get("/api/dashboard/insight", async (_req, res) => {
+// GET /api/dashboard/insight — area manager insight (officer + area_manager only)
+app.get("/api/dashboard/insight", requireRole("officer", "area_manager"), async (_req, res) => {
   try {
     const allCases = await caseRepo.listCases();
     const allPolicies = await policyRepo.getAllPolicies();
@@ -327,9 +341,15 @@ app.get("/api/dashboard/insight", async (_req, res) => {
 });
 
 // GET /api/resident/:reference — sanitised applicant status
+// Accepts both reporter reference (REP-30101) and case ID (WCC-2026-10301)
 app.get("/api/resident/:reference", async (req, res) => {
   try {
-    const caseData = await caseRepo.getCaseByReference(req.params.reference);
+    const ref = req.params.reference;
+    let caseData = await caseRepo.getCaseByReference(ref);
+    // Also try looking up by case ID if reference lookup fails
+    if (!caseData) {
+      caseData = await caseRepo.getCase(ref);
+    }
     if (!caseData) {
       res.status(404).json({
         error:
@@ -342,6 +362,77 @@ app.get("/api/resident/:reference", async (req, res) => {
     res.json(status);
   } catch (err) {
     console.error("GET /api/resident/:reference error:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// POST /api/cases/:caseId/action — nudge action handler (stub for demo)
+app.post("/api/cases/:caseId/action", async (req, res) => {
+  try {
+    const caseData = await caseRepo.getCase(req.params.caseId);
+    if (!caseData) {
+      res.status(404).json({ error: "Case not found" });
+      return;
+    }
+
+    const action = req.body?.action as string | undefined;
+    if (!action) {
+      res.status(400).json({ error: "action field required" });
+      return;
+    }
+
+    // Demo stub — log and confirm
+    console.log(`ACTION: ${action} on ${caseData.case_id} by ${getRole(req)}`);
+    res.json({
+      success: true,
+      message: `Action "${action.replace(/_/g, " ")}" queued for ${caseData.case_id}`,
+      case_id: caseData.case_id,
+      action,
+    });
+  } catch (err) {
+    console.error("POST /api/cases/:caseId/action error:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// POST /api/resident/:reference/chat — resident chat (always uses resident agent)
+// Accepts both reporter reference (REP-30101) and case ID (WCC-2026-10301)
+app.post("/api/resident/:reference/chat", async (req, res) => {
+  try {
+    const ref = req.params.reference;
+    let caseData = await caseRepo.getCaseByReference(ref);
+    if (!caseData) {
+      caseData = await caseRepo.getCase(ref);
+    }
+    if (!caseData) {
+      res.status(404).json({
+        error:
+          "We could not find a report with that reference number. Please check and try again.",
+      });
+      return;
+    }
+
+    const message = req.body?.message as string | undefined;
+    if (!message) {
+      res.status(400).json({ error: "message field required" });
+      return;
+    }
+
+    const allPolicies = await policyRepo.getAllPolicies();
+    const flags = computeFlags(caseData, allPolicies, DEMO_TODAY);
+
+    // Always use resident role — never leak enforcement details
+    const content = await caseChat(
+      caseData,
+      flags,
+      "resident",
+      message,
+      [],
+      DATA_DIR
+    );
+    res.json({ role: "assistant", content });
+  } catch (err) {
+    console.error("POST /api/resident/:reference/chat error:", err);
     res.status(500).json({ error: "Internal server error" });
   }
 });

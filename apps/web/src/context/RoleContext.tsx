@@ -15,8 +15,22 @@ export function useRole() {
   return useContext(RoleContext);
 }
 
+function getInitialRole(): AgentRole {
+  if (typeof window === "undefined") return "officer";
+  const stored = localStorage.getItem("caseview-role");
+  if (stored === "officer" || stored === "area_manager" || stored === "resident")
+    return stored;
+  return "officer";
+}
+
 export function RoleProvider({ children }: { children: React.ReactNode }) {
-  const [role, setRole] = useState<AgentRole>("officer");
+  const [role, rawSetRole] = useState<AgentRole>(getInitialRole);
+
+  function setRole(r: AgentRole) {
+    rawSetRole(r);
+    localStorage.setItem("caseview-role", r);
+  }
+
   return (
     <RoleContext.Provider value={{ role, setRole }}>
       {children}

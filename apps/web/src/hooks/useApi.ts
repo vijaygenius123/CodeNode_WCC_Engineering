@@ -70,3 +70,36 @@ export async function postMessage(
   if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
   return res.json() as Promise<{ role: string; content: string }>;
 }
+
+export async function postResidentChat(
+  reference: string,
+  message: string
+): Promise<{ role: string; content: string }> {
+  const res = await fetch(`${BASE_URL}/api/resident/${reference}/chat`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-CaseView-Role": "resident",
+    },
+    body: JSON.stringify({ message }),
+  });
+  if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+  return res.json() as Promise<{ role: string; content: string }>;
+}
+
+export async function postAction(
+  endpoint: string,
+  payload: Record<string, string>,
+  role: string
+): Promise<{ success: boolean; message: string }> {
+  const res = await fetch(`${BASE_URL}${endpoint}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-CaseView-Role": role,
+    },
+    body: JSON.stringify(payload),
+  });
+  if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+  return res.json() as Promise<{ success: boolean; message: string }>;
+}

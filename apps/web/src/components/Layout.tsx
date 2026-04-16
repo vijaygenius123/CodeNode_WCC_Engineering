@@ -59,20 +59,22 @@ export default function Layout() {
           </nav>
         </div>
 
-        <div className="govuk-header__domain-tabs">
-          <div className="govuk-header__domain-tabs-inner">
-            {DOMAIN_TABS.map((t) => (
-              <button
-                key={t.value}
-                className={`domain-tab${activeDomain === t.value ? " domain-tab--active" : ""}`}
-                onClick={() => handleDomainTab(t.value)}
-                aria-pressed={activeDomain === t.value}
-              >
-                {t.label}
-              </button>
-            ))}
+        {role !== "resident" && (
+          <div className="govuk-header__domain-tabs">
+            <div className="govuk-header__domain-tabs-inner">
+              {DOMAIN_TABS.map((t) => (
+                <button
+                  key={t.value}
+                  className={`domain-tab${activeDomain === t.value ? " domain-tab--active" : ""}`}
+                  onClick={() => handleDomainTab(t.value)}
+                  aria-pressed={activeDomain === t.value}
+                >
+                  {t.label}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </header>
 
       <main id="main-content" tabIndex={-1}>

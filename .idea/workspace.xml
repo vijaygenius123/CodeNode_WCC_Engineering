@@ -101,7 +101,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1776333224777</updated>
-      <workItem from="1776333226650" duration="6834000" />
+      <workItem from="1776333226650" duration="8367000" />
     </task>
     <task id="LOCAL-00001" summary="Add `.gitignore` files, `.idea` settings, and initial documentation files">
       <option name="closed" value="true" />
@@ -135,7 +135,15 @@
       <option name="project" value="LOCAL" />
       <updated>1776338938049</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Restore `.idea/workspace.xml` and add initial version of &quot;CaseView Hackathon Execution Playbook v2&quot; documentation">
+      <option name="closed" value="true" />
+      <created>1776342407581</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1776342407581</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -157,7 +165,8 @@
     <MESSAGE value="Add TypeScript configuration, backend API implementation, and data layer for case management" />
     <MESSAGE value="Add QA Validator agent documentation for functional validation of CaseView changes" />
     <MESSAGE value="Add generative UI layout and nudge computation for case management" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add generative UI layout and nudge computation for case management" />
+    <MESSAGE value="Restore `.idea/workspace.xml` and add initial version of &quot;CaseView Hackathon Execution Playbook v2&quot; documentation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Restore `.idea/workspace.xml` and add initial version of &quot;CaseView Hackathon Execution Playbook v2&quot; documentation" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

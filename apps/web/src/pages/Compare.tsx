@@ -145,8 +145,9 @@ export default function Compare() {
       </div>
 
       <div className="compare-view">
-        <MiniCasePanel caseId={leftId} label="Case A" variant="critical" />
-        <MiniCasePanel caseId={rightId} label="Case B" variant="routine" />
+        <MiniCasePanel caseId={leftId} label="Critical Case" variant="critical" />
+        <div className="compare-vs">vs</div>
+        <MiniCasePanel caseId={rightId} label="Routine Case" variant="routine" />
       </div>
     </div>
   );
