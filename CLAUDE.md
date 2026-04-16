@@ -237,6 +237,9 @@ Highlights prosecution timeline risks. Flags imminent compliance deadlines. Cros
 
 All agents have cached fallback responses in `data/cached-responses.json` for demo reliability.
 
+### QA Validator Agent (Claude Code)
+A Claude Code agent (`.claude/agents/qa-validator.md`) that validates all changes are functional. Runs 6 phases: pre-flight checks, API endpoint validation, flag engine verification, resident view security audit, frontend UI testing (Playwright), and generative UI contrast check. Triggered after feature work or before commits.
+
 ## Three User Views
 
 ### 1. Officer Case View (`/case/[caseId]`)
