@@ -1,20 +1,15 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
 /node_modules
-/.pnp
-.pnp.js
-.yarn/install-state.gz
 
-# testing
-/coverage
-
-# next.js
-/.next/
-/out/
-
-# production
+# production build
+/dist
 /build
+
+# TypeScript emitted files (Vite apps don't emit — only vite build does)
+src/**/*.js
+src/**/*.d.ts
+src/**/*.d.ts.map
+*.tsbuildinfo
 
 # misc
 .DS_Store
@@ -25,12 +20,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# env files (can opt-in for commiting if needed)
+# env files
 .env*
 
-# vercel
+# editor
 .vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
